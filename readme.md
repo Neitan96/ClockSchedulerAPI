@@ -28,8 +28,6 @@ Nessa configuração a cada 50 segundos o plugin vai verificar se algum alarmes 
 * 2 Para mostra quando um alarme é adicionado e quando a verificação é feita
 
 ####**comandos.yml**
-> Comandos:
---- ' "Diario|15:00" "say Ola pessoal" '
 
 ######Comandos
 * Esses são os comandos programados para despertar de acordo com o alarme programado.
