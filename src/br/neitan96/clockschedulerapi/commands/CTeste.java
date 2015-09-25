@@ -3,6 +3,7 @@ package br.neitan96.clockschedulerapi.commands;
 import br.neitan96.clockschedulerapi.ClockSchedulerAPI;
 import br.neitan96.clockschedulerapi.alarms.*;
 import br.neitan96.clockschedulerapi.util.ClockCalendar;
+import br.neitan96.clockschedulerapi.util.Util;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -17,7 +18,7 @@ public class CTeste implements CommandExecutor{
 
             if(strings.length > 0){
 
-                String alarm = String.join(" ", strings);
+                String alarm = Util.joinString(" ", strings);
 
                 ClockAlarm alarm1 = ClockAlarm.getFromString(alarm);
 

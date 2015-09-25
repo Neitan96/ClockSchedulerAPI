@@ -1,7 +1,6 @@
 
-*.class
 *.jar
 
 /.idea
+/out/production
 /ClockSchedulerAPI.iml
-/out

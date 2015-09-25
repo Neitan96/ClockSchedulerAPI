@@ -13,6 +13,17 @@ import java.util.regex.Pattern;
  */
 public class Util {
 
+    public static String joinString(String glue, String[] args){
+        String str = "";
+        for(int i = 0; i < args.length; i++){
+            if(i != 0)
+                str += glue;
+            str += args[i];
+        }
+        return str;
+    }
+
+
     public static int weekStringToInt(String week){
         switch (week.toLowerCase()){
 
@@ -227,7 +238,7 @@ public class Util {
 
     public static Map.Entry<String, String> alarmCommandStringToClass(String[] args){
 
-        String commandArgs = String.join(" ", args);
+        String commandArgs = joinString(" ", args);
 
         return alarmCommandStringToClass(commandArgs);
     }
