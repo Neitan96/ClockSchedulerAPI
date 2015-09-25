@@ -8,30 +8,12 @@ ClockSchedulerAPI é um plugin e API para outros desenvolvedores, ele cria sched
 
 ####**config.yml**
 
->**FusoHorario**: 
->--**TimeZone**: 'America/Sao_Paulo'
->--**Ajuste**:
->----**Dias**: 0
->----**Horas**: 0
->----**Minutos**: 0
->----**Segundos**: 0
->**Performance**:
->--**IntervaloDespertador**: 50
->**Debug**: 0
-
 #####FusoHorario
 * TimeZone
 > Time é o fuso horario em que o plugin vai fucionar.
 
 * Ajuste
-> Se o TimeZone não funcionar você pode ajusta a hora.
-Exemplo:
->--**Ajuste**:
->----**Dias**: 0
->----**Horas**: -3
->----**Minutos**: 0
->----**Segundos**: 0
-Essa config vai diminuir 3 horas da hora do servidor(vai diminuir somente para o plugin).
+> Se o TimeZone não funcionar você pode ajusta a hora, adicionando horas, minutos e etc.
 
 #####Performance
 * IntervaloDespertador
@@ -83,13 +65,13 @@ Nessa configuração a cada 50 segundos o plugin vai verificar se algum alarmes 
 * Dezembro
 
 ##Os exemplos
-- '**Horario\|30**' Toda hora no minuto 30
-- '**Diario\|12:00**' Todo dia as 12 horas e 0 minutos
-- '**Semanal\|Domingo 13:05**' Todo domingo as 13 horas e 5 minutos
-- '**Mensal\|2 Domingo 14:10**' Todo segundo domingo do mes as 14 horas e 10 minutos
-- '**Mensal\|20 15:15**' # Todo mes no dia 20 as 15 horas e 15 minutos
-- '**Anual\|22 Setembro 16:20**' Todo ano dia 22 de Setembro as 16 horas e 20 minutos
-- '**Data\|22/09/2015 17:25**' (Sem repetição) dia 22 de setembro de 2015 as 17 horas e 25 minutos
+**Horario\|30** Toda hora no minuto 30
+**Diario\|12:00** Todo dia as 12 horas e 0 minutos
+**Semanal\|Domingo 13:05** Todo domingo as 13 horas e 5 minutos
+**Mensal\|2 Domingo 14:10** Todo segundo domingo do mes as 14 horas e 10 minutos
+**Mensal\|20 15:15** # Todo mes no dia 20 as 15 horas e 15 minutos
+**Anual\|22 Setembro 16:20** Todo ano dia 22 de Setembro as 16 horas e 20 minutos
+**Data\|22/09/2015 17:25** (Sem repetição) dia 22 de setembro de 2015 as 17 horas e 25 minutos
 
 ##Os comandos
 
