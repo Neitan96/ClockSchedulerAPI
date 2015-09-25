@@ -1,0 +1,13 @@
+
+FusoHorario:
+  TimeZone: 'America/Sao_Paulo'
+  Ajuste:
+    Dias: 0
+    Horas: 0
+    Minutos: 0
+    Segundos: 0
+
+Performance:
+  IntervaloDespertador: 50
+
+Debug: 1

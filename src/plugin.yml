@@ -1,0 +1,68 @@
+name: 'ClockSchedulerAPI'
+version: 3.0
+description: 'Plugin de scheduler por data e hora.'
+author: 'Neitan96'
+
+main: 'br.neitan96.clockschedulerapi.ClockSchedulerAPI'
+
+commands:
+
+  clockhoracerta:
+    description: 'Data e hora certa.'
+    permission: 'clockschedulerapi.horacerta'
+    usage: '/clockhoracerta'
+
+  clockteste:
+    description: 'Testa o ClockSchedulerAPI.'
+    permission: 'clockschedulerapi.teste'
+    usage: '/clockteste [alarme]'
+
+  clocktempcomando:
+    description: 'Adiciona um comando para executar, esse alarme dura enquanto o servidor estiver ligado.'
+    permission: 'clockschedulerapi.tempcomando'
+    usage: '/clocktempcomando "<alarme>" "<comando>"'
+
+  clockpermcomando:
+    description: 'Adiciona um comando para executar, esse alarme é reativado quando o servido liga.'
+    permission: 'clockschedulerapi.permcomando'
+    usage: '/clockpermcomando "<alarme>" "<comando>"'
+
+  clockdesativar:
+    description: 'Desativa todo os alarmes.'
+    permission: 'clockschedulerapi.desativar'
+    usage: '/clockdesativar'
+
+  clockremover:
+    description: 'Remove um comando permanente na proxima inicializacao.'
+    permission: 'clockschedulerapi.remover'
+    usage: '/clockremover <index>'
+
+  clockcomandos:
+    description: 'Lista de comandos permanentes.'
+    permission: 'clockschedulerapi.comandos'
+    usage: '/clockcomandos'
+
+  clockdesativarperms:
+    description: 'Desativa alarmes dos comandos permanentes.'
+    permission: 'clockschedulerapi.desativarperms'
+    usage: '/clockdesativarperms'
+
+  clockreativarperms:
+    description: 'Reativa alarmes dos comandos permanentes.'
+    permission: 'clockschedulerapi.reativarperms'
+    usage: '/clockreativarperms'
+
+  clockdesativartemps:
+    description: 'Desativa alarmes dos comandos temporarios.'
+    permission: 'clockschedulerapi.desativartemps'
+    usage: '/clockdesativartemps'
+
+  clockdebuglista:
+    description: 'Mostra todo alarmes ativados.'
+    permission: 'clockschedulerapi.debuglista'
+    usage: '/clockdebuglista'
+
+  clocklimparcache:
+    description: 'Limpa o cache dos alarmes desativados.'
+    permission: 'clockschedulerapi.limparcache'
+    usage: '/clocklimparcache'
