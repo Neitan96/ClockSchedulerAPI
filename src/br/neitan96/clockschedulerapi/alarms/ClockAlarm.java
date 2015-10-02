@@ -26,6 +26,7 @@ public abstract class ClockAlarm {
         registerAlarm(AlarmMothly.class);
         registerAlarm(AlarmWeekly.class);
         registerAlarm(AlarmYearly.class);
+        registerAlarm(AlarmInterval.class);
     }
 
     public static ClockAlarm getFromString(String alarm){

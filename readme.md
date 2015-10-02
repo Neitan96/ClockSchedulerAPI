@@ -70,6 +70,7 @@ Nessa configuração a cada 50 segundos o plugin vai verificar se algum alarmes 
 * Mensal|20 15:15 - Todo mes no dia 20 as 15 horas e 15 minutos
 * Anual|22 Setembro 16:20 - Todo ano dia 22 de Setembro as 16 horas e 20 minutos
 * Data|22/09/2015 17:25 - (Sem repetição) dia 22 de setembro de 2015 as 17 horas e 25 minutos
+* Intervalo|60 - De 60 em 60 minutos
 
 ##Os comandos
 
@@ -161,6 +162,13 @@ Esse alarme vai desperta todo ano no mês de dezembro no dia 25 as 0 horas e 0 m
 Exemplo:
 *ClockAlarm alarm = new AlarmDate(2015, "Setembro", 22, 15, 0);*
 Esse alarme vai desperta no ano de 2015 no mês setembro no dia 22 as 15 horas e 0 minuto.
+
+* AlarmInterval:
+> Esse alarme desperta de tempos em tempos.
+**ClockAlarm alarm = new AlarmInterval(INTERVALO);**
+Exemplo:
+*ClockAlarm alarm = new AlarmInterval(60);*
+Esse alarme vai desperta de 60 em 60 minutos.
 
 * Por string:
 > Se você quiser criar um alarme a parti de uma string como nos exemplos a cima.

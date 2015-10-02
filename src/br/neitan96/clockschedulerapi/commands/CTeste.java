@@ -86,6 +86,9 @@ public class CTeste implements CommandExecutor{
                 AlarmDate alarmDate = new AlarmDate(year, month, day, hour, minute);
                 ClockSchedulerAPI.addAlarm(alarmDate, getRunAlarm(alarmDate), ClockSchedulerAPI.getInstance());
 
+                AlarmInterval alarmInterval = new AlarmInterval(1);
+                ClockSchedulerAPI.addAlarm(alarmInterval, getRunAlarm(alarmInterval), ClockSchedulerAPI.getInstance());
+
                 ClockSchedulerAPI.log(commandSender, "Alarmes vão despertar: " + calendar.toString());
 
                 return true;
@@ -98,7 +101,6 @@ public class CTeste implements CommandExecutor{
     private static Runnable getRunAlarm(final ClockAlarm alarm){
         ClockCalendar clockCalendar = new ClockCalendar(alarm.getNextTime());
         final String dataHora = clockCalendar.toString();
-        final String autor = ClockSchedulerAPI.getInstance().getDescription().getAuthors().get(0);
 
         return new Runnable() {
             @Override
