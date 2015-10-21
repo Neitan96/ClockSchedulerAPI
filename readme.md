@@ -75,45 +75,57 @@ Nessa configuração a cada 50 segundos o plugin vai verificar se algum alarmes 
 ##Os comandos
 
 * **/clockhoracerta:**
+*clockschedulerapi.horacerta*
 > Esse comando mostra a data e hora de acordo com o plugin.
 
 * **/clockteste:**
+*clockschedulerapi.teste*
 > Esse comando cria alguns alarmes que desperta depois de 1 minuto para testar o plugin.
 
 * **/clocktempcomando:**
+*clockschedulerapi.tempcomando*
 > Esse comando adicionar um comando para ser executado de acordo com o alarme.
 O alarme dura somente enquanto o servidor estiver ligado, quando o servidor desligar o alarme é desativado.
 Exemplo: 
 /clocktempcomando "Diario\|15:30" "say Ola pessoal do servidor, agora são 15 horas e 30 minutos"
 
 * **/clockpermcomando:**
+*clockschedulerapi.permcomando*
 > Esse comando é igual o comando a cima (clocktempcomando), a diferença que ele salva o alarme na config e reativa ele quando o servidor é religado.
 
 * **/clockdesativar:**
+*clockschedulerapi.desativar*
 > Esse comando desativa todos os alarmes ativos atualmente no plugin.
 
 * **/clockremover:**
+*clockschedulerapi.remover*
 > Esse comando remove um comando da config de alarmes de acordo com a index dele.
 OBS: esse comando não desativa o alarme do comando.
 Modo de usar: /clockremover INDEX_DO_ALARME
 
 * **/clockcomandos:**
+*clockschedulerapi.comandos*
 > Mostra a lista de todos os comandos da config junto ao index do comando.
 
 * **/clockdesativarperms:**
+*clockschedulerapi.desativarperms*
 > Esse comando desativa somentes os comandos da config.
 
 * **/clockreativarperms:**
+*clockschedulerapi.reativarperms*
 > Esse comando reativa todos os comandos da config.
 OBS: se você usar esse comando e os comandos da config estiverem ativos, vai duplicar os comandos.
 
 * **/clockdesativartemps:**
+*clockschedulerapi.desativartemps*
 > Esse comando Desativa todos os alarmes de comandos temporarios.
 
 * **/clockdebuglista:**
+*clockschedulerapi.debuglista*
 > Esse comando mostra todos os alarmes ativados atualmente.
 
 * **/clocklimparcache:**
+*clockschedulerapi.limparcache*
 > Esse comando limpa o cache do plugin.
 Para entender melhor:
 No plugin existe uma lista de alarmes, quando um alarme da lista é desativado ele continua na lista ate da a hora dele despertar(mas não desperta), então ele é removido da lista, com esse comando ele pecorre todos os alarmes da lista e remove os alarmes desativados.
