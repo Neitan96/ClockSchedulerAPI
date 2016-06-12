@@ -13,7 +13,7 @@ public class CLimparCache implements CommandExecutor{
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if(commandSender.hasPermission(command.getPermission())){
 
-            ClockSchedulerAPI.getAlarmsManager().removeOffs();
+            ClockSchedulerAPI.getAlarmsManager().removeBefore();
 
             ClockSchedulerAPI.log(commandSender, "Cache limpo");
 
