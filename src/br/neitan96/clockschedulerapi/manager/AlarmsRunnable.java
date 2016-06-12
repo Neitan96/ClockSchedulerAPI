@@ -34,8 +34,7 @@ public class AlarmsRunnable implements Runnable{
 
             if(next == null){
                 ClockSchedulerAPI.debug("Sem alarmes, destivando verificador!", 2);
-                Bukkit.getScheduler().cancelTask(alarmsManager.schedulerBukkitID);
-                alarmsManager.schedulerBukkitID = -1;
+                alarmsManager.stopCheck();
                 return;
             }
 
@@ -59,7 +58,7 @@ public class AlarmsRunnable implements Runnable{
                 }
             }
 
-            alarmsManager.recacheMiliSeconds(next.getKey());
+            alarmsManager.recacheAlarms(next.getKey());
 
         }
 

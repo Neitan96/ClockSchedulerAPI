@@ -1,6 +1,5 @@
 package br.neitan96.clockschedulerapi.util;
 
-import br.neitan96.clockschedulerapi.ClockSchedulerAPI;
 import br.neitan96.clockschedulerapi.alarms.ClockAlarm;
 
 import java.util.AbstractMap;

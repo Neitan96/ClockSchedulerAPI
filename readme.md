@@ -16,8 +16,10 @@ ClockSchedulerAPI é um plugin e API para outros desenvolvedores, ele cria sched
 > Se o TimeZone não funcionar você pode ajusta a hora, adicionando horas, minutos e etc.
 
 #####Performance
+* TempoReal
+> (Beta) Caso for ativado o ClockSchedukerAPI irá programar para ativar os alarmes de forma inteligente nos primeiros segundos do minuto.
 * IntervaloDespertador
-> Esse é o intervalo de segundos que o plugin vai verificar os alarmes.
+> (Somente se TempoReal estiver desativado) Esse é o intervalo de segundos que o plugin vai verificar os alarmes.
 Nessa configuração a cada 50 segundos o plugin vai verificar se algum alarmes está pronto para despertar.
 
 #####Debug

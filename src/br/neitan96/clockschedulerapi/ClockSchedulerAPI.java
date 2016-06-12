@@ -2,9 +2,7 @@ package br.neitan96.clockschedulerapi;
 
 import br.neitan96.clockschedulerapi.alarms.ClockAlarm;
 import br.neitan96.clockschedulerapi.commands.*;
-import br.neitan96.clockschedulerapi.manager.AlarmScheduler;
-import br.neitan96.clockschedulerapi.manager.AlarmsManager;
-import br.neitan96.clockschedulerapi.manager.CommandConfig;
+import br.neitan96.clockschedulerapi.manager.*;
 import br.neitan96.clockschedulerapi.util.ClockCalendar;
 import br.neitan96.clockschedulerapi.util.Util;
 import org.bukkit.Bukkit;
@@ -44,9 +42,12 @@ public class ClockSchedulerAPI extends JavaPlugin{
         debug = getConfig().getInt("Debug", 0);
 
         log("Iniciando gerenciador...");
-        alarmsManager = new AlarmsManager(
-                getConfig().getLong("Performance.IntervaloDespertador", 50)
-        );
+        if(getConfig().getBoolean("Performance.TempoReal"))
+            alarmsManager = new AlarmsManagerReal();
+        else
+            alarmsManager = new AlarmsManagerInterval(
+                    getConfig().getLong("Performance.IntervaloDespertador", 50)
+            );
 
 
         log("Definindo fuso horário...");
@@ -134,15 +135,10 @@ public class ClockSchedulerAPI extends JavaPlugin{
 
     public static void addAlarm(ClockAlarm alarm, String command, JavaPlugin plugin){
         final String commandconsole = Util.removeBar(command);
-        Runnable run = new Runnable() {
-            @Override
-            public void run() {
-                Bukkit.dispatchCommand(
-                        Bukkit.getConsoleSender(),
-                        commandconsole
-                );
-            }
-        };
+        Runnable run = () -> Bukkit.dispatchCommand(
+                Bukkit.getConsoleSender(),
+                commandconsole
+        );
         getAlarmsManager().addScheduler(alarm, run, plugin);
     }
 

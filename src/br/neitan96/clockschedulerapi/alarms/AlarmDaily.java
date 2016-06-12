@@ -4,7 +4,7 @@ import br.neitan96.clockschedulerapi.util.ClockCalendar;
 import br.neitan96.clockschedulerapi.util.Util;
 
 /**
- * Created by Neitan96 on 07/09/15.
+ * Created by Neitan96 on 11/06/2016.
  */
 public class AlarmDaily extends ClockAlarm {
 
