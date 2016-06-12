@@ -40,7 +40,7 @@ public class AlarmsRunnable implements Runnable{
 
             if(next.getKey() > calendar.getTimeInMillis()){
                 ClockSchedulerAPI.debug("Alarme ainda não está no tempo!", 2);
-                return;
+                break;
             }
 
             ClockSchedulerAPI.debug("Executando lista de alarmes...", 2);
@@ -51,8 +51,8 @@ public class AlarmsRunnable implements Runnable{
                 if(scheduler.getAlarm().alarmActive()){
                     ClockSchedulerAPI.debug("Executando um alarme "+scheduler.getAlarm().getClass().getSimpleName()+"...", 2);
 
-                    Bukkit.getScheduler().runTaskLater(
-                            ClockSchedulerAPI.getInstance(), scheduler.getRunnable(), 10L
+                    Bukkit.getScheduler().runTask(
+                            ClockSchedulerAPI.getInstance(), scheduler.getRunnable()
                     );
 
                 }
@@ -61,6 +61,8 @@ public class AlarmsRunnable implements Runnable{
             alarmsManager.recacheAlarms(next.getKey());
 
         }
+
+        alarmsManager.startCheck();
 
     }
 }

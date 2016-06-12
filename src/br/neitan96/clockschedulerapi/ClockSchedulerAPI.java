@@ -8,6 +8,7 @@ import br.neitan96.clockschedulerapi.util.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -89,6 +90,7 @@ public class ClockSchedulerAPI extends JavaPlugin{
 
     @Override
     public void onDisable() {
+        HandlerList.unregisterAll(this);
         log("ClockSchedulerAPI terminado!");
     }
 
@@ -161,7 +163,7 @@ public class ClockSchedulerAPI extends JavaPlugin{
     }
 
     public static void debug(String msg, int lv){
-        if(debug == lv)
+        if(debug >= lv)
             Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED+"[ClockDebug] "+ChatColor.DARK_GREEN+msg);
     }
 }

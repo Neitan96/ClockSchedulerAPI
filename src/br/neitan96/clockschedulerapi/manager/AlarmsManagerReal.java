@@ -23,6 +23,8 @@ public class AlarmsManagerReal extends AlarmsManagerBasic{
         long nowTime = new ClockCalendar().getTimeInMillis();
         long diffTime = nextTime-nowTime;
 
+        ClockSchedulerAPI.debug("Próxima verificação é daqui a "+diffTime+" milésimos...", 2);
+
         schedulerBukkitID = Bukkit.getScheduler().runTaskLater(
                 ClockSchedulerAPI.getInstance(), runnable, (diffTime/1000)*20
         ).getTaskId();

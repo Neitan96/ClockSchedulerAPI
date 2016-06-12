@@ -35,13 +35,12 @@ public abstract class AlarmsManagerBasic implements AlarmsManager{
         addScheduler(new AlarmScheduler(alarm, runnable, plugin));
     }
 
-    protected void addScheduler(AlarmScheduler scheduler, long milisecondsNow, boolean debug){
+    protected void addScheduler(AlarmScheduler scheduler, long milisecondsNow, boolean start){
 
         long next = scheduler.getAlarm().getNextTime(milisecondsNow);
 
         if(next <= 0 || !scheduler.getAlarm().alarmActive()) {
-            if(debug)
-                ClockSchedulerAPI.debug("Alarme adicionado invalido ou desativado!", 1);
+            ClockSchedulerAPI.debug("Alarme adicionado invalido ou desativado!", 1);
             return;
         }
 
@@ -56,16 +55,16 @@ public abstract class AlarmsManagerBasic implements AlarmsManager{
 
         schedulers.put(next, schedulerList);
 
-        startCheck();
+        if(start) startCheck();
 
-        if(debug && ClockSchedulerAPI.debug()){
+        if(ClockSchedulerAPI.debug()){
             ClockCalendar clockCalendar = new ClockCalendar(next);
-            ClockSchedulerAPI.debug("Alarme adicionado vai despertar: "+clockCalendar, 1);
+            ClockSchedulerAPI.debug("Alarme adicionado/atualizado vai despertar: "+clockCalendar, 1);
         }
     }
 
     @Override
-    public void recacheAlarms(long milisecondsKey){
+    public synchronized void recacheAlarms(long milisecondsKey){
         if(schedulers.containsKey(milisecondsKey)){
 
             List<AlarmScheduler> schedulerList = schedulers.remove(milisecondsKey);
@@ -93,13 +92,13 @@ public abstract class AlarmsManagerBasic implements AlarmsManager{
     }
 
     @Override
-    public void removeAll(){
-        schedulers = new TreeMap<>();
+    public synchronized void removeAll(){
         stopCheck();
+        schedulers = new TreeMap<>();
     }
 
     @Override
-    public void removeBefore(){
+    public synchronized void removeBefore(){
         for (Map.Entry<Long, List<AlarmScheduler>> groupSchedulers : this.schedulers.entrySet()) {
             List<AlarmScheduler> schedulers = groupSchedulers.getValue();
             for (int i = schedulers.size()-1; i >= 0; i--) {
@@ -111,7 +110,7 @@ public abstract class AlarmsManagerBasic implements AlarmsManager{
     }
 
     @Override
-    public void removeAllPlugin(JavaPlugin plugin){
+    public synchronized void removeAllPlugin(JavaPlugin plugin){
         for (Map.Entry<Long, List<AlarmScheduler>> groupSchedulers : this.schedulers.entrySet()) {
             List<AlarmScheduler> schedulers = groupSchedulers.getValue();
             for (int i = schedulers.size()-1; i >= 0; i--) {

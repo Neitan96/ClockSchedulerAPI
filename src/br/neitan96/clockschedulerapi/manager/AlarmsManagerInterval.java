@@ -24,8 +24,7 @@ public class AlarmsManagerInterval extends AlarmsManagerBasic{
     public void startCheck(){
         ClockSchedulerAPI.debug("Iniciando scheduler de verificação em intervalo...", 2);
 
-        if(schedulers.isEmpty()) return;
-        if(schedulerBukkitID > 0) stopCheck();
+        if(schedulers.isEmpty() || schedulerBukkitID > 0) return;
 
         schedulerBukkitID = Bukkit.getScheduler().runTaskTimer(
                 ClockSchedulerAPI.getInstance(), runnable, 20, 20 * interval

@@ -17,7 +17,7 @@ ClockSchedulerAPI é um plugin e API para outros desenvolvedores, ele cria sched
 
 #####Performance
 * TempoReal
-> Beta Caso for ativado o ClockSchedukerAPI irá programar para ativar os alarmes de forma inteligente nos primeiros segundos do minuto.
+> Caso for ativado o ClockSchedukerAPI irá programar para ativar os alarmes de forma inteligente nos primeiros segundos do minuto.
 Função em beta.
 
 * IntervaloDespertador
