@@ -135,6 +135,10 @@ OBS: se você usar esse comando e os comandos da config estiverem ativos, vai du
 Para entender melhor:
 No plugin existe uma lista de alarmes, quando um alarme da lista é desativado ele continua na lista ate da a hora dele despertar(mas não desperta), então ele é removido da lista, com esse comando ele pecorre todos os alarmes da lista e remove os alarmes desativados.
 
+* **/clockreload:**
+*clockschedulerapi.reload*
+> Esse comando recarrega o plugin.
+
 ##A api
 
 ####Criando um alarme:

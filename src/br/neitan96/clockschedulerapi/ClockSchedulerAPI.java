@@ -19,7 +19,7 @@ import java.util.TimeZone;
  */
 public class ClockSchedulerAPI extends JavaPlugin{
 
-    private static CommandConfig commandConfig= null;
+    private static CommandConfig commandConfig = null;
     private static ClockSchedulerAPI clockSchedulerAPI = null;
     private static AlarmsManager alarmsManager = null;
 
@@ -79,6 +79,7 @@ public class ClockSchedulerAPI extends JavaPlugin{
         getCommand("clockdesativartemps").setExecutor(new CDesativarTemps(tempCommand));
         getCommand("clockdebuglista").setExecutor(new CDebugLista());
         getCommand("clocklimparcache").setExecutor(new CLimparCache());
+        getCommand("clockreload").setExecutor(new CReload());
 
         log("Registrando alarmes dos comandos...");
         File configFile = new File(getDataFolder(), "comandos.yml");

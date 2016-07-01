@@ -1,5 +1,5 @@
 name: 'ClockSchedulerAPI'
-version: 3.2
+version: 3.3
 description: 'Plugin de scheduler por data e hora.'
 author: 'Neitan96'
 
@@ -66,3 +66,8 @@ commands:
     description: 'Limpa o cache dos alarmes desativados.'
     permission: 'clockschedulerapi.limparcache'
     usage: '/clocklimparcache'
+
+  clockreload:
+    description: 'Recarrega o plugin.'
+    permission: 'clockschedulerapi.reload'
+    usage: '/clockreload'
