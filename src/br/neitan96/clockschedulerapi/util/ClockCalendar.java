@@ -168,7 +168,7 @@ public class ClockCalendar extends GregorianCalendar{
     }
 
     public String toString(boolean seconds) {
-        return getDay()+" de "+Util.monthIntToString(getMonth())+" de "+getYear()+" ("+Util.weekIntToString(getWeek())+")"
-                +" as "+getHour()+":"+getMinute()+(seconds ? ":"+getSecond() : "");
+        return String.format("%02d", getDay())+" de "+Util.monthIntToString(getMonth())+" de "+getYear()+" ("+Util.weekIntToString(getWeek())+")"
+                +" as "+String.format("%02d", getHour())+":"+String.format("%02d", getMinute())+(seconds ? ":"+String.format("%02d", getSecond()) : "");
     }
 }
