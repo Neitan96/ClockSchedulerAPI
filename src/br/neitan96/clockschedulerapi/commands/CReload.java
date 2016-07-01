@@ -16,6 +16,7 @@ public class CReload implements CommandExecutor{
         ClockSchedulerAPI.log("Desativando plugin...");
         ClockSchedulerAPI.getInstance().onDisable();
         ClockSchedulerAPI.log("Ativando plugin...");
+        ClockSchedulerAPI.getInstance().reloadConfig();
         ClockSchedulerAPI.getInstance().onEnable();
         return true;
     }
