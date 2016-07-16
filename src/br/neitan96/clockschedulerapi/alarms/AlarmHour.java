@@ -5,64 +5,37 @@ import br.neitan96.clockschedulerapi.util.ClockCalendar;
 /**
  * Created by Neitan96 on 10/09/15.
  */
-public class AlarmHour extends ClockAlarm{
+public class AlarmHour implements ClockAlarm{
 
-    protected int minute;
+    public final static String LABEL = "Horario";
 
-    public final static String prefix = "Horario";
+    protected final int minute, second;
 
-    public AlarmHour(int minute) {
+    public AlarmHour(int minute, int second){
         this.minute = minute;
+        this.second = second;
     }
 
-    public AlarmHour(String time){
-
-        String[] args = time.split("[|]");
-        if(args.length != 2 || !args[0].equalsIgnoreCase(prefix))
-            throwInvalid();
-
-        int minute = 0;
-
-        try{
-            minute = Integer.parseInt(args[1]);
-        }catch (Exception e){
-            throwInvalid();
-        }
-
-        this.minute = minute;
+    public AlarmHour(int minute){
+        this(minute, 0);
     }
 
     @Override
-    public long calculateNext(long miliseconds) {
+    public long nextAfter(long miliseconds){
         ClockCalendar calendar = new ClockCalendar(miliseconds);
 
         calendar.setMinute(minute);
+        calendar.setSecond(second);
+        calendar.setMilisecond(0);
 
         if(calendar.getTimeInMillis() < miliseconds)
-            calendar.addHour(1);
+            calendar.addHour();
 
         return calendar.getTimeInMillis();
-    }
-
-    @Override
-    public long calculateNext(ClockCalendar calendar) {
-        ClockCalendar calendarAlarm = new ClockCalendar();
-
-        if(calendar.getMinute() > minute)
-            calendarAlarm.addHour(1);
-
-        calendarAlarm.setMinute(minute);
-
-        return calendar.getTimeInMillis();
-    }
-
-    @Override
-    public long calculateNext() {
-        return calculateNext(new ClockCalendar());
     }
 
     @Override
     public String toString() {
-        return prefix + "|" + minute;
+        return String.format("%s|%02d:%02d", LABEL, minute, second);
     }
 }

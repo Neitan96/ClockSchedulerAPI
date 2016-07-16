@@ -5,56 +5,28 @@ import br.neitan96.clockschedulerapi.util.ClockCalendar;
 /**
  * Created by Neitan96 on 02/10/15.
  */
-public class AlarmInterval extends ClockAlarm{
+public class AlarmInterval implements ClockAlarm{
 
-    int interval;
+    public final static String LABEL = "Intervalo";
 
-    public final static String prefix = "Intervalo";
+    protected final int intervalSecond;
 
-    public ClockCalendar calendar = new ClockCalendar();
-
-    public AlarmInterval(int interval) {
-        this.interval = interval;
-        calendar.addMinute(interval);
-    }
-
-    public AlarmInterval(String time) {
-
-        String[] args = time.split("[|]");
-        if(args.length != 2 || !args[0].equalsIgnoreCase(prefix))
-            throwInvalid();
-
-        int interval = 0;
-
-        try{
-            interval = Integer.parseInt(args[1]);
-        }catch (Exception e){
-            throwInvalid();
-        }
-
-        this.interval = interval;
-        calendar.addMinute(interval);
+    public AlarmInterval(int intervalSecond){
+        this.intervalSecond = intervalSecond;
     }
 
     @Override
-    public long calculateNext(long miliseconds) {
-        while (calendar.getTimeInMillis() < miliseconds)
-            calendar.addMinute(interval);
+    public long nextAfter(long miliseconds){
+        ClockCalendar calendar = new ClockCalendar(miliseconds);
+        calendar.setMilisecond(0);
+        while(calendar.getTimeInMillis() < miliseconds)
+            calendar.addSecond(intervalSecond);
         return calendar.getTimeInMillis();
     }
 
     @Override
-    public long calculateNext(ClockCalendar calendar) {
-        return calculateNext(calendar.getTimeInMillis());
+    public String toString(){
+        return String.format("%s|%d", LABEL, intervalSecond);
     }
 
-    @Override
-    public long calculateNext() {
-        return calculateNext(new ClockCalendar());
-    }
-
-    @Override
-    public String toString() {
-        return prefix + "|" + interval;
-    }
 }

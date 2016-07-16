@@ -1,46 +1,34 @@
 package br.neitan96.clockschedulerapi.alarms;
 
 import br.neitan96.clockschedulerapi.util.ClockCalendar;
-import br.neitan96.clockschedulerapi.util.Util;
 
 /**
  * Created by Neitan96 on 11/06/2016.
  */
-public class AlarmDaily extends ClockAlarm {
+public class AlarmDaily implements ClockAlarm{
 
-    public final static String prefix = "Diario";
+    public final static String LABEL = "Diario";
 
-    protected int hour;
-    protected int minute;
+    protected final int hour, minute, second;
 
-    public AlarmDaily(int hour, int minute){
+    public AlarmDaily(int hour, int minute, int second){
         this.hour = hour;
         this.minute = minute;
+        this.second = second;
     }
 
-    public AlarmDaily(String time){
-
-        String[] args = time.split("[|]");
-        if(args.length != 2 || !args[0].equalsIgnoreCase(prefix))
-            throwInvalid();
-
-        int[] timeArgs = Util.timeStringToInt(args[1]);
-
-        if(timeArgs == null)
-            throwInvalid();
-
-        assert timeArgs != null;
-
-        this.hour = timeArgs[0];
-        this.minute = timeArgs[1];
+    public AlarmDaily(int hour, int minute){
+        this(hour, minute, 0);
     }
 
     @Override
-    public long calculateNext(long miliseconds) {
+    public long nextAfter(long miliseconds){
         ClockCalendar calendar = new ClockCalendar(miliseconds);
+
         calendar.setHour(hour);
         calendar.setMinute(minute);
-        calendar.setSecond(0);
+        calendar.setMinute(second);
+        calendar.setMilisecond(0);
 
         if(calendar.getTimeInMillis() < miliseconds)
             calendar.addDay();
@@ -49,16 +37,8 @@ public class AlarmDaily extends ClockAlarm {
     }
 
     @Override
-    public long calculateNext(ClockCalendar calendar) {
-        return calculateNext(calendar.getTimeInMillis());
+    public String toString(){
+        return String.format("%s|%02d:%02d:%02d", LABEL, hour, minute, second);
     }
 
-    public long calculateNext(){
-        return calculateNext(new ClockCalendar());
-    }
-
-    @Override
-    public String toString() {
-        return prefix+"|"+hour+":"+ minute;
-    }
 }
