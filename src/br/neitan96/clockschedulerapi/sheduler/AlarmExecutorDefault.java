@@ -29,20 +29,26 @@ public class AlarmExecutorDefault implements AlarmExecutor, Runnable{
     @Override
     public void executeNext(AlarmTask task, long next){
         stop();
-        long interval = next - ClockCalendar.getClockMilisecond();
-        this.bukkitTask = Bukkit.getScheduler().runTaskLater(
-                ClockSchedulerAPI.getInstance(), this, (interval / 1000) * 20
-        );
+        if(alarmTask.enabled()){
+            long interval = next - ClockCalendar.getClockMilisecond();
+            this.bukkitTask = Bukkit.getScheduler().runTaskLater(
+                    ClockSchedulerAPI.getInstance(), this, (interval / 1000) * 20
+            );
+        }else{
+            onExecuted.run();
+        }
     }
 
     @Override
     public void run(){
-        try{
-            alarmTask.run();
-            onExecuted.run();
-        }catch(Exception e){
-            e.printStackTrace();
+        if(alarmTask.enabled()){
+            try{
+                alarmTask.run();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
         }
+        onExecuted.run();
         stop();
     }
 
