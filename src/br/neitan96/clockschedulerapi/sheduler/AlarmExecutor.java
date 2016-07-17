@@ -5,7 +5,7 @@ package br.neitan96.clockschedulerapi.sheduler;
  */
 public interface AlarmExecutor{
 
-    void executeNext(AlarmTask task);
+    void executeNext(AlarmTask task, long next);
 
     void stop();
 
