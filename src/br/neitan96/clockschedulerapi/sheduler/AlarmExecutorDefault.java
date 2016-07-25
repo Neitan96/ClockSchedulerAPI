@@ -52,4 +52,9 @@ public class AlarmExecutorDefault implements AlarmExecutor, Runnable{
         stop();
     }
 
+    @Override
+    protected void finalize() throws Throwable{
+        super.finalize();
+        stop();
+    }
 }
