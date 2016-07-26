@@ -12,7 +12,7 @@ public class AlarmScheduler implements Comparable<AlarmScheduler>{
     public final Runnable runnable;
     public final ClockAlarm alarm;
 
-    public AlarmScheduler(JavaPlugin plugin, Runnable runnable, ClockAlarm alarm){
+    protected AlarmScheduler(JavaPlugin plugin, Runnable runnable, ClockAlarm alarm){
         this.plugin = plugin;
         this.runnable = runnable;
         this.alarm = alarm;
