@@ -7,12 +7,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 /**
  * Created by Neitan96 on 16/07/2016.
  */
-public class AlarmTask extends AlarmScheduler implements Runnable{
+public class SchedulerTask extends ClockScheduler implements Runnable{
 
     protected boolean enabled = true;
     protected long lastExecution = ClockCalendar.getClockMilisecond();
 
-    public AlarmTask(JavaPlugin plugin, Runnable runnable, ClockAlarm alarm){
+    public SchedulerTask(JavaPlugin plugin, Runnable runnable, ClockAlarm alarm){
         super(plugin, runnable, alarm);
     }
 

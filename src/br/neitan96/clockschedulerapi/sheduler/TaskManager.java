@@ -11,26 +11,26 @@ import java.util.TreeSet;
  */
 public class TaskManager{
 
-    protected final TreeSet<AlarmTask> tasks = new TreeSet<>();
-    protected final AlarmExecutor executor = new AlarmExecutorDefault(this::update);
+    protected final TreeSet<SchedulerTask> tasks = new TreeSet<>();
+    protected final SchedulerExecutor executor = new SchedulerExecutorDefault(this::update);
 
     public void update(){
-        AlarmTask next = tasks.stream().
-                filter(AlarmTask::enabled).findFirst().orElse(null);
+        SchedulerTask next = tasks.stream().
+                filter(SchedulerTask::enabled).findFirst().orElse(null);
 
         if(next != null) executor.executeNext(next);
     }
 
-    public Set<AlarmTask> getTasks(){
+    public Set<SchedulerTask> getTasks(){
         return Collections.unmodifiableSet(tasks);
     }
 
-    public void addTask(AlarmTask task){
+    public void addTask(SchedulerTask task){
         tasks.add(task);
         update();
     }
 
-    public void removeTask(AlarmTask task){
+    public void removeTask(SchedulerTask task){
         tasks.remove(task);
         update();
     }

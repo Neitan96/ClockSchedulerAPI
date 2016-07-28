@@ -8,14 +8,14 @@ import org.bukkit.scheduler.BukkitTask;
 /**
  * Created by Neitan96 on 16/07/2016.
  */
-public class AlarmExecutorDefault implements AlarmExecutor, Runnable{
+public class SchedulerExecutorDefault implements SchedulerExecutor, Runnable{
 
     public final Runnable onExecuted;
 
     protected BukkitTask bukkitTask = null;
-    protected AlarmTask alarmTask = null;
+    protected SchedulerTask schedulerTask = null;
 
-    public AlarmExecutorDefault(Runnable onExecuted){
+    public SchedulerExecutorDefault(Runnable onExecuted){
         this.onExecuted = onExecuted;
     }
 
@@ -23,13 +23,13 @@ public class AlarmExecutorDefault implements AlarmExecutor, Runnable{
     public void stop(){
         if(bukkitTask != null) bukkitTask.cancel();
         bukkitTask = null;
-        alarmTask = null;
+        schedulerTask = null;
     }
 
     @Override
-    public void executeNext(AlarmTask task, long next){
+    public void executeNext(SchedulerTask task, long next){
         stop();
-        if(alarmTask.enabled()){
+        if(schedulerTask.enabled()){
             long interval = next - ClockCalendar.getClockMilisecond();
             this.bukkitTask = Bukkit.getScheduler().runTaskLater(
                     ClockSchedulerAPI.getInstance(), this, (interval / 1000) * 20
@@ -41,9 +41,9 @@ public class AlarmExecutorDefault implements AlarmExecutor, Runnable{
 
     @Override
     public void run(){
-        if(alarmTask.enabled()){
+        if(schedulerTask.enabled()){
             try{
-                alarmTask.run();
+                schedulerTask.run();
             }catch(Exception e){
                 e.printStackTrace();
             }
