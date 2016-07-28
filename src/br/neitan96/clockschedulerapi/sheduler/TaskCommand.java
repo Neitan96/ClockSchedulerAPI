@@ -20,7 +20,7 @@ public class TaskCommand extends SchedulerTask{
         if(!matcher.find()) return null;
 
         String alarmStr = matcher.group(1);
-        String command = matcher.group(2);
+        String command = matcher.group(3);
 
         ClockAlarm clockAlarm = AlarmConvetors.convert(alarmStr);
         if(clockAlarm == null) return null;
