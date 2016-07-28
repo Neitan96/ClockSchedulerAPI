@@ -1,4 +1,4 @@
-package br.neitan96.clockschedulerapi.alarms.convertors;
+package br.neitan96.clockschedulerapi.alarms.converters;
 
 import br.neitan96.clockschedulerapi.alarms.AlarmInterval;
 import br.neitan96.clockschedulerapi.alarms.ClockAlarm;
@@ -9,18 +9,18 @@ import java.util.regex.Pattern;
 /**
  * Created by Neitan96 on 15/07/2016.
  */
-public class AlarmIntervalConvertor implements ClockAlarmConvertor{
+public class AlarmIntervalConverter implements ClockAlarmConverter{
 
     private static final Pattern format = Pattern.compile(AlarmInterval.LABEL +
             "\\|([0-9]{1,2})");
 
-    private static AlarmIntervalConvertor ourInstance = new AlarmIntervalConvertor();
+    private static AlarmIntervalConverter ourInstance = new AlarmIntervalConverter();
 
-    public static AlarmIntervalConvertor getInstance(){
+    public static AlarmIntervalConverter getInstance(){
         return ourInstance;
     }
 
-    private AlarmIntervalConvertor(){
+    private AlarmIntervalConverter(){
     }
 
     @Override

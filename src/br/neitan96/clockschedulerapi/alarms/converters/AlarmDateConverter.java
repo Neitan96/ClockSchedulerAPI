@@ -1,4 +1,4 @@
-package br.neitan96.clockschedulerapi.alarms.convertors;
+package br.neitan96.clockschedulerapi.alarms.converters;
 
 import br.neitan96.clockschedulerapi.alarms.AlarmDate;
 import br.neitan96.clockschedulerapi.alarms.ClockAlarm;
@@ -9,18 +9,18 @@ import java.util.regex.Pattern;
 /**
  * Created by Neitan96 on 15/07/2016.
  */
-public class AlarmDateConvertor implements ClockAlarmConvertor{
+public class AlarmDateConverter implements ClockAlarmConverter{
 
     private static final Pattern format = Pattern.compile(AlarmDate.LABEL +
             "\\|([0-9]{1,2})/([0-9]{1,2})/([0-9]{4}) ([0-9]{1,2}):([0-9]{1,2})(:([0-9]{1,2}))?");
 
-    private static AlarmDateConvertor ourInstance = new AlarmDateConvertor();
+    private static AlarmDateConverter ourInstance = new AlarmDateConverter();
 
-    public static AlarmDateConvertor getInstance(){
+    public static AlarmDateConverter getInstance(){
         return ourInstance;
     }
 
-    private AlarmDateConvertor(){
+    private AlarmDateConverter(){
     }
 
     @Override

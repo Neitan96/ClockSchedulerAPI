@@ -1,11 +1,11 @@
-package br.neitan96.clockschedulerapi.alarms.convertors;
+package br.neitan96.clockschedulerapi.alarms.converters;
 
 import br.neitan96.clockschedulerapi.alarms.ClockAlarm;
 
 /**
  * Created by Neitan96 on 15/07/2016.
  */
-public interface ClockAlarmConvertor{
+public interface ClockAlarmConverter{
 
     /**
      * Converte uma string em alarm.

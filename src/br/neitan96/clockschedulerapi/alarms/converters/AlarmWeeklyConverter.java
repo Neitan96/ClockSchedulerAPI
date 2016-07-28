@@ -1,4 +1,4 @@
-package br.neitan96.clockschedulerapi.alarms.convertors;
+package br.neitan96.clockschedulerapi.alarms.converters;
 
 import br.neitan96.clockschedulerapi.alarms.AlarmWeekly;
 import br.neitan96.clockschedulerapi.alarms.ClockAlarm;
@@ -10,18 +10,18 @@ import java.util.regex.Pattern;
 /**
  * Created by Neitan96 on 15/07/2016.
  */
-public class AlarmWeeklyConvertor implements ClockAlarmConvertor{
+public class AlarmWeeklyConverter implements ClockAlarmConverter{
 
     private static final Pattern format = Pattern.compile(AlarmWeekly.LABEL +
             "\\|([a-zA-Z-]+) ([0-9]{1,2}):([0-9]{1,2})(:([0-9]{1,2}))?");
 
-    private static AlarmWeeklyConvertor ourInstance = new AlarmWeeklyConvertor();
+    private static AlarmWeeklyConverter ourInstance = new AlarmWeeklyConverter();
 
-    public static AlarmWeeklyConvertor getInstance(){
+    public static AlarmWeeklyConverter getInstance(){
         return ourInstance;
     }
 
-    private AlarmWeeklyConvertor(){
+    private AlarmWeeklyConverter(){
     }
 
     @Override
