@@ -1,29 +1,11 @@
 package br.neitan96.clockschedulerapi.util;
 
-import br.neitan96.clockschedulerapi.alarms.ClockAlarm;
-
-import java.util.AbstractMap;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
  * Created by Neitan96 on 07/09/15.
  */
 public class Util {
 
-    public static String joinString(String glue, String[] args){
-        String str = "";
-        for(int i = 0; i < args.length; i++){
-            if(i != 0)
-                str += glue;
-            str += args[i];
-        }
-        return str;
-    }
-
-
-    public static int weekStringToInt(String week){
+    public static int getWeek(String week){
         switch (week.toLowerCase()){
 
             case "domingo":
@@ -68,7 +50,7 @@ public class Util {
         }
     }
 
-    public static String weekIntToString(int week) {
+    public static String getWeek(int week){
         switch (week) {
 
             case 1:
@@ -98,7 +80,7 @@ public class Util {
     }
 
 
-    public static int[] timeStringToInt(String time){
+    public static int[] getTime(String time){
 
         String[] args = time.split(":");
 
@@ -118,12 +100,12 @@ public class Util {
         return new int[]{hour, minute};
     }
 
-    public static String timeIntToString(int hour, int minute){
-        return hour+":"+minute;
+    public static String getTime(int hour, int minute){
+        return String.format("%02d:%02d", hour, minute);
     }
 
 
-    public static int monthStringToInt(String month){
+    public static int getMonth(String month){
         switch (month.toLowerCase()){
             case "janeiro":
                 return 0;
@@ -154,7 +136,7 @@ public class Util {
         }
     }
 
-    public static String monthIntToString(int month){
+    public static String getMonth(int month){
         switch (month){
             case 0:
                 return "Janeiro";
@@ -186,7 +168,7 @@ public class Util {
     }
 
 
-    public static int[] dateStringToInt(String date){
+    public static int[] getDate(String date){
         String[] args = date.split("/");
         if(args.length != 3)
             return null;
@@ -209,52 +191,8 @@ public class Util {
         return new int[]{day, month-1, year};
     }
 
-    public static String dateIntToString(int day, int month, int year){
-        return day+"/"+(month+1)+"/"+year;
-    }
-
-
-    public static Map.Entry<String, String> alarmCommandStringToClass(String commandArgs){
-
-        Pattern pattern = Pattern.compile("\"([^\"]*)\"[ ]*\"([^\"]*)\"");
-        Matcher matcher = pattern.matcher(commandArgs);
-
-        if(matcher.find()){
-
-            String alarmStr = matcher.group(1);
-            String commandToAlarm = matcher.group(2);
-
-            commandToAlarm = removeBar(commandToAlarm);
-
-            return new AbstractMap.SimpleEntry<>(alarmStr, commandToAlarm);
-
-        }
-
-        return null;
-
-    }
-
-
-    public static Map.Entry<String, String> alarmCommandStringToClass(String[] args){
-
-        String commandArgs = joinString(" ", args);
-
-        return alarmCommandStringToClass(commandArgs);
-    }
-
-    public static String alarmCommandClassToString(ClockAlarm alarm, String command){
-
-        command = removeBar(command);
-
-        return "\""+alarm+"\" \""+command+"\"";
-    }
-
-
-    public static String removeBar(String command){
-        if(command.startsWith("/"))
-            command = command.substring(1, command.length());
-
-        return command;
+    public static String getDate(int day, int month, int year){
+        return String.format("%02d/%02d/%d", day, month + 1, year);
     }
 
 }

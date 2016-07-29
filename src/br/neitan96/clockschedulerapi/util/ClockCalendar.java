@@ -9,6 +9,10 @@ import java.util.TimeZone;
  */
 public class ClockCalendar extends GregorianCalendar{
 
+    public static long getClockMilisecond(){
+        return new ClockCalendar().getTimeInMillis();
+    }
+
     public static TimeZone defaultTimeZone = null;
     public static int ajusteDays = 0;
     public static int ajusteHours = 0;
@@ -162,13 +166,35 @@ public class ClockCalendar extends GregorianCalendar{
         set(Calendar.SECOND, second);
     }
 
+
+    public int getMilisecond(){
+        return get(Calendar.MILLISECOND);
+    }
+
+    public void addMilisecond(int milisecond){
+        add(Calendar.MILLISECOND, milisecond);
+    }
+
+    public void addMilisecond(){
+        addMilisecond(1);
+    }
+
+    public void setMilisecond(int milisecond){
+        set(Calendar.MILLISECOND, milisecond);
+    }
+
+    @Override
+    public ClockCalendar clone(){
+        return new ClockCalendar(getTimeInMillis());
+    }
+
     @Override
     public String toString() {
         return toString(false);
     }
 
     public String toString(boolean seconds) {
-        return String.format("%02d", getDay())+" de "+Util.monthIntToString(getMonth())+" de "+getYear()+" ("+Util.weekIntToString(getWeek())+")"
+        return String.format("%02d", getDay()) + " de " + Util.getMonth(getMonth()) + " de " + getYear() + " (" + Util.getWeek(getWeek()) + ")"
                 +" as "+String.format("%02d", getHour())+":"+String.format("%02d", getMinute())+(seconds ? ":"+String.format("%02d", getSecond()) : "");
     }
 }
