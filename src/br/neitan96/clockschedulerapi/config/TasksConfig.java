@@ -22,18 +22,23 @@ public class TasksConfig{
     protected final YamlConfigurationUTF8 configuration = new YamlConfigurationUTF8();
     protected final List<TaskCommand> taskCommands = new ArrayList<>();
 
-    public TasksConfig(String path, File file) throws IOException, InvalidConfigurationException{
+    public TasksConfig(String path, File file){
         this.path = path;
         this.file = file;
         load();
     }
 
-    public TasksConfig(File file) throws IOException, InvalidConfigurationException{
+    public TasksConfig(File file){
         this("Comandos", file);
     }
 
-    public void load() throws IOException, InvalidConfigurationException{
-        configuration.load(file);
+    public void load(){
+        try{
+            configuration.load(file);
+        }catch(IOException | InvalidConfigurationException e){
+            e.printStackTrace();
+            return;
+        }
 
         for(String alarmCommandStr : configuration.getStringList(path)){
 
