@@ -56,7 +56,7 @@ public class TasksConfig{
         configuration.set(path, alarmsString);
     }
 
-    public List<TaskCommand> getAlarms(){
+    public List<TaskCommand> getTasks(){
         return Collections.unmodifiableList(taskCommands);
     }
 
