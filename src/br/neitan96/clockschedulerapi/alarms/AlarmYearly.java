@@ -10,7 +10,7 @@ public class AlarmYearly implements ClockAlarm{
 
     public final static String LABEL = "Anual";
 
-    protected final int month, day, hour, minute, second;
+    protected final int day, month, hour, minute, second;
 
     /**
      * @param month  Mês entre 0 e 11
@@ -19,7 +19,7 @@ public class AlarmYearly implements ClockAlarm{
      * @param minute Minutos entre 0 e 59
      * @param second Segundos entre 0 e 59
      */
-    public AlarmYearly(int month, int day, int hour, int minute, int second){
+    public AlarmYearly(int day, int month, int hour, int minute, int second){
         this.month = month;
         this.day = day;
         this.hour = hour;
@@ -33,8 +33,8 @@ public class AlarmYearly implements ClockAlarm{
      * @param hour Hora entre 0 e 23
      * @param minute Minutos entre 0 e 59
      */
-    public AlarmYearly(int month, int day, int hour, int minute){
-        this(month, day, hour, minute, 0);
+    public AlarmYearly(int day, int month, int hour, int minute){
+        this(day, month, hour, minute, 0);
     }
 
     @Override
