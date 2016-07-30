@@ -60,7 +60,7 @@ public class TasksConfig{
         return Collections.unmodifiableList(taskCommands);
     }
 
-    public void add(TaskCommand taskCommand, boolean register){
+    public void add(TaskCommand taskCommand){
         if(taskCommands.contains(taskCommand)){
             taskCommands.add(taskCommand);
             exportAlarmsToConfig();
