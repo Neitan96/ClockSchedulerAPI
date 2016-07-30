@@ -14,7 +14,7 @@ public class AlarmDailyConverter implements ClockAlarmConverter{
     private static final Pattern format = Pattern.compile(AlarmDaily.LABEL +
             "\\|([0-9]{1,2}):([0-9]{1,2})(:([0-9]{1,2}))?");
 
-    private static AlarmDailyConverter ourInstance = new AlarmDailyConverter();
+    private static final AlarmDailyConverter ourInstance = new AlarmDailyConverter();
 
     public static AlarmDailyConverter getInstance(){
         return ourInstance;

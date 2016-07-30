@@ -15,7 +15,7 @@ public class AlarmWeeklyConverter implements ClockAlarmConverter{
     private static final Pattern format = Pattern.compile(AlarmWeekly.LABEL +
             "\\|([a-zA-Z-]+) ([0-9]{1,2}):([0-9]{1,2})(:([0-9]{1,2}))?");
 
-    private static AlarmWeeklyConverter ourInstance = new AlarmWeeklyConverter();
+    private static final AlarmWeeklyConverter ourInstance = new AlarmWeeklyConverter();
 
     public static AlarmWeeklyConverter getInstance(){
         return ourInstance;

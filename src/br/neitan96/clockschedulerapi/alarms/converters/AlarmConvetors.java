@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class AlarmConvetors{
 
-    private static Set<ClockAlarmConverter> alarmConverters = new HashSet<>();
+    private static final Set<ClockAlarmConverter> alarmConverters = new HashSet<>();
 
     static{
         add(AlarmDailyConverter.getInstance());
@@ -36,12 +36,12 @@ public class AlarmConvetors{
         return Collections.unmodifiableSet(alarmConverters);
     }
 
-    public static boolean add(ClockAlarmConverter clockAlarmConverter){
-        return alarmConverters.add(clockAlarmConverter);
+    public static void add(ClockAlarmConverter clockAlarmConverter){
+        alarmConverters.add(clockAlarmConverter);
     }
 
-    public static boolean remove(ClockAlarmConverter o){
-        return alarmConverters.remove(o);
+    public static void remove(ClockAlarmConverter o){
+        alarmConverters.remove(o);
     }
 
     private AlarmConvetors(){

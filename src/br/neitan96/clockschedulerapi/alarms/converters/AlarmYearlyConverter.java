@@ -15,7 +15,7 @@ public class AlarmYearlyConverter implements ClockAlarmConverter{
     private static final Pattern format = Pattern.compile(AlarmYearly.LABEL +
             "\\|([0-9]{1,2}) ([a-zA-Z]+) ([0-9]{1,2}):([0-9]{1,2})(:([0-9]{1,2}))?");
 
-    private static AlarmYearlyConverter ourInstance = new AlarmYearlyConverter();
+    private static final AlarmYearlyConverter ourInstance = new AlarmYearlyConverter();
 
     public static AlarmYearlyConverter getInstance(){
         return ourInstance;

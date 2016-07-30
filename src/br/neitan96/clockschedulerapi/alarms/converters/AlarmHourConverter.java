@@ -14,7 +14,7 @@ public class AlarmHourConverter implements ClockAlarmConverter{
     private static final Pattern format = Pattern.compile(AlarmHour.LABEL +
             "\\|([0-9]{1,2})(:([0-9]{1,2}))?");
 
-    private static AlarmHourConverter ourInstance = new AlarmHourConverter();
+    private static final AlarmHourConverter ourInstance = new AlarmHourConverter();
 
     public static AlarmHourConverter getInstance(){
         return ourInstance;

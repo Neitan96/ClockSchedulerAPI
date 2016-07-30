@@ -14,7 +14,7 @@ public class AlarmDateConverter implements ClockAlarmConverter{
     private static final Pattern format = Pattern.compile(AlarmDate.LABEL +
             "\\|([0-9]{1,2})/([0-9]{1,2})/([0-9]{4}) ([0-9]{1,2}):([0-9]{1,2})(:([0-9]{1,2}))?");
 
-    private static AlarmDateConverter ourInstance = new AlarmDateConverter();
+    private static final AlarmDateConverter ourInstance = new AlarmDateConverter();
 
     public static AlarmDateConverter getInstance(){
         return ourInstance;

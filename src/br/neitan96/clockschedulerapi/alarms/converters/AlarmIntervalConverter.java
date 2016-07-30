@@ -14,7 +14,7 @@ public class AlarmIntervalConverter implements ClockAlarmConverter{
     private static final Pattern format = Pattern.compile(AlarmInterval.LABEL +
             "\\|([0-9]{1,2})");
 
-    private static AlarmIntervalConverter ourInstance = new AlarmIntervalConverter();
+    private static final AlarmIntervalConverter ourInstance = new AlarmIntervalConverter();
 
     public static AlarmIntervalConverter getInstance(){
         return ourInstance;
