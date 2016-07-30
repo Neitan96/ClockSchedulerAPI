@@ -1,10 +1,14 @@
 package br.neitan96.clockschedulerapi;
 
 import br.neitan96.clockschedulerapi.alarms.ClockAlarm;
+import br.neitan96.clockschedulerapi.alarms.converters.AlarmConvetors;
 import br.neitan96.clockschedulerapi.commands.*;
-import br.neitan96.clockschedulerapi.manager.*;
+import br.neitan96.clockschedulerapi.config.TasksConfig;
+import br.neitan96.clockschedulerapi.sheduler.ClockTask;
+import br.neitan96.clockschedulerapi.sheduler.TaskCommand;
+import br.neitan96.clockschedulerapi.sheduler.TaskManager;
 import br.neitan96.clockschedulerapi.util.ClockCalendar;
-import br.neitan96.clockschedulerapi.util.Util;
+import br.neitan96.clockschedulerapi.util.ClockDebug;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -12,6 +16,7 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.List;
 import java.util.TimeZone;
 
 /**
@@ -19,36 +24,35 @@ import java.util.TimeZone;
  */
 public class ClockSchedulerAPI extends JavaPlugin{
 
-    private static CommandConfig commandConfig = null;
     private static ClockSchedulerAPI clockSchedulerAPI = null;
-    private static AlarmsManager alarmsManager = null;
+    private static TasksConfig tasksConfig = null;
+    private static TaskManager taskManager = null;
 
-    private static ChatColor colorTag = ChatColor.DARK_BLUE;
-    private static ChatColor colorText = ChatColor.DARK_GREEN;
-    private static String tag = null;
+    private static final ChatColor COLOR_TAG = ChatColor.DARK_BLUE;
+    private static final ChatColor COLOR_TEXT = ChatColor.DARK_GREEN;
+    private static String TAG = null;
 
-    private static int debug = 0;
 
     @Override
     public void onEnable() {
 
         clockSchedulerAPI = this;
+        taskManager = new TaskManager();
 
         saveIfNotExists("comandos.yml");
         saveIfNotExists("exemplos.yml");
         saveIfNotExists("config.yml");
 
-        tag = "["+getDescription().getName()+"] ";
+        reloadConfig();
 
-        debug = getConfig().getInt("Debug", 0);
+        TAG = "[" + getDescription().getName() + "] ";
 
-        log("Iniciando gerenciador...");
-        if(getConfig().getBoolean("Performance.TempoReal"))
-            alarmsManager = new AlarmsManagerReal();
-        else
-            alarmsManager = new AlarmsManagerInterval(
-                    getConfig().getLong("Performance.IntervaloDespertador", 50)
-            );
+        List<String> debugTagsList = getConfig().getStringList("Debug");
+        if(debugTagsList != null){
+            log("Definindo o debug...");
+            String[] debugTags = debugTagsList.toArray(new String[debugTagsList.size()]);
+            ClockDebug.setTags(debugTags);
+        }
 
 
         log("Definindo fuso horário...");
@@ -60,16 +64,11 @@ public class ClockSchedulerAPI extends JavaPlugin{
         ClockCalendar.ajusteMinutes = getConfig().getInt("FusoHorario.Ajuste.Minutos", 0);
         ClockCalendar.ajusteSeconds = getConfig().getInt("FusoHorario.Ajuste.Segundos", 0);
 
-
-        log("Registrando tipos de alarmes...");
-        ClockAlarm.registerAllAlarms();
-
-
         log("Registrando comandos...");
-        CTempComando tempCommand;
+        CTempComando tempCommand = new CTempComando();
         getCommand("clockhoracerta").setExecutor(new CHoraCerta());
         getCommand("clockteste").setExecutor(new CTeste());
-        getCommand("clocktempcomando").setExecutor((tempCommand = new CTempComando()));
+        getCommand("clocktempcomando").setExecutor(tempCommand);
         getCommand("clockpermcomando").setExecutor(new CPermComando());
         getCommand("clockdesativar").setExecutor(new CDesativar());
         getCommand("clockremover").setExecutor(new CRemover());
@@ -83,8 +82,7 @@ public class ClockSchedulerAPI extends JavaPlugin{
 
         log("Registrando alarmes dos comandos...");
         File configFile = new File(getDataFolder(), "comandos.yml");
-        commandConfig = new CommandConfig(configFile);
-        commandConfig.registerAll();
+        tasksConfig = new TasksConfig(configFile);
 
         log("ClockSchedulerAPI iniciado!");
     }
@@ -109,62 +107,53 @@ public class ClockSchedulerAPI extends JavaPlugin{
 
 
     public static ClockAlarm getAlarm(String alarm){
-        return ClockAlarm.getFromString(alarm);
+        return AlarmConvetors.convert(alarm);
     }
 
 
-    public static AlarmsManager getAlarmsManager() {
-        return alarmsManager;
+    public static TaskManager getTaskManager(){
+        return taskManager;
     }
 
-    public static CommandConfig getCommandConfig() {
-        return commandConfig;
-    }
-
-
-    public static void addAlarm(ClockAlarm alarm, Runnable runnable, JavaPlugin plugin){
-        alarmsManager.addScheduler(alarm, runnable, plugin);
-    }
-
-    public static void addAlarm(AlarmScheduler alarmScheduler){
-        alarmsManager.addScheduler(alarmScheduler);
-    }
-
-    public static ClockAlarm addAlarm(String alarm, Runnable runnable, JavaPlugin plugin){
-        ClockAlarm clockAlarm = ClockAlarm.getFromString(alarm);
-        addAlarm(clockAlarm, runnable, plugin);
-        return clockAlarm;
-    }
-
-    public static void addAlarm(ClockAlarm alarm, String command, JavaPlugin plugin){
-        final String commandconsole = Util.removeBar(command);
-        Runnable run = () -> Bukkit.dispatchCommand(
-                Bukkit.getConsoleSender(),
-                commandconsole
-        );
-        getAlarmsManager().addScheduler(alarm, run, plugin);
+    public static TasksConfig getTasksConfig(){
+        return tasksConfig;
     }
 
 
-    public static synchronized void removeAlarmsFromPlugin(JavaPlugin plugin){
-        getAlarmsManager().removeAllPlugin(plugin);
+    public static void addTask(ClockTask task){
+        taskManager.addTask(task);
     }
+
+    public static void addTask(ClockAlarm alarm, Runnable runnable, JavaPlugin plugin){
+        ClockTask task = new ClockTask(plugin, runnable, alarm);
+        addTask(task);
+    }
+
+    public static void addTask(ClockAlarm alarm, String command, JavaPlugin plugin){
+        ClockTask task = new TaskCommand(plugin, command, alarm);
+        addTask(task);
+    }
+
+    public static void addTask(String alarm, Runnable runnable, JavaPlugin plugin){
+        addTask(AlarmConvetors.convert(alarm), runnable, plugin);
+    }
+
+
+    public static void removeTask(ClockTask task){
+        getTaskManager().removeTask(task);
+    }
+
+    public static void removeTasksPlugin(JavaPlugin plugin){
+        getTaskManager().removeAll(plugin);
+    }
+
 
     public static void log(String msg){
-        Bukkit.getConsoleSender().sendMessage(colorTag + tag + colorText + msg);
+        Bukkit.getConsoleSender().sendMessage(COLOR_TAG + TAG + COLOR_TEXT + msg);
     }
 
     public static void log(CommandSender sender, String msg){
-        sender.sendMessage(colorTag + tag + colorText + msg);
+        sender.sendMessage(COLOR_TAG + TAG + COLOR_TEXT + msg);
     }
 
-
-    public static boolean debug(){
-        return debug > 0;
-    }
-
-    public static void debug(String msg, int lv){
-        if(debug >= lv)
-            Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED+"[ClockDebug] "+ChatColor.DARK_GREEN+msg);
-    }
 }
