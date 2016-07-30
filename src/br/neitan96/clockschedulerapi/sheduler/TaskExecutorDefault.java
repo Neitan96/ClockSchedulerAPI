@@ -36,7 +36,7 @@ public class TaskExecutorDefault implements TaskExecutor, Runnable{
         stop();
         if(task.enabled()){
             clockTask = task;
-            long interval = task.getNextExection() - ClockCalendar.getClockMilisecond();
+            long interval = task.getNextExecution() - ClockCalendar.getClockMilisecond();
             this.bukkitTask = Bukkit.getScheduler().runTaskLater(
                     ClockSchedulerAPI.getInstance(), this, (interval / 50)+1
             );

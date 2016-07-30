@@ -37,7 +37,7 @@ public class ClockTask extends ClockScheduler implements Runnable{
         return lastExecution;
     }
 
-    public long getNextExection(){
+    public long getNextExecution(){
         return nextExecution;
     }
 

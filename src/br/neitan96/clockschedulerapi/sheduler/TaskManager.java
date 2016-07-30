@@ -66,7 +66,7 @@ public class TaskManager{
                 ClockDebug.log(ClockDebug.MANAGER_NEXT_EXECUTION,
                         "Proxima task a ser executada é: " + task.toString());
                 ClockDebug.log(ClockDebug.MANAGER_NEXT_EXECUTION,
-                        "Proxima task a sera executada em: " + new ClockCalendar(task.getNextExection()).toString(true));
+                        "Proxima task a sera executada em: " + ClockCalendar.getShortString(task.getNextExecution(), true));
                 executor.executeNext(task);
             }
         }else{
