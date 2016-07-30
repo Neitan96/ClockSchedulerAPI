@@ -13,13 +13,21 @@ public class ClockCalendar extends GregorianCalendar{
         return new ClockCalendar().getTimeInMillis();
     }
 
+    public static String getString(long milisecond, boolean second){
+        return new ClockCalendar(milisecond).toString(second);
+    }
+
+    public static String getShortString(long milisecond, boolean second){
+        return new ClockCalendar(milisecond).toShortString(second);
+    }
+
     public static TimeZone defaultTimeZone = null;
     public static int ajusteDays = 0;
     public static int ajusteHours = 0;
     public static int ajusteMinutes = 0;
     public static int ajusteSeconds = 0;
 
-    public ClockCalendar() {
+    public ClockCalendar(){
         super();
         if(defaultTimeZone != null)
             setTimeZone(defaultTimeZone);
@@ -37,7 +45,7 @@ public class ClockCalendar extends GregorianCalendar{
             addSecond(ajusteSeconds);
     }
 
-    public ClockCalendar(long miliseconds) {
+    public ClockCalendar(long miliseconds){
         this();
         setTimeInMillis(miliseconds);
     }
@@ -189,12 +197,28 @@ public class ClockCalendar extends GregorianCalendar{
     }
 
     @Override
-    public String toString() {
+    public String toString(){
         return toString(false);
     }
 
-    public String toString(boolean seconds) {
-        return String.format("%02d", getDay()) + " de " + Util.getMonth(getMonth()) + " de " + getYear() + " (" + Util.getWeek(getWeek()) + ")"
-                +" as "+String.format("%02d", getHour())+":"+String.format("%02d", getMinute())+(seconds ? ":"+String.format("%02d", getSecond()) : "");
+    public String toString(boolean seconds){
+        if(seconds)
+            return String.format("%02d de %s de %d (%s) as %02d:%02d",
+                    getDay(), Util.getMonth(getMonth()), getYear(), Util.getWeek(getWeek()),
+                    getHour(), getMinute());
+        else
+            return String.format("%02d de %s de %d (%s) as %02d:%02d:%02d",
+                    getDay(), Util.getMonth(getMonth()), getYear(), Util.getWeek(getWeek()),
+                    getHour(), getMinute(), getSecond());
     }
+
+    public String toShortString(boolean seconds){
+        if(seconds)
+            return String.format("%02d de %s as %02d:%02d",
+                    getDay(), Util.getMonth(getMonth()), getHour(), getMinute());
+        else
+            return String.format("%02d de %s as %02d:%02d:%02d",
+                    getDay(), Util.getMonth(getMonth()), getHour(), getMinute(), getSecond());
+    }
+
 }
