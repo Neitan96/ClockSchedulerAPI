@@ -195,4 +195,41 @@ public class Util {
         return String.format("%02d/%02d/%d", day, month + 1, year);
     }
 
+
+    public static String getInterval(long milisecond){
+        long second = milisecond / 1000;
+
+        String interval = second + "s";
+
+        long minute = 0;
+        while(second > 59){
+            second -= 60;
+            minute++;
+        }
+        if(minute > 0) interval = minute + "m " + interval;
+        else return interval;
+
+        long hour = 0;
+        while(minute > 59){
+            minute -= 60;
+            hour++;
+        }
+        if(hour > 0) interval = hour + "h " + interval;
+        else return interval;
+
+        long day = 0;
+        while(hour > 23){
+            hour -= 24;
+            day++;
+        }
+        if(day > 0) interval = day + "d " + interval;
+        else return interval;
+
+        return interval;
+    }
+
+    public static String getIntervalNow(long milisecond){
+        return getInterval(milisecond - ClockCalendar.getClockMilisecond());
+    }
+
 }
