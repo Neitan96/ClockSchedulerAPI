@@ -16,6 +16,7 @@ public class ClockDebug{
     public final static String TASK_ENABLED = "Task enabled";
     public final static String TASK_DISABLED = "Task disabled";
     public final static String TASK_RUNNING = "Task running";
+    public final static String TASK_ERROR_EXECUTE = "Task error execute";
 
     public final static String MANAGER_STARTING = "Manager starting";
     public final static String MANAGER_STOPPING = "Manager stopping";
