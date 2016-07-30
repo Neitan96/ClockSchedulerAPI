@@ -31,6 +31,7 @@ public class TaskManager{
     }
 
     public synchronized void removeAll(){
+        ClockDebug.log(ClockDebug.TASK_REMOVED, "Todas tasks removidas");
         tasks.clear();
     }
 
