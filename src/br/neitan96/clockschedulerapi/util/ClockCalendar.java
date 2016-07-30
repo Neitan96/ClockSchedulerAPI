@@ -203,22 +203,22 @@ public class ClockCalendar extends GregorianCalendar{
 
     public String toString(boolean seconds){
         if(seconds)
-            return String.format("%02d de %s de %d (%s) as %02d:%02d",
-                    getDay(), Util.getMonth(getMonth()), getYear(), Util.getWeek(getWeek()),
-                    getHour(), getMinute());
-        else
             return String.format("%02d de %s de %d (%s) as %02d:%02d:%02d",
                     getDay(), Util.getMonth(getMonth()), getYear(), Util.getWeek(getWeek()),
                     getHour(), getMinute(), getSecond());
+        else
+            return String.format("%02d de %s de %d (%s) as %02d:%02d",
+                    getDay(), Util.getMonth(getMonth()), getYear(), Util.getWeek(getWeek()),
+                    getHour(), getMinute());
     }
 
     public String toShortString(boolean seconds){
         if(seconds)
-            return String.format("%02d de %s as %02d:%02d",
-                    getDay(), Util.getMonth(getMonth()), getHour(), getMinute());
-        else
             return String.format("%02d de %s as %02d:%02d:%02d",
                     getDay(), Util.getMonth(getMonth()), getHour(), getMinute(), getSecond());
+        else
+            return String.format("%02d de %s as %02d:%02d",
+                    getDay(), Util.getMonth(getMonth()), getHour(), getMinute());
     }
 
 }
