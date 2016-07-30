@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 /**
  * Created by Neitan96 on 26/07/2016.
  */
-public class TaskCommand extends SchedulerTask{
+public class TaskCommand extends ClockTask{
 
     public static TaskCommand fromString(JavaPlugin plugin, String alarm){
         Pattern pattern = Pattern.compile("\"([^\"]*)\"[ ]*\"(/)?([^\"]*)\"");
