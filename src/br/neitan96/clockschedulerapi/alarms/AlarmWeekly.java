@@ -12,6 +12,12 @@ public class AlarmWeekly implements ClockAlarm{
 
     protected final int weekDay, hour, minute, second;
 
+    /**
+     * @param weekDay Numero do dia semana entre 0-6, sendo 0 domingo e 6 sábado
+     * @param hour    Hora entre 0 e 23
+     * @param minute  Minutos entre 0 e 59
+     * @param second  Segundos entre 0 e 59
+     */
     public AlarmWeekly(int weekDay, int hour, int minute, int second){
         this.weekDay = weekDay;
         this.hour = hour;
@@ -19,6 +25,11 @@ public class AlarmWeekly implements ClockAlarm{
         this.second = second;
     }
 
+    /**
+     * @param weekDay Numero do dia semana entre 1-7, sendo 1 domingo e 7 sábado
+     * @param hour Hora entre 0 e 23
+     * @param minute Minutos entre 0 e 59
+     */
     public AlarmWeekly(int weekDay, int hour, int minute){
         this(weekDay, hour, minute, 0);
     }

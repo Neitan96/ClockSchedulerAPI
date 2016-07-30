@@ -14,6 +14,17 @@ public class AlarmMonthlyWeek implements ClockAlarm{
 
     protected final int weekCount, week, hour, minute, second;
 
+    /**
+     * @param weekCount Numero da semana.
+     *                  Exemplo:
+     *                  Se for 1 é a primeira semana do mês
+     *                  Se for 2 é a segunda semana do mês
+     *                  Se for 3 é a terceira semana do mês
+     * @param week      Numero do dia semana entre 1-7, sendo 1 domingo e 7 sábado
+     * @param hour      Hora entre 0 e 23
+     * @param minute    Minutos entre 0 e 59
+     * @param second    Segundos entre 0 e 59
+     */
     public AlarmMonthlyWeek(int weekCount, int week, int hour, int minute, int second){
         this.weekCount = weekCount;
         this.week = week;
@@ -22,6 +33,16 @@ public class AlarmMonthlyWeek implements ClockAlarm{
         this.second = second;
     }
 
+    /**
+     * @param weekCount Numero da semana.
+     *                  Exemplo:
+     *                  Se for 1 é a primeira semana do mês
+     *                  Se for 2 é a segunda semana do mês
+     *                  Se for 3 é a terceira semana do mês
+     * @param week Numero do dia semana entre 0-6, sendo 0 domingo e 6 sábado
+     * @param hour Hora entre 0 e 23
+     * @param minute Minutos entre 0 e 59
+     */
     public AlarmMonthlyWeek(int weekCount, int week, int hour, int minute){
         this(weekCount, week, hour, minute, 0);
     }

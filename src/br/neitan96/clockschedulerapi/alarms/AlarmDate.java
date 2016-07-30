@@ -11,6 +11,13 @@ public class AlarmDate implements ClockAlarm{
 
     protected final int year, month, day, hour, minute, second;
 
+    /**
+     * @param month  Mês entre 0 e 11
+     * @param day    Dia entre 1 e 31(podendo ser menos depedendo do mês)
+     * @param hour   Hora entre 0 e 23
+     * @param minute Minutos entre 0 e 59
+     * @param second Segundos entre 0 e 59
+     */
     public AlarmDate(int year, int month, int day, int hour, int minute, int second){
         this.year = year;
         this.month = month;
@@ -20,6 +27,12 @@ public class AlarmDate implements ClockAlarm{
         this.second = second;
     }
 
+    /**
+     * @param month Mês entre 0 e 11
+     * @param day Dia entre 1 e 31(podendo ser menos depedendo do mês)
+     * @param hour Hora entre 0 e 23
+     * @param minute Minutos entre 0 e 59
+     */
     public AlarmDate(int year, int month, int day, int hour, int minute){
         this(year, month, day, hour, minute, 0);
     }
@@ -45,7 +58,7 @@ public class AlarmDate implements ClockAlarm{
     @Override
     public String toString(){
         return String.format("%s|%02d/%02d/%d %02d:%02d:%02d",
-                LABEL, day, month, year, hour, minute, second);
+                LABEL, day, month + 1, year, hour, minute, second);
     }
 
 }

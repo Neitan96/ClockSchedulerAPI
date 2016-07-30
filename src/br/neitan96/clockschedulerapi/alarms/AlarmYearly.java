@@ -12,6 +12,13 @@ public class AlarmYearly implements ClockAlarm{
 
     protected final int month, day, hour, minute, second;
 
+    /**
+     * @param month  Mês entre 0 e 11
+     * @param day    Dia entre 1 e 31(podendo ser menos depedendo do mês)
+     * @param hour   Hora entre 0 e 23
+     * @param minute Minutos entre 0 e 59
+     * @param second Segundos entre 0 e 59
+     */
     public AlarmYearly(int month, int day, int hour, int minute, int second){
         this.month = month;
         this.day = day;
@@ -20,6 +27,12 @@ public class AlarmYearly implements ClockAlarm{
         this.second = second;
     }
 
+    /**
+     * @param month Mês entre 0 e 11
+     * @param day Dia entre 1 e 31(podendo ser menos depedendo do mês)
+     * @param hour Hora entre 0 e 23
+     * @param minute Minutos entre 0 e 59
+     */
     public AlarmYearly(int month, int day, int hour, int minute){
         this(month, day, hour, minute, 0);
     }

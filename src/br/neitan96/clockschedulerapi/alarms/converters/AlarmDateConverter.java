@@ -29,7 +29,7 @@ public class AlarmDateConverter implements ClockAlarmConverter{
         if(!matcher.matches()) return null;
 
         int day = Integer.parseInt(matcher.group(1));
-        int month = Integer.parseInt(matcher.group(2));
+        int month = Integer.parseInt(matcher.group(2)) - 1;
         int year = Integer.parseInt(matcher.group(3));
         int hour = Integer.parseInt(matcher.group(4));
         int minute = Integer.parseInt(matcher.group(5));

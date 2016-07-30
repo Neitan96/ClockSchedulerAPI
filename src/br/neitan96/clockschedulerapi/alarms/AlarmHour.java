@@ -11,11 +11,18 @@ public class AlarmHour implements ClockAlarm{
 
     protected final int minute, second;
 
+    /**
+     * @param minute Minutos entre 0 e 59
+     * @param second Segundos entre 0 e 59
+     */
     public AlarmHour(int minute, int second){
         this.minute = minute;
         this.second = second;
     }
 
+    /**
+     * @param minute Minutos entre 0 e 59
+     */
     public AlarmHour(int minute){
         this(minute, 0);
     }

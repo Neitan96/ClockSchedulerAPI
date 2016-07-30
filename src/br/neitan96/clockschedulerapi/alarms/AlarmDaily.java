@@ -11,12 +11,21 @@ public class AlarmDaily implements ClockAlarm{
 
     protected final int hour, minute, second;
 
+    /**
+     * @param hour   Hora entre 0 e 23
+     * @param minute Minutos entre 0 e 59
+     * @param second Segundos entre 0 e 59
+     */
     public AlarmDaily(int hour, int minute, int second){
         this.hour = hour;
         this.minute = minute;
         this.second = second;
     }
 
+    /**
+     * @param hour Hora entre 0 e 23
+     * @param minute Minutos entre 0 e 59
+     */
     public AlarmDaily(int hour, int minute){
         this(hour, minute, 0);
     }
