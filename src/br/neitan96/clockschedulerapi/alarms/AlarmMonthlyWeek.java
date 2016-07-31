@@ -39,7 +39,7 @@ public class AlarmMonthlyWeek implements ClockAlarm{
      *                  Se for 1 é a primeira semana do mês
      *                  Se for 2 é a segunda semana do mês
      *                  Se for 3 é a terceira semana do mês
-     * @param week Numero do dia semana entre 0-6, sendo 0 domingo e 6 sábado
+     * @param week Numero do dia semana entre 1-7, sendo 1 domingo e 7 sábado
      * @param hour Hora entre 0 e 23
      * @param minute Minutos entre 0 e 59
      */
@@ -56,16 +56,20 @@ public class AlarmMonthlyWeek implements ClockAlarm{
         calendar.setSecond(second);
         calendar.setMilisecond(0);
 
-        if(calendar.getTimeInMillis() < miliseconds)
-            calendar.addDay();
-
-        while(calendar.getWeek() != week)
-            calendar.addDay();
-
         int count = 0;
-        while(calendar.get(Calendar.WEEK_OF_MONTH) != weekCount){
-            if(++count >= 24) return -1;
-            calendar.addDay(7);
+        int month = calendar.getMonth();
+        while(calendar.getTimeInMillis() < miliseconds
+                || calendar.getWeek() != week
+                || calendar.get(Calendar.DAY_OF_WEEK_IN_MONTH) != weekCount){
+
+            if(++count > 24) return -1;
+
+            if(calendar.getMonth() == month){
+                calendar.addMonth();
+                month = calendar.getMonth();
+            }
+            calendar.setWeek(week);
+            calendar.set(Calendar.DAY_OF_WEEK_IN_MONTH, weekCount);
         }
 
         return calendar.getTimeInMillis();
