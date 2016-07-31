@@ -7,6 +7,8 @@ public interface TaskExecutor{
 
     void executeNext(ClockTask task);
 
+    ClockTask getCurrentTask();
+
     boolean running();
 
     void stop();

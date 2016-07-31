@@ -3,6 +3,7 @@ package br.neitan96.clockschedulerapi.sheduler;
 import br.neitan96.clockschedulerapi.alarms.ClockAlarm;
 import br.neitan96.clockschedulerapi.util.ClockCalendar;
 import br.neitan96.clockschedulerapi.util.ClockDebug;
+import br.neitan96.clockschedulerapi.util.Util;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -10,13 +11,34 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class ClockTask extends ClockScheduler implements Runnable{
 
-    protected boolean enabled = true;
-    protected long lastExecution = 0;
-    protected long nextExecution = 0;
+    protected boolean enabled = false;
+    protected long lastExecution = -1;
+    protected long nextExecution = -1;
 
     public ClockTask(JavaPlugin plugin, Runnable runnable, ClockAlarm alarm){
         super(plugin, runnable, alarm);
-        nextExecution = alarm.next();
+        enable();
+    }
+
+    protected void calculateNextExecution(){
+        long start;
+        if(nextExecution > 0){
+            setLastExecution(nextExecution);
+            start = lastExecution;
+        }else{
+            start = ClockCalendar.getClockMilisecond();
+        }
+        setNextExecution(alarm.nextAfter(++start));
+    }
+
+    protected void setLastExecution(long lastExecution){
+        if(lastExecution > this.lastExecution)
+            this.lastExecution = lastExecution;
+    }
+
+    protected void setNextExecution(long nextExecution){
+        this.nextExecution = nextExecution;
+        if(nextExecution < 0) disable();
     }
 
     public boolean enabled(){
@@ -24,13 +46,19 @@ public class ClockTask extends ClockScheduler implements Runnable{
     }
 
     public void enable(){
-        enabled = true;
-        ClockDebug.log(ClockDebug.TASK_ENABLED, "Task ativada: "+toString());
+        if(!enabled()){
+            enabled = true;
+            calculateNextExecution();
+            ClockDebug.log(ClockDebug.TASK_ENABLED, "Task ativada: " + toString());
+        }
     }
 
     public void disable(){
-        enabled = false;
-        ClockDebug.log(ClockDebug.TASK_DISABLED, "Task desativada: "+toString());
+        if(enabled()){
+            enabled = false;
+            nextExecution = -1;
+            ClockDebug.log(ClockDebug.TASK_DISABLED, "Task desativada: " + toString());
+        }
     }
 
     public long getLastExecution(){
@@ -43,16 +71,24 @@ public class ClockTask extends ClockScheduler implements Runnable{
 
     @Override
     public void run(){
+        calculateNextExecution();
         ClockDebug.log(ClockDebug.TASK_RUNNING, "Executando task: "+toString());
-        lastExecution = nextExecution;
-        nextExecution = alarm.nextAfter(lastExecution+1);
         runnable.run();
+    }
+
+    public int compareTo(ClockTask o){
+        return Float.compare(getNextExecution(), o.getNextExecution());
     }
 
     @Override
     public String toString(){
         return String.format("{%s %s %b %s}",
-                plugin.getName(), alarm, enabled, ClockCalendar.getShortString(lastExecution, true));
+                plugin.getName(), alarm, enabled, Util.getIntervalNow(nextExecution));
+    }
+
+    public String toShortString(){
+        return String.format("{%s %s}",
+                plugin.getName(), alarm);
     }
 
 }

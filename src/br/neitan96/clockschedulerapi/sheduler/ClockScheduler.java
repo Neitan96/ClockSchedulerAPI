@@ -18,7 +18,6 @@ public class ClockScheduler implements Comparable<ClockScheduler>{
         this.alarm = alarm;
     }
 
-    @Override
     public int compareTo(ClockScheduler o){
         return alarm.compareTo(o.alarm);
     }

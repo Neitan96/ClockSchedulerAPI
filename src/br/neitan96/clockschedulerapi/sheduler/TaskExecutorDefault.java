@@ -20,7 +20,8 @@ public class TaskExecutorDefault implements TaskExecutor, Runnable{
         this.onExecuted = onExecuted;
     }
 
-    public ClockTask getClockTask(){
+    @Override
+    public ClockTask getCurrentTask(){
         return clockTask;
     }
 
@@ -36,9 +37,9 @@ public class TaskExecutorDefault implements TaskExecutor, Runnable{
         stop();
         if(task.enabled()){
             clockTask = task;
-            long interval = task.getNextExecution() - ClockCalendar.getClockMilisecond();
+            double interval = task.getNextExecution() - ClockCalendar.getClockMilisecond();
             this.bukkitTask = Bukkit.getScheduler().runTaskLater(
-                    ClockSchedulerAPI.getInstance(), this, (interval / 50)+1
+                    ClockSchedulerAPI.getInstance(), this, (long) Math.ceil(interval / 50D)
             );
         }else{
             onExecuted.run();
@@ -58,6 +59,7 @@ public class TaskExecutorDefault implements TaskExecutor, Runnable{
             e.printStackTrace();
             ClockDebug.log(ClockDebug.TASK_ERROR_EXECUTE, "Erro ao executar a task: " + clockTask);
         }
+        stop();
         onExecuted.run();
     }
 
@@ -66,4 +68,5 @@ public class TaskExecutorDefault implements TaskExecutor, Runnable{
         super.finalize();
         stop();
     }
+
 }
