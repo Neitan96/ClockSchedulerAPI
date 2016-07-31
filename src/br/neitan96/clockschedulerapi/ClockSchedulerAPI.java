@@ -89,6 +89,7 @@ public class ClockSchedulerAPI extends JavaPlugin{
 
     @Override
     public void onDisable() {
+        taskManager.removeAll();
         HandlerList.unregisterAll(this);
         log("ClockSchedulerAPI terminado!");
     }
