@@ -232,4 +232,8 @@ public class Util {
         return getInterval(milisecond - ClockCalendar.getClockMilisecond());
     }
 
+    public static String getDifferenceNow(long milisecond){
+        return getInterval(ClockCalendar.getClockMilisecond() - milisecond);
+    }
+
 }
