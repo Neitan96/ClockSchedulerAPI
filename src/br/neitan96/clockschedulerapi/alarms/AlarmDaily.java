@@ -36,7 +36,7 @@ public class AlarmDaily implements ClockAlarm{
 
         calendar.setHour(hour);
         calendar.setMinute(minute);
-        calendar.setMinute(second);
+        calendar.setSecond(second);
         calendar.setMilisecond(0);
 
         if(calendar.getTimeInMillis() < miliseconds)
