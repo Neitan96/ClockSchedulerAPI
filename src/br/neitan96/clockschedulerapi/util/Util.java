@@ -197,33 +197,34 @@ public class Util {
 
 
     public static String getInterval(long milisecond){
+        String negativeFix = "";
+        if(milisecond < 0){
+            negativeFix = "-";
+            milisecond = Math.abs(milisecond);
+        }
+
         long second = milisecond / 1000;
-
-        String interval = second + "s";
-
         long minute = 0;
+        long hour = 0;
+        long day = 0;
+
         while(second > 59){
             second -= 60;
             minute++;
         }
-        if(minute > 0) interval = minute + "m " + interval;
-        else return interval;
-
-        long hour = 0;
         while(minute > 59){
             minute -= 60;
             hour++;
         }
-        if(hour > 0) interval = hour + "h " + interval;
-        else return interval;
-
-        long day = 0;
         while(hour > 23){
             hour -= 24;
             day++;
         }
-        if(day > 0) interval = day + "d " + interval;
-        else return interval;
+
+        String interval = negativeFix + second + "s";
+        interval = (minute > 0 ? negativeFix + minute + "m " : "") + interval;
+        interval = (hour > 0 ? negativeFix + hour + "h " : "") + interval;
+        interval = (day > 0 ? negativeFix + day + "d " : "") + interval;
 
         return interval;
     }
@@ -234,6 +235,59 @@ public class Util {
 
     public static String getDifferenceNow(long milisecond){
         return getInterval(ClockCalendar.getClockMilisecond() - milisecond);
+    }
+
+
+    public static int countWeekDayinMonth(long milisecond, int weekDay){
+        if(weekDay < 1 || weekDay > 7) return -1;
+
+        ClockCalendar clockCalendar = new ClockCalendar(milisecond);
+        clockCalendar.setDay(1);
+        int month = clockCalendar.getMonth();
+        int count = 0;
+
+        while(clockCalendar.getWeek() != weekDay){
+            clockCalendar.addDay();
+        }
+
+        do{
+            count++;
+            clockCalendar.addDay(7);
+        }while(clockCalendar.getMonth() == month);
+
+        return count;
+    }
+
+    public static int getDayCountWeekDay(long milisecond, int weekDay, int count){
+        if(weekDay < 1 || weekDay > 7) return -1;
+
+        ClockCalendar clockCalendar = new ClockCalendar(milisecond);
+        clockCalendar.setDay(1);
+        int month = clockCalendar.getMonth();
+
+        while(clockCalendar.getWeek() != weekDay)
+            clockCalendar.addDay();
+
+        while(count > 1){
+            if(clockCalendar.getMonth() != month) return -1;
+            clockCalendar.addDay(7);
+            count--;
+        }
+
+        return clockCalendar.getDay();
+    }
+
+    public static int countWeekDayDay(long milisecond){
+        ClockCalendar clockCalendar = new ClockCalendar(milisecond);
+        int month = clockCalendar.getMonth();
+        int count = 0;
+
+        while(clockCalendar.getMonth() == month){
+            clockCalendar.addDay(-7);
+            count++;
+        }
+
+        return count;
     }
 
 }
