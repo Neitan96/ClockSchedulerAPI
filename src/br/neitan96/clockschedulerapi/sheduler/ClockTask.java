@@ -45,6 +45,12 @@ public class ClockTask extends ClockScheduler implements Runnable{
         return enabled;
     }
 
+    public void reset(){
+        nextExecution = -1;
+        calculateNextExecution();
+        ClockDebug.log(ClockDebug.TASK_RESTARTED, "Task reiniciada: " + toString());
+    }
+
     public void enable(){
         if(!enabled()){
             enabled = true;
