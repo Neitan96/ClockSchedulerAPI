@@ -63,7 +63,7 @@ public class TaskManager{
     }
 
     public void stop(){
-        ClockDebug.log(ClockDebug.MANAGER_STOPPING, "Parando gerenciador de tasks: " + toString());
+        ClockDebug.log(ClockDebug.MANAGER_STOPPING, "Parando gerenciador de tasks: " + hashCode());
         nextExecution = -1;
         executor.stop();
     }
