@@ -35,8 +35,7 @@ public class TaskCommand extends ClockTask{
         this.command = command;
     }
 
-    @Override
-    public String toString(){
+    public String toStringConfig(){
         return " \"" + alarm.toString() + "\" \"" + command + "\" ";
     }
 
