@@ -56,14 +56,14 @@ public class TaskManager{
     }
 
     public synchronized void removeDisableds(){
-        ClockDebug.log(ClockDebug.MANAGER_REMOVING_DISABLED, "Removendo tasks desativadas: " + toString());
+        ClockDebug.log(ClockDebug.MANAGER_REMOVING_DISABLED, "Removendo tasks desativadas: " + hashCode());
         Set<ClockTask> tasksDisabled = new HashSet<>();
         tasks.stream().filter(ClockTask::enabled).forEach(tasksDisabled::add);
         tasksDisabled.forEach(this::removeTask);
     }
 
     public void stop(){
-        ClockDebug.log(ClockDebug.MANAGER_STOPPING, "Parando gerenciador de tasks: " + toString());
+        ClockDebug.log(ClockDebug.MANAGER_STOPPING, "Parando gerenciador de tasks: " + hashCode());
         nextExecution = -1;
         executor.stop();
     }
