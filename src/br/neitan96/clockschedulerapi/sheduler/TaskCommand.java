@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 public class TaskCommand extends ClockTask{
 
     public static TaskCommand fromString(JavaPlugin plugin, String alarm){
-        Pattern pattern = Pattern.compile("\"([^\"]*)\"[ ]*\"(/)?([^\"]*)\"");
+        Pattern pattern = Pattern.compile("[ ]*\"([^\"]*)\"[ ]*\"(/)?([^\"]*)\"[ ]*");
         Matcher matcher = pattern.matcher(alarm);
 
         if(!matcher.find()) return null;
