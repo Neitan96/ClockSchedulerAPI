@@ -3,6 +3,7 @@ package br.neitan96.clockschedulerapi.sheduler;
 import br.neitan96.clockschedulerapi.ClockSchedulerAPI;
 import br.neitan96.clockschedulerapi.util.ClockCalendar;
 import br.neitan96.clockschedulerapi.util.ClockDebug;
+import br.neitan96.clockschedulerapi.util.DebugFlags;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -57,7 +58,7 @@ public class TaskExecutorDefault implements TaskExecutor, Runnable{
             clockTask.run();
         }catch(Exception e){
             e.printStackTrace();
-            ClockDebug.log(ClockDebug.TASK_ERROR_EXECUTE, "Erro ao executar a task: " + clockTask);
+            ClockDebug.log(DebugFlags.TASK_ERROR_EXECUTE, "Erro ao executar a task: " + clockTask);
         }
         stop();
         onExecuted.run();

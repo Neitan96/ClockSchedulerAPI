@@ -3,6 +3,7 @@ package br.neitan96.clockschedulerapi.sheduler;
 import br.neitan96.clockschedulerapi.alarms.ClockAlarm;
 import br.neitan96.clockschedulerapi.util.ClockCalendar;
 import br.neitan96.clockschedulerapi.util.ClockDebug;
+import br.neitan96.clockschedulerapi.util.DebugFlags;
 import br.neitan96.clockschedulerapi.util.Util;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -48,14 +49,14 @@ public class ClockTask extends ClockScheduler implements Runnable{
     public void reset(){
         nextExecution = -1;
         calculateNextExecution();
-        ClockDebug.log(ClockDebug.TASK_RESTARTED, "Task reiniciada: " + toString());
+        ClockDebug.log(DebugFlags.TASK_RESTARTED, "Task reiniciada: " + toString());
     }
 
     public void enable(){
         if(!enabled()){
             enabled = true;
             calculateNextExecution();
-            ClockDebug.log(ClockDebug.TASK_ENABLED, "Task ativada: " + toString());
+            ClockDebug.log(DebugFlags.TASK_ENABLED, "Task ativada: " + toString());
         }
     }
 
@@ -63,7 +64,7 @@ public class ClockTask extends ClockScheduler implements Runnable{
         if(enabled()){
             enabled = false;
             nextExecution = -1;
-            ClockDebug.log(ClockDebug.TASK_DISABLED, "Task desativada: " + toString());
+            ClockDebug.log(DebugFlags.TASK_DISABLED, "Task desativada: " + toString());
         }
     }
 
@@ -78,7 +79,7 @@ public class ClockTask extends ClockScheduler implements Runnable{
     @Override
     public void run(){
         calculateNextExecution();
-        ClockDebug.log(ClockDebug.TASK_RUNNING, "Executando task: "+toString());
+        ClockDebug.log(DebugFlags.TASK_RUNNING, "Executando task: " + toString());
         runnable.run();
     }
 

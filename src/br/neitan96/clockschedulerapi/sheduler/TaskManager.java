@@ -1,6 +1,7 @@
 package br.neitan96.clockschedulerapi.sheduler;
 
 import br.neitan96.clockschedulerapi.util.ClockDebug;
+import br.neitan96.clockschedulerapi.util.DebugFlags;
 import br.neitan96.clockschedulerapi.util.Util;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -32,20 +33,20 @@ public class TaskManager{
 
     public void addTask(ClockTask task){
         tasks.add(task);
-        ClockDebug.log(ClockDebug.TASK_ADDED, "Task Adicionada: " + task.toString());
+        ClockDebug.log(DebugFlags.TASK_ADDED, "Task Adicionada: " + task.toString());
         start();
     }
 
     public void removeTask(ClockTask task){
         tasks.remove(task);
-        ClockDebug.log(ClockDebug.TASK_REMOVED, "Task removida: " + task.toString());
+        ClockDebug.log(DebugFlags.TASK_REMOVED, "Task removida: " + task.toString());
         start();
     }
 
     public synchronized void removeAll(){
         stop();
         tasks.clear();
-        ClockDebug.log(ClockDebug.TASK_REMOVED, "Todas tasks removidas");
+        ClockDebug.log(DebugFlags.TASK_REMOVED, "Todas tasks removidas");
     }
 
     public synchronized void removeAll(JavaPlugin plugin){
@@ -56,21 +57,21 @@ public class TaskManager{
     }
 
     public synchronized void removeDisableds(){
-        ClockDebug.log(ClockDebug.MANAGER_REMOVING_DISABLED, "Removendo tasks desativadas: " + hashCode());
+        ClockDebug.log(DebugFlags.MANAGER_REMOVING_DISABLED, "Removendo tasks desativadas: " + hashCode());
         Set<ClockTask> tasksDisabled = new HashSet<>();
         tasks.stream().filter(ClockTask::enabled).forEach(tasksDisabled::add);
         tasksDisabled.forEach(this::removeTask);
     }
 
     public void stop(){
-        ClockDebug.log(ClockDebug.MANAGER_STOPPING, "Parando gerenciador de tasks: " + hashCode());
+        ClockDebug.log(DebugFlags.MANAGER_STOPPING, "Parando gerenciador de tasks: " + hashCode());
         nextExecution = -1;
         executor.stop();
     }
 
     public void start(){
         if(nextExecution < 1)
-            ClockDebug.log(ClockDebug.MANAGER_STARTING, "Iniciando gerenciador de tasks");
+            ClockDebug.log(DebugFlags.MANAGER_STARTING, "Iniciando gerenciador de tasks");
 
         ClockTask task = tasks.stream()
                 .filter(ClockTask::enabled).sorted(COMPARATOR).findFirst().orElse(null);
@@ -80,14 +81,14 @@ public class TaskManager{
 
                 executor.executeNext(task);
                 nextExecution = task.getNextExecution();
-                ClockDebug.log(ClockDebug.MANAGER_NEXT_EXECUTION,
+                ClockDebug.log(DebugFlags.MANAGER_NEXT_EXECUTION,
                         "Proxima task a será executada daqui a " +
                                 Util.getIntervalNow(task.getNextExecution())
                 );
 
             }
         }else{
-            ClockDebug.log(ClockDebug.MANAGER_NONE_TASK, "Nenhuma task a ser executada");
+            ClockDebug.log(DebugFlags.MANAGER_NONE_TASK, "Nenhuma task a ser executada");
             stop();
         }
     }

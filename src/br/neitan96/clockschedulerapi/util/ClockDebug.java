@@ -8,23 +8,6 @@ import org.bukkit.ChatColor;
  */
 public class ClockDebug{
 
-    public final static String TAG_ALL = "All";
-    public final static String TAG_OTHERS = "Others";
-
-    public final static String TASK_ADDED = "Task added";
-    public final static String TASK_REMOVED = "Task removed";
-    public final static String TASK_ENABLED = "Task enabled";
-    public final static String TASK_DISABLED = "Task disabled";
-    public final static String TASK_RUNNING = "Task running";
-    public final static String TASK_RESTARTED = "Task Restarted";
-    public final static String TASK_ERROR_EXECUTE = "Task error execute";
-
-    public final static String MANAGER_STARTING = "Manager starting";
-    public final static String MANAGER_STOPPING = "Manager stopping";
-    public final static String MANAGER_NEXT_EXECUTION = "Manager next execution";
-    public final static String MANAGER_NONE_TASK = "Manager none task";
-    public final static String MANAGER_REMOVING_DISABLED = "Manager removing disabled tasks";
-
     public final static ChatColor MSG_COLOR_TAG = ChatColor.DARK_RED;
     public final static ChatColor MSG_COLOR = ChatColor.DARK_GREEN;
     public final static String MSG_TAG = "[ClockDebug] ";
@@ -45,6 +28,10 @@ public class ClockDebug{
             debugTags = tags;
     }
 
+    public static boolean hasTag(DebugFlags tag){
+        return hasTag(tag.flagName);
+    }
+
     public static boolean hasTag(String tag){
         for(String debugTag : debugTags)
             if(debugTag.equalsIgnoreCase(tag))
@@ -52,15 +39,19 @@ public class ClockDebug{
         return false;
     }
 
+    public static void log(DebugFlags tag, String message){
+        log(tag.flagName, message);
+    }
+
     public static void log(String tag, String message){
-        if(hasTag(tag) || hasTag(TAG_ALL))
+        if(hasTag(tag) || hasTag(DebugFlags.ALL))
             Bukkit.getConsoleSender().sendMessage(
                     MSG_COLOR_TAG + MSG_TAG + MSG_COLOR + message
             );
     }
 
     public static void log(String message){
-        log(TAG_OTHERS, message);
+        log(DebugFlags.OTHERS, message);
     }
 
 }
