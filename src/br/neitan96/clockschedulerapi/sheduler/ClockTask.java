@@ -91,7 +91,7 @@ public class ClockTask extends ClockScheduler implements Runnable{
     public String toString(){
         return String.format("{%s %s %b %s}",
                 plugin.getName(), alarm, enabled,
-                nextExecution > 0 ? Util.getIntervalNow(nextExecution) : "-");
+                nextExecution > 0 ? Util.getIntervalNow(nextExecution) : "x");
     }
 
     public String toShortString(){
