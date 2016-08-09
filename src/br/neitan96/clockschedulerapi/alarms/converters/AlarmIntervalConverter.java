@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 public class AlarmIntervalConverter implements ClockAlarmConverter{
 
     private static final Pattern format = Pattern.compile(AlarmInterval.LABEL +
-            "\\|([0-9]{1,2})");
+            "\\|([0-9]+)");
 
     private static final AlarmIntervalConverter ourInstance = new AlarmIntervalConverter();
 
