@@ -31,16 +31,22 @@ public class TaskManager{
         return nextExecution;
     }
 
-    public void addTask(ClockTask task){
-        tasks.add(task);
-        ClockDebug.log(DebugFlags.TASK_ADDED, "Task Adicionada: " + task.toString());
-        start();
+    public boolean addTask(ClockTask task){
+        if(tasks.add(task)){
+            ClockDebug.log(DebugFlags.TASK_ADDED, "Task Adicionada: " + task.toString());
+            start();
+            return true;
+        }
+        return false;
     }
 
-    public void removeTask(ClockTask task){
-        tasks.remove(task);
-        ClockDebug.log(DebugFlags.TASK_REMOVED, "Task removida: " + task.toString());
-        start();
+    public boolean removeTask(ClockTask task){
+        if(tasks.remove(task)){
+            ClockDebug.log(DebugFlags.TASK_REMOVED, "Task removida: " + task.toString());
+            start();
+            return true;
+        }
+        return false;
     }
 
     public synchronized void removeAll(){
