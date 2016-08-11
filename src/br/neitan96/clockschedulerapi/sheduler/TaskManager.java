@@ -12,14 +12,21 @@ import java.util.*;
  */
 public class TaskManager{
 
-    protected static final Comparator<ClockTask> COMPARATOR = (task1, task2) -> {
+    protected static final Comparator<ClockTask> COMPARATOR_DEFAULT = (task1, task2) -> {
+        if(task1 == task2) return 0;
+        if(task1.getNextExecution() > task2.getNextExecution())
+            return -1;
+        return 1;
+    };
+
+    protected static final Comparator<ClockTask> COMPARATOR_GET_FIRST = (task1, task2) -> {
         if(task1 == task2) return 0;
         if(task1.getNextExecution() > task2.getNextExecution())
             return 1;
         return -1;
     };
 
-    protected final TreeSet<ClockTask> tasks = new TreeSet<>(COMPARATOR);
+    protected final TreeSet<ClockTask> tasks = new TreeSet<>(COMPARATOR_DEFAULT);
     protected final TaskExecutorDefault executor = new TaskExecutorDefault(this::start);
 
     protected long nextExecution = -1;
@@ -81,7 +88,7 @@ public class TaskManager{
             ClockDebug.log(DebugFlags.MANAGER_STARTING, "Iniciando gerenciador de tasks");
 
         ClockTask task = tasks.stream()
-                .filter(ClockTask::enabled).sorted(COMPARATOR).findFirst().orElse(null);
+                .filter(ClockTask::enabled).sorted(COMPARATOR_GET_FIRST).findFirst().orElse(null);
 
         if(task != null){
             if(task != executor.getCurrentTask() || task.getNextExecution() != getNextExecution()){
