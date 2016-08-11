@@ -51,7 +51,7 @@ public class TasksConfig{
 
     protected void exportAlarmsToConfig(){
         ArrayList<String> alarmsString = taskCommands.stream()
-                .map(TaskCommand::toString)
+                .map(TaskCommand::toStringConfig)
                 .collect(Collectors.toCollection(ArrayList::new));
         configuration.set(path, alarmsString);
     }
@@ -61,20 +61,24 @@ public class TasksConfig{
     }
 
     public void add(TaskCommand taskCommand){
-        if(taskCommands.contains(taskCommand)){
+        if(!taskCommands.contains(taskCommand)){
             taskCommands.add(taskCommand);
             exportAlarmsToConfig();
         }
     }
 
     public void remove(int index){
-        taskCommands.remove(index);
-        exportAlarmsToConfig();
+        if(index >= 0 && index < taskCommands.size()){
+            taskCommands.remove(index);
+            exportAlarmsToConfig();
+        }
     }
 
     public void remove(TaskCommand taskCommand){
-        taskCommands.remove(taskCommand);
-        exportAlarmsToConfig();
+        if(!taskCommands.contains(taskCommand)){
+            taskCommands.remove(taskCommand);
+            exportAlarmsToConfig();
+        }
     }
 
     public void save() throws IOException{
