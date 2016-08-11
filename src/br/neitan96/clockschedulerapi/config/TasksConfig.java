@@ -75,7 +75,7 @@ public class TasksConfig{
     }
 
     public void remove(TaskCommand taskCommand){
-        if(!taskCommands.contains(taskCommand)){
+        if(taskCommands.contains(taskCommand)){
             taskCommands.remove(taskCommand);
             exportAlarmsToConfig();
         }
