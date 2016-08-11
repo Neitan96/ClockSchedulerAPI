@@ -13,6 +13,7 @@ import java.util.*;
 public class TaskManager{
 
     protected static final Comparator<ClockTask> COMPARATOR = (task1, task2) -> {
+        if(task1 == task2) return 1;
         if(task1.getNextExecution() > task2.getNextExecution())
             return 1;
         return -1;
