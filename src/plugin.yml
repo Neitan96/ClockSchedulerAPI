@@ -1,73 +1,172 @@
 name: 'ClockSchedulerAPI'
-version: 3.3.2
-description: 'Plugin de scheduler por data e hora.'
+version: 4.0
+# Plugin para agendar ações pela data e hora.
+description: 'Plugin to schedule actions by date and time.'
 author: 'Neitan96'
 
 main: 'br.neitan96.clockschedulerapi.ClockSchedulerAPI'
 
 commands:
 
-  clockhoracerta:
-    description: 'Data e hora certa.'
-    permission: 'clockschedulerapi.horacerta'
-    usage: '/clockhoracerta'
+  clockstatus:
+    # Ver status do plugin.
+    aliases: ['cstatus']
+    description: 'View status the plugin.'
+    permission: 'clockschedulerapi.status'
+    permission-message: 'Sorry, your monitor is broken.'
+    usage: '/<command>'
 
-  clockteste:
-    description: 'Testa o ClockSchedulerAPI.'
-    permission: 'clockschedulerapi.teste'
-    usage: '/clockteste [alarme]'
+  clocktime:
+    # Ver a data e hora do plugin.
+    aliases: ['ctime', 'clockhoracerta', 'horacerta', 'relogio', 'hora']
+    description: 'View the date and time of the plugin.'
+    permission: 'clockschedulerapi.time'
+    permission-message: 'Sorry, your clock is broken.'
+    usage: '/<command>'
 
-  clocktempcomando:
-    description: 'Adiciona um comando para executar, esse alarme dura enquanto o servidor estiver ligado.'
-    permission: 'clockschedulerapi.tempcomando'
-    usage: '/clocktempcomando "<alarme>" "<comando>"'
+  clocksettime:
+    # Ajusta a hora do plugin.
 
-  clockpermcomando:
-    description: 'Adiciona um comando para executar, esse alarme é reativado quando o servido liga.'
-    permission: 'clockschedulerapi.permcomando'
-    usage: '/clockpermcomando "<alarme>" "<comando>"'
+    #Danger when using - Perigo ao usar
 
-  clockdesativar:
-    description: 'Desativa todo os alarmes.'
-    permission: 'clockschedulerapi.desativar'
-    usage: '/clockdesativar'
+    # In the first argument, put true will make the plugin recalculate all commandTmpTasks,
+    # if you delay the time commandTmpTasks can be re-executed but if you advance you can skip commandTmpTasks,
+    # put false do all the commandTmpTasks will continue to run the list execution,
+    # if you delay the task will not run until the time reaches the old time,
+    # if you will forward the commandTmpTasks run the entire playlist to the new time instantly.
+    # Note: only valid the currently active commandTmpTasks.
 
-  clockremover:
-    description: 'Remove um comando permanente na proxima inicializacao.'
-    permission: 'clockschedulerapi.remover'
-    usage: '/clockremover <index>'
+    # No primeiro argumento, colocar verdadeiro fará o plugin recalcular todas as tarefas,
+    # se você atrasar a hora tarefas podem ser re-executadas mas se você adiantar poderá pular tarefas,
+    # colocar falso fará todas as tarefas irá continuar a executar a lista execução,
+    # se você atrasar as tarefas não executarão até a hora atingir a antiga hora,
+    # se você adiantar fará as tarefas executar toda a lista de execução até a nova hora instantaneamente.
+    # OBS: valido somente a tarefas atualmente ativas.
+    aliases: ['ajustarhora', 'csettime']
+    description: 'Set the time of the plugin.'
+    permission: 'clockschedulerapi.settime'
+    permission-message: 'Sorry, your clock button is broken.'
+    # Exemplo: /<command> 3d -5h 30m -25 - Aumenta 3 dias, diminui 5 horas, aumenta 30 minutos, diminui 25 segundos.
+    usage: |
+      /<command> <true|false> [[-]xd] [[-]xh] [[-]xm] [[-]xs]
+      Example: /<command> true 3d -5h 30m -25 - Increases 3 days at 5 hours decreases, by 30 minutes, 25 seconds decreases.
 
-  clockcomandos:
-    description: 'Lista de comandos permanentes.'
-    permission: 'clockschedulerapi.comandos'
-    usage: '/clockcomandos'
+  clocksettimezone:
+    # Ajustar fuso horário do plugin.
+    aliases: ['setfusohorario', 'csettimezone']
+    description: 'Adjust the time zone plugin.'
+    permission: 'clockschedulerapi.settimezone'
+    permission-message: 'Sorry, your clock button is broken'
+    usage: '/<command> <timezone>'
 
-  clockdesativarperms:
-    description: 'Desativa alarmes dos comandos permanentes.'
-    permission: 'clockschedulerapi.desativarperms'
-    usage: '/clockdesativarperms'
+  clockdebug:
+    # Define o debug.
+    aliases: ['cdebug']
+    description: 'Sets the debug.'
+    permission: 'clockschedulerapi.debug'
+    permission-message: 'Sorry, your tools are not working.'
+    usage: '/<command> <debug flags>...'
 
-  clockreativarperms:
-    description: 'Reativa alarmes dos comandos permanentes.'
-    permission: 'clockschedulerapi.reativarperms'
-    usage: '/clockreativarperms'
+  clocktest:
+    # Faz um teste no plugin.
+    aliases: ['ctest']
+    description: 'Makes a test in the plugin.'
+    permission: 'clockschedulerapi.test'
+    permission-message: 'Sorry, you lost your test tools.'
+    usage: '/<command> [seconds]'
 
-  clockdesativartemps:
-    description: 'Desativa alarmes dos comandos temporarios.'
-    permission: 'clockschedulerapi.desativartemps'
-    usage: '/clockdesativartemps'
+  clockteststress:
+    # Faz um teste de estresse no plugin.
+    aliases: ['cteststress']
+    description: 'Makes a stress test in the plugin.'
+    permission: 'clockschedulerapi.teststress'
+    permission-message: 'Sorry, you lost your test tools.'
+    usage: '/<command> [amount]'
 
-  clockdebuglista:
-    description: 'Mostra todo alarmes ativados.'
-    permission: 'clockschedulerapi.debuglista'
-    usage: '/clockdebuglista'
+  clocktmptasks:
+    # Ver as tarefas temporárias.
+    aliases: ['ctmptasks']
+    description: 'View temporary jobs.'
+    permission: 'clockschedulerapi.tmptasks'
+    permission-message: 'Sorry, you lost?'
+    usage: '/<command>'
 
-  clocklimparcache:
-    description: 'Limpa o cache dos alarmes desativados.'
-    permission: 'clockschedulerapi.limparcache'
-    usage: '/clocklimparcache'
+  clocktmptasksadd:
+    # Adiciona uma tarefa temporária.
+    aliases: ['ctmptasksadd']
+    description: 'Add a temporary task.'
+    permission: 'clockschedulerapi.tmptasksadd'
+    permission-message: 'Sorry, you lost?'
+    usage: '/<command> "<alarm>" "<command to execute>"'
+
+  clocktmptasksremove:
+    # Remove uma tarefa temporária.
+    aliases: ['ctmptasksremove']
+    description: 'Remove a temporary task.'
+    permission: 'clockschedulerapi.tmptasksremove'
+    permission-message: 'Sorry, this part can not be removed.'
+    usage: '/<command> <task index>'
+
+  clocktasks:
+    # Ver todas tarefas incluindo as temporárias e outras.
+    aliases: ['ctasks']
+    description: 'View all tasks including temporary and other.'
+    permission: 'clockschedulerapi.tasks'
+    permission-message: 'Sorry, you forgot all tasks?'
+    usage: '/<command>'
+
+  clocktasksadd:
+    # Adiciona uma tarefa.
+    aliases: ['ctasksadd']
+    description: 'Add a task.'
+    permission: 'clockschedulerapi.tasksadd'
+    permission-message: 'Sorry, the control panel is not working.'
+    usage: '/<command> "<alarm>" "<command to execute>"'
+
+  clocktasksremove:
+    # Remove uma tarefa.
+    # Caso a tarefa estiver na config será removida da config, caso não será apenas desativada.
+    # If the task is in the config will be removed from the config if will not only be disabled.
+    aliases: ['ctasksremove']
+    description: 'Remove a task.'
+    permission: 'clockschedulerapi.tasksremove'
+    permission-message: 'Sorry, this part can not be removed.'
+    usage: '/<command> <task index>'
+
+  clocktasksdisable:
+    # Desativa uma tarefa.
+    aliases: ['ctasksdisable']
+    description: 'Disable task.'
+    permission: 'clockschedulerapi.tasksdisable'
+    permission-message: 'Sorry, the power button is broken.'
+    usage: '/<command> <index>'
+
+  clocktasksenable:
+    # Ativa uma tarefa.
+    aliases: ['ctasksenable']
+    description: 'Enable task.'
+    permission: 'clockschedulerapi.tasksenable'
+    permission-message: 'Sorry, the power button is broken.'
+    usage: '/<command> <index>'
+
+  clocktasksdisableall:
+    # Desativa todas tarefa.
+    aliases: ['ctasksdisableall']
+    description: 'Disable all task.'
+    permission: 'clockschedulerapi.tasksdisableall'
+    permission-message: 'Sorry, the power button is broken.'
+    usage: '/<command> [plugin]'
+
+  clocktasksenablell:
+    # Ativa todas desativadas pelo comando /clocktasksdisableall tarefa.
+    aliases: ['ctasksenableall']
+    description: 'Enables all task disabled by /clocktasksdisableall.'
+    permission: 'clockschedulerapi.tasksenableall'
+    permission-message: 'Sorry, the power button is broken.'
+    usage: '/<command> [plugin]'
 
   clockreload:
-    description: 'Recarrega o plugin.'
+    # Reinicia o plugin
+    description: 'Reload the plugin.'
     permission: 'clockschedulerapi.reload'
-    usage: '/clockreload'
+    usage: '/<command>'
