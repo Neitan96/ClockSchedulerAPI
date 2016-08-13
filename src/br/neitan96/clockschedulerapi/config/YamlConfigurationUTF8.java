@@ -26,7 +26,8 @@ public class YamlConfigurationUTF8 extends YamlConfiguration{
      */
     @Override
     public void load(File file) throws IOException, InvalidConfigurationException{
-        load(new FileInputStream(file));
+        if(file.exists())
+            load(new FileInputStream(file));
     }
 
     /**
@@ -70,6 +71,7 @@ public class YamlConfigurationUTF8 extends YamlConfiguration{
         Validate.notNull(file, "Arquivo não pode ser nulo!");
 
         Files.createParentDirs(file);
+        if(!file.exists()) file.createNewFile();
         FileOutputStream stream = new FileOutputStream(file);
 
         save(stream);
