@@ -83,9 +83,25 @@ public class TaskManager{
         executor.stop();
     }
 
+    public boolean started(){
+        return executor.running();
+    }
+
+    public ClockTask getNextTask(){
+        return executor.getCurrentTask();
+
+    }
+
     public void start(){
+        start(false);
+    }
+
+    public void start(boolean reload){
         if(nextExecution < 1)
             ClockDebug.log(DebugFlags.MANAGER_STARTING, "Iniciando gerenciador de tasks");
+
+        if(reload)
+            tasks.forEach(ClockTask::reset);
 
         ClockTask task = tasks.stream()
                 .filter(ClockTask::enabled).sorted(COMPARATOR_GET_FIRST).findFirst().orElse(null);
