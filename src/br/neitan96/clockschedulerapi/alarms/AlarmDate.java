@@ -28,9 +28,9 @@ public class AlarmDate implements ClockAlarm{
     }
 
     /**
-     * @param month Mês entre 0 e 11
-     * @param day Dia entre 1 e 31(podendo ser menos depedendo do mês)
-     * @param hour Hora entre 0 e 23
+     * @param month  Mês entre 0 e 11
+     * @param day    Dia entre 1 e 31(podendo ser menos depedendo do mês)
+     * @param hour   Hora entre 0 e 23
      * @param minute Minutos entre 0 e 59
      */
     public AlarmDate(int year, int month, int day, int hour, int minute){

@@ -104,7 +104,9 @@ public class TaskManager{
             tasks.forEach(ClockTask::reset);
 
         ClockTask task = tasks.stream()
-                .filter(ClockTask::enabled).sorted(COMPARATOR_GET_FIRST).findFirst().orElse(null);
+                .filter(ClockTask::enabled)
+                .sorted(COMPARATOR_GET_FIRST)
+                .findFirst().orElse(null);
 
         if(task != null){
             if(task != executor.getCurrentTask() || task.getNextExecution() != getNextExecution()){

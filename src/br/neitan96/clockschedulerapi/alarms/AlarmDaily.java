@@ -23,7 +23,7 @@ public class AlarmDaily implements ClockAlarm{
     }
 
     /**
-     * @param hour Hora entre 0 e 23
+     * @param hour   Hora entre 0 e 23
      * @param minute Minutos entre 0 e 59
      */
     public AlarmDaily(int hour, int minute){

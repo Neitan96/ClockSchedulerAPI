@@ -27,8 +27,8 @@ public class AlarmWeekly implements ClockAlarm{
 
     /**
      * @param weekDay Numero do dia semana entre 1-7, sendo 1 domingo e 7 sábado
-     * @param hour Hora entre 0 e 23
-     * @param minute Minutos entre 0 e 59
+     * @param hour    Hora entre 0 e 23
+     * @param minute  Minutos entre 0 e 59
      */
     public AlarmWeekly(int weekDay, int hour, int minute){
         this(weekDay, hour, minute, 0);
@@ -53,7 +53,7 @@ public class AlarmWeekly implements ClockAlarm{
     }
 
     @Override
-    public String toString() {
+    public String toString(){
         return String.format("%s|%s %02d:%02d:%02d", LABEL, Util.getWeek(weekDay), hour, minute, second);
     }
 }

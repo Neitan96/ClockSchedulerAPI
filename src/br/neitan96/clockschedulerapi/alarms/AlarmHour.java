@@ -42,7 +42,7 @@ public class AlarmHour implements ClockAlarm{
     }
 
     @Override
-    public String toString() {
+    public String toString(){
         return String.format("%s|%02d:%02d", LABEL, minute, second);
     }
 }

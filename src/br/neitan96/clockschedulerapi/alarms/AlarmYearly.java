@@ -28,9 +28,9 @@ public class AlarmYearly implements ClockAlarm{
     }
 
     /**
-     * @param month Mês entre 0 e 11
-     * @param day Dia entre 1 e 31(podendo ser menos depedendo do mês)
-     * @param hour Hora entre 0 e 23
+     * @param month  Mês entre 0 e 11
+     * @param day    Dia entre 1 e 31(podendo ser menos depedendo do mês)
+     * @param hour   Hora entre 0 e 23
      * @param minute Minutos entre 0 e 59
      */
     public AlarmYearly(int day, int month, int hour, int minute){
@@ -58,7 +58,7 @@ public class AlarmYearly implements ClockAlarm{
     }
 
     @Override
-    public String toString() {
+    public String toString(){
         return String.format("%s|%02d %s %02d:%02d:%02d",
                 LABEL, day, Util.getMonth(month), hour, minute, second);
     }

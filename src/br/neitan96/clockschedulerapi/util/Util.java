@@ -3,10 +3,10 @@ package br.neitan96.clockschedulerapi.util;
 /**
  * Created by Neitan96 on 07/09/15.
  */
-public class Util {
+public class Util{
 
     public static int getWeek(String week){
-        switch (week.toLowerCase()){
+        switch(week.toLowerCase()){
 
             case "domingo":
                 return 1;
@@ -51,7 +51,7 @@ public class Util {
     }
 
     public static String getWeek(int week){
-        switch (week) {
+        switch(week){
 
             case 1:
                 return "Domingo";
@@ -90,7 +90,7 @@ public class Util {
         try{
             hour = Integer.parseInt(args[0]);
             minute = Integer.parseInt(args[1]);
-        }catch (Exception e){
+        }catch(Exception e){
             return null;
         }
 
@@ -106,7 +106,7 @@ public class Util {
 
 
     public static int getMonth(String month){
-        switch (month.toLowerCase()){
+        switch(month.toLowerCase()){
             case "janeiro":
                 return 0;
             case "fervereiro":
@@ -137,7 +137,7 @@ public class Util {
     }
 
     public static String getMonth(int month){
-        switch (month){
+        switch(month){
             case 0:
                 return "Janeiro";
             case 1:
@@ -181,14 +181,14 @@ public class Util {
             day = Integer.parseInt(args[0]);
             month = Integer.parseInt(args[1]);
             year = Integer.parseInt(args[2]);
-        }catch (Exception e){
+        }catch(Exception e){
             return null;
         }
 
         if(day < 1 || day > 31 || month < 1 || month > 12 || year < 1000 || year > 9999)
             return null;
 
-        return new int[]{day, month-1, year};
+        return new int[]{day, month - 1, year};
     }
 
     public static String getDate(int day, int month, int year){

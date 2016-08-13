@@ -25,8 +25,8 @@ public class AlarmMonthly implements ClockAlarm{
     }
 
     /**
-     * @param day Dia entre 1 e 31(podendo ser menos depedendo do mês)
-     * @param hour Hora entre 0 e 23
+     * @param day    Dia entre 1 e 31(podendo ser menos depedendo do mês)
+     * @param hour   Hora entre 0 e 23
      * @param minute Minutos entre 0 e 59
      */
     public AlarmMonthly(int day, int hour, int minute){
