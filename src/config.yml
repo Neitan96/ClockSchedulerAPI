@@ -1,4 +1,3 @@
-
 FusoHorario:
   TimeZone: 'America/Sao_Paulo'
   Ajuste:
@@ -7,8 +6,18 @@ FusoHorario:
     Minutos: 0
     Segundos: 0
 
-Performance:
-  TempoReal: false
-  IntervaloDespertador: 50
-
-Debug: 1
+Debug:
+ - 'All'
+ - 'Others'
+ - 'Task added'
+ - 'Task removed'
+ - 'Task enabled'
+ - 'Task disabled'
+ - 'Task Restarted'
+ - 'Task running'
+ - 'Task error execute'
+ - 'Manager starting'
+ - 'Manager stopping'
+ - 'Manager next execution'
+ - 'Manager none task'
+ - 'Manager removing disabled commandTmpTasks'
