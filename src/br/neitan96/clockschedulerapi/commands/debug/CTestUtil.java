@@ -109,7 +109,7 @@ public class CTestUtil{
         String alarmStr = alarm.toString();
         String nowStr = now.toString(true);
         String expectedStr = expected.toString(true);
-        long diff = Math.abs(now.getTimeInMillis() - expected.getTimeInMillis());
+        long diff = now.getTimeInMillis() - expected.getTimeInMillis();
         boolean approved = expectedStr.equals(nowStr);
 
         String date = now.getDay() + "/" + now.getMonth() + "/" + now.getYear();
