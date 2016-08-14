@@ -20,7 +20,6 @@ public class TaskManager{
     };
 
     protected static final Comparator<ClockTask> COMPARATOR_GET_FIRST = (task1, task2) -> {
-        if(task1 == task2) return 0;
         if(task1.getNextExecution() > task2.getNextExecution())
             return 1;
         return -1;
