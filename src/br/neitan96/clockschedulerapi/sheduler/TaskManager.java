@@ -19,12 +19,6 @@ public class TaskManager{
         return 1;
     };
 
-    protected static final Comparator<ClockTask> COMPARATOR_GET_FIRST = (task1, task2) -> {
-        if(task1.getNextExecution() > task2.getNextExecution())
-            return 1;
-        return -1;
-    };
-
     protected final TreeSet<ClockTask> tasks = new TreeSet<>(COMPARATOR_DEFAULT);
     protected final TaskExecutorDefault executor = new TaskExecutorDefault(this::start);
 
@@ -95,6 +89,16 @@ public class TaskManager{
         start(false);
     }
 
+    private synchronized ClockTask findfirst(){
+        ClockTask task = null;
+        for(ClockTask clockTask : tasks){
+            if(clockTask.enabled() &&
+                    (task == null || clockTask.getNextExecution() < task.getNextExecution()))
+                task = clockTask;
+        }
+        return task;
+    }
+
     public void start(boolean reload){
         if(nextExecution < 1)
             ClockDebug.log(DebugFlags.MANAGER_STARTING, "Iniciando gerenciador de tasks");
@@ -102,10 +106,7 @@ public class TaskManager{
         if(reload)
             tasks.forEach(ClockTask::reset);
 
-        ClockTask task = tasks.stream()
-                .filter(ClockTask::enabled)
-                .sorted(COMPARATOR_GET_FIRST)
-                .findFirst().orElse(null);
+        ClockTask task = findfirst();
 
         if(task != null){
             if(task != executor.getCurrentTask() || task.getNextExecution() != getNextExecution()){
