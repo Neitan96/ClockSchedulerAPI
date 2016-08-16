@@ -95,7 +95,7 @@ public class AlarmTest{
                     if(task.get() != null){
                         ClockCalendar expected = new ClockCalendar(task.get().getLastExecution());
                         saveResult(pathToSave, task.get().alarm, expected);
-                        ClockSchedulerAPI.log("Test saved!");
+                        task.get().disable();
                     }
                 },
                 alarm
