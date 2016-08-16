@@ -59,59 +59,56 @@ public class CTest implements CommandExecutor{
             int week = calendar.getWeek();
             int weekCount = calendar.get(Calendar.DAY_OF_WEEK_IN_MONTH);
 
+            String pathToSave = String.format("%d-%02d-%02d-%02d:%02d:%02d",
+                    year, month, day, hour, minute, second);
+
             ClockSchedulerAPI plugin = ClockSchedulerAPI.getInstance();
             tasks = new ClockTask[8];
             int i = 0;
 
             AlarmHour alarmHour = new AlarmHour(minute, second);
-            tasks[i++] = ClockSchedulerAPI.addTask(
-                    alarmHour, CTestUtil.getRunTask(alarmHour, calendar), plugin
+            ClockSchedulerAPI.addTask(
+                    tasks[i++] = new AlarmTest(alarmHour, pathToSave).getTask()
             );
 
             AlarmDaily alarmDaily = new AlarmDaily(hour, minute, second);
-            tasks[i++] = ClockSchedulerAPI.addTask(
-                    alarmDaily, CTestUtil.getRunTask(alarmDaily, calendar), plugin
+            ClockSchedulerAPI.addTask(
+                    tasks[i++] = new AlarmTest(alarmDaily, pathToSave).getTask()
             );
 
             AlarmWeekly alarmWeekly = new AlarmWeekly(week, hour, minute, second);
-            tasks[i++] = ClockSchedulerAPI.addTask(
-                    alarmWeekly, CTestUtil.getRunTask(alarmWeekly, calendar), plugin
+            ClockSchedulerAPI.addTask(
+                    tasks[i++] = new AlarmTest(alarmWeekly, pathToSave).getTask()
             );
 
             AlarmMonthly alarmMonthly = new AlarmMonthly(day, hour, minute, second);
-            tasks[i++] = ClockSchedulerAPI.addTask(
-                    alarmMonthly, CTestUtil.getRunTask(alarmMonthly, calendar), plugin
+            ClockSchedulerAPI.addTask(
+                    tasks[i++] = new AlarmTest(alarmMonthly, pathToSave).getTask()
             );
 
             AlarmMonthlyWeek alarmMonthly1 = new AlarmMonthlyWeek(weekCount, week, hour, minute, second);
-            tasks[i++] = ClockSchedulerAPI.addTask(
-                    alarmMonthly1, CTestUtil.getRunTask(alarmMonthly1, calendar), plugin
+            ClockSchedulerAPI.addTask(
+                    tasks[i++] = new AlarmTest(alarmMonthly1, pathToSave).getTask()
             );
 
             AlarmYearly alarmYearly = new AlarmYearly(day, month, hour, minute, second);
-            tasks[i++] = ClockSchedulerAPI.addTask(
-                    alarmYearly, CTestUtil.getRunTask(alarmYearly, calendar), plugin
+            ClockSchedulerAPI.addTask(
+                    tasks[i++] = new AlarmTest(alarmYearly, pathToSave).getTask()
             );
 
             AlarmDate alarmDate = new AlarmDate(year, month, day, hour, minute, second);
-            tasks[i++] = ClockSchedulerAPI.addTask(
-                    alarmDate, CTestUtil.getRunTask(alarmDate, calendar), plugin
+            ClockSchedulerAPI.addTask(
+                    tasks[i++] = new AlarmTest(alarmDate, pathToSave).getTask()
             );
 
             AlarmInterval alarmInterval = new AlarmInterval(10);
-            tasks[i] = ClockSchedulerAPI.addTask(
-                    alarmInterval, CTestUtil.getRunTask(alarmInterval, calendar), plugin
+            ClockSchedulerAPI.addTask(
+                    tasks[i] = new AlarmTest(alarmInterval, pathToSave).getTask()
             );
 
             ClockSchedulerAPI.log(commandSender, "Tasks will be performed at " + calendar.toShortString(true));
         }
         return true;
-    }
-
-    private static Runnable getRunTask(final ClockAlarm alarm, ClockCalendar clockCalendar){
-        return () -> ClockSchedulerAPI.log(
-                "The testing task " + alarm.toString() + " it was to awaken: " + clockCalendar.toString(true)
-        );
     }
 
 }

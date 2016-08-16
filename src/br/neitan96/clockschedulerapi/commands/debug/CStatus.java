@@ -19,7 +19,7 @@ public class CStatus implements CommandExecutor{
         TaskManager taskManager = ClockSchedulerAPI.getTaskManager();
         Set<ClockTask> tasks = taskManager.getTasks();
 
-        ClockSchedulerAPI.log(commandSender, "Gerenciador: " + taskManager.started());
+        ClockSchedulerAPI.log(commandSender, "Gerenciador: " + taskManager.running());
 
         ClockSchedulerAPI.log(commandSender, "Tasks total: " + tasks.size());
         ClockSchedulerAPI.log(commandSender, "Tasks ativas: " + tasks.stream().
