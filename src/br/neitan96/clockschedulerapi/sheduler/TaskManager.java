@@ -1,5 +1,6 @@
 package br.neitan96.clockschedulerapi.sheduler;
 
+import br.neitan96.clockschedulerapi.util.ClockCalendar;
 import br.neitan96.clockschedulerapi.util.ClockDebug;
 import br.neitan96.clockschedulerapi.util.DebugFlags;
 import br.neitan96.clockschedulerapi.util.Util;
@@ -93,10 +94,11 @@ public class TaskManager{
     private void setNextTask(ClockTask task){
         if(task != executor.getCurrentTask()){
             executor.executeNext(task);
-            ClockDebug.log(DebugFlags.MANAGER_NEXT_EXECUTION,
-                    "Proxima task a será executada daqui a " +
-                            Util.getIntervalNow(task.getNextExecution())
-            );
+            if(ClockCalendar.getClockMilisecond() - task.getNextExecution() > 60 * 1000)
+                ClockDebug.log(DebugFlags.MANAGER_NEXT_EXECUTION,
+                        "Proxima task a será executada daqui a " +
+                                Util.getIntervalNow(task.getNextExecution())
+                );
         }
     }
 
