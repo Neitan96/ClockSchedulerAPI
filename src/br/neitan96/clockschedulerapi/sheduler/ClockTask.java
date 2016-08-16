@@ -86,7 +86,10 @@ public class ClockTask extends ClockScheduler implements Runnable{
     }
 
     public int compareTo(ClockTask o){
-        return Float.compare(getNextExecution(), o.getNextExecution());
+        if(this == o) return 0;
+        if(getNextExecution() < o.getNextExecution())
+            return -1;
+        return 1;
     }
 
     @Override
