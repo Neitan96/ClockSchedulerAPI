@@ -12,14 +12,14 @@ import java.util.*;
  */
 public class TaskManager{
 
-    protected static final Comparator<ClockTask> COMPARATOR_DEFAULT = (task1, task2) -> {
+    protected static final Comparator<ClockTask> COMPARATOR = (task1, task2) -> {
         if(task1 == task2) return 0;
         if(task1.getNextExecution() > task2.getNextExecution())
             return -1;
         return 1;
     };
 
-    protected final TreeSet<ClockTask> tasks = new TreeSet<>(COMPARATOR_DEFAULT);
+    protected final TreeSet<ClockTask> tasks = new TreeSet<>(COMPARATOR);
     protected final TaskExecutorDefault executor = new TaskExecutorDefault(this::start);
 
     protected long nextExecution = -1;
@@ -28,14 +28,24 @@ public class TaskManager{
         return Collections.unmodifiableSet(tasks);
     }
 
+    public ClockTask getNextTask(){
+        return executor.getCurrentTask();
+    }
+
     public long getNextExecution(){
         return nextExecution;
     }
 
+    public boolean started(){
+        return executor.running();
+    }
+
+
     public boolean addTask(ClockTask task){
         if(tasks.add(task)){
             ClockDebug.log(DebugFlags.TASK_ADDED, "Task Adicionada: " + task.toString());
-            start();
+            if(task.getNextExecution() < getNextExecution())
+                setNextTask(task);
             return true;
         }
         return false;
@@ -44,7 +54,8 @@ public class TaskManager{
     public boolean removeTask(ClockTask task){
         if(tasks.remove(task)){
             ClockDebug.log(DebugFlags.TASK_REMOVED, "Task removida: " + task.toString());
-            start();
+            if(task == getNextTask())
+                start();
             return true;
         }
         return false;
@@ -57,37 +68,22 @@ public class TaskManager{
     }
 
     public synchronized void removeAll(JavaPlugin plugin){
+        HashSet<ClockTask> tasks = new HashSet<>();
         this.tasks.stream()
                 .filter(s -> s.plugin == plugin)
-                .forEach(this::removeTask);
-        start();
+                .forEach(tasks::add);
+        tasks.forEach(this::removeTask);
     }
 
     public synchronized void removeDisableds(){
         ClockDebug.log(DebugFlags.MANAGER_REMOVING_DISABLED, "Removendo tasks desativadas: " + hashCode());
         Set<ClockTask> tasksDisabled = new HashSet<>();
-        tasks.stream().filter(ClockTask::enabled).forEach(tasksDisabled::add);
+        tasks.stream()
+                .filter(t -> !t.enabled())
+                .forEach(tasksDisabled::add);
         tasksDisabled.forEach(this::removeTask);
     }
 
-    public void stop(){
-        ClockDebug.log(DebugFlags.MANAGER_STOPPING, "Parando gerenciador de tasks: " + hashCode());
-        nextExecution = -1;
-        executor.stop();
-    }
-
-    public boolean started(){
-        return executor.running();
-    }
-
-    public ClockTask getNextTask(){
-        return executor.getCurrentTask();
-
-    }
-
-    public void start(){
-        start(false);
-    }
 
     private synchronized ClockTask findfirst(){
         ClockTask task = null;
@@ -99,26 +95,32 @@ public class TaskManager{
         return task;
     }
 
-    public void start(boolean reload){
+    private void setNextTask(ClockTask task){
+        if(task != executor.getCurrentTask()){
+            executor.executeNext(task);
+            nextExecution = task.getNextExecution();
+            ClockDebug.log(DebugFlags.MANAGER_NEXT_EXECUTION,
+                    "Proxima task a será executada daqui a " +
+                            Util.getIntervalNow(task.getNextExecution())
+            );
+        }
+    }
+
+    public void stop(){
+        ClockDebug.log(DebugFlags.MANAGER_STOPPING, "Parando gerenciador de tasks: " + hashCode());
+        nextExecution = -1;
+        executor.stop();
+    }
+
+    public void start(){
         if(nextExecution < 1)
             ClockDebug.log(DebugFlags.MANAGER_STARTING, "Iniciando gerenciador de tasks");
-
-        if(reload)
-            tasks.forEach(ClockTask::reset);
 
         ClockTask task = findfirst();
 
         if(task != null){
-            if(task != executor.getCurrentTask() || task.getNextExecution() != getNextExecution()){
-
-                executor.executeNext(task);
-                nextExecution = task.getNextExecution();
-                ClockDebug.log(DebugFlags.MANAGER_NEXT_EXECUTION,
-                        "Proxima task a será executada daqui a " +
-                                Util.getIntervalNow(task.getNextExecution())
-                );
-
-            }
+            if(task.getNextExecution() < getNextExecution())
+                setNextTask(task);
         }else{
             ClockDebug.log(DebugFlags.MANAGER_NONE_TASK, "Nenhuma task a ser executada");
             stop();
