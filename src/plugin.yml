@@ -81,7 +81,7 @@ commands:
     description: 'Makes a stress test in the plugin.'
     permission: 'clockschedulerapi.teststress'
     permission-message: 'Sorry, you lost your test tools.'
-    usage: '/<command> [amount]'
+    usage: '/<command> [amount] [max time]'
 
   clocktmptasks:
     # Ver as tarefas temporárias.

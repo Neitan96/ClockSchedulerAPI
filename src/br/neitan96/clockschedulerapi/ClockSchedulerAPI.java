@@ -3,10 +3,7 @@ package br.neitan96.clockschedulerapi;
 import br.neitan96.clockschedulerapi.alarms.ClockAlarm;
 import br.neitan96.clockschedulerapi.alarms.converters.AlarmConvetors;
 import br.neitan96.clockschedulerapi.commands.CReload;
-import br.neitan96.clockschedulerapi.commands.debug.CDebug;
-import br.neitan96.clockschedulerapi.commands.debug.CStatus;
-import br.neitan96.clockschedulerapi.commands.debug.CTest;
-import br.neitan96.clockschedulerapi.commands.debug.CTestStress;
+import br.neitan96.clockschedulerapi.commands.debug.*;
 import br.neitan96.clockschedulerapi.commands.tasks.*;
 import br.neitan96.clockschedulerapi.commands.time.CSetTime;
 import br.neitan96.clockschedulerapi.commands.time.CSetTimezone;
@@ -52,6 +49,8 @@ public class ClockSchedulerAPI extends JavaPlugin{
 
         clockSchedulerAPI = this;
         taskManager = new TaskManager();
+        taskManager.start();
+        AlarmTest.setFileTest(new File(getDataFolder(), "Tests.yml"));
 
         saveIfNotExists("comandos.yml");
         saveIfNotExists("exemplos.yml");
