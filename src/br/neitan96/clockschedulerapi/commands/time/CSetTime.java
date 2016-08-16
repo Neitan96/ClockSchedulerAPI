@@ -1,6 +1,7 @@
 package br.neitan96.clockschedulerapi.commands.time;
 
 import br.neitan96.clockschedulerapi.ClockSchedulerAPI;
+import br.neitan96.clockschedulerapi.sheduler.ClockTask;
 import br.neitan96.clockschedulerapi.sheduler.TaskManager;
 import br.neitan96.clockschedulerapi.util.ClockCalendar;
 import org.bukkit.command.Command;
@@ -103,7 +104,8 @@ public class CSetTime implements CommandExecutor{
 
         if(strings[0].equalsIgnoreCase("true")){
             TaskManager manager = ClockSchedulerAPI.getTaskManager();
-            manager.start(true);
+            manager.getTasks().forEach(ClockTask::reset);
+            manager.start();
             ClockSchedulerAPI.log(commandSender, "Restarted tasks");
         }
 
