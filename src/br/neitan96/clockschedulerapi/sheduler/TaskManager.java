@@ -5,24 +5,18 @@ import br.neitan96.clockschedulerapi.util.DebugFlags;
 import br.neitan96.clockschedulerapi.util.Util;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Neitan96 on 25/07/2016.
  */
 public class TaskManager{
 
-    protected static final Comparator<ClockTask> COMPARATOR = (task1, task2) -> {
-        if(task1 == task2) return 0;
-        if(task1.getNextExecution() > task2.getNextExecution())
-            return -1;
-        return 1;
-    };
-
-    protected final TreeSet<ClockTask> tasks = new TreeSet<>(COMPARATOR);
+    protected final Set<ClockTask> tasks = new HashSet<>();
     protected final TaskExecutorDefault executor = new TaskExecutorDefault(this::start);
 
-    protected long nextExecution = -1;
     protected boolean enabled = false;
 
     public Set<ClockTask> getTasks(){
@@ -34,18 +28,18 @@ public class TaskManager{
     }
 
     public long getNextExecution(){
-        return nextExecution;
+        return getNextTask() != null ? getNextTask().getNextExecution() : -1;
     }
 
     public boolean running(){
-        return enabled && nextExecution >= 0;
+        return enabled && getNextExecution() >= 0;
     }
 
 
     public boolean addTask(ClockTask task){
         if(tasks.add(task)){
             ClockDebug.log(DebugFlags.TASK_ADDED, "Task Adicionada: " + task.toString());
-            if(enabled && (nextExecution < 0 || task.getNextExecution() < getNextExecution()))
+            if(enabled && (getNextTask() == null || task.getNextExecution() < getNextExecution()))
                 setNextTask(task);
             return true;
         }
@@ -55,7 +49,7 @@ public class TaskManager{
     public boolean removeTask(ClockTask task){
         if(tasks.remove(task)){
             ClockDebug.log(DebugFlags.TASK_REMOVED, "Task removida: " + task.toString());
-            if(running() && task == getNextTask())
+            if(enabled && task == getNextTask())
                 start();
             return true;
         }
@@ -99,7 +93,6 @@ public class TaskManager{
     private void setNextTask(ClockTask task){
         if(task != executor.getCurrentTask()){
             executor.executeNext(task);
-            nextExecution = task.getNextExecution();
             ClockDebug.log(DebugFlags.MANAGER_NEXT_EXECUTION,
                     "Proxima task a será executada daqui a " +
                             Util.getIntervalNow(task.getNextExecution())
@@ -110,23 +103,22 @@ public class TaskManager{
     public synchronized void stop(){
         ClockDebug.log(DebugFlags.MANAGER_STOPPING, "Parando gerenciador de tasks: " + hashCode());
         executor.stop();
-        nextExecution = -1;
         enabled = false;
     }
 
     public synchronized void start(){
-        if(nextExecution < 1){
+        if(!enabled){
             ClockDebug.log(DebugFlags.MANAGER_STARTING, "Iniciando gerenciador de tasks");
+            enabled = true;
             tasks.forEach(ClockTask::reset);
         }
 
         ClockTask task = findfirst();
 
         if(task != null){
-            if(task.getNextExecution() < getNextExecution())
+            if(getNextTask() == null || task.getNextExecution() < getNextExecution())
                 setNextTask(task);
         }else{
-            nextExecution = -1;
             ClockDebug.log(DebugFlags.MANAGER_NONE_TASK, "Nenhuma task a ser executada");
         }
     }
