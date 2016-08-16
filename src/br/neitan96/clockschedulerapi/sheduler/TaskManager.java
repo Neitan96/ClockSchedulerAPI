@@ -23,6 +23,7 @@ public class TaskManager{
     protected final TaskExecutorDefault executor = new TaskExecutorDefault(this::start);
 
     protected long nextExecution = -1;
+    protected boolean enabled = false;
 
     public Set<ClockTask> getTasks(){
         return Collections.unmodifiableSet(tasks);
@@ -36,15 +37,15 @@ public class TaskManager{
         return nextExecution;
     }
 
-    public boolean started(){
-        return executor.running();
+    public boolean running(){
+        return enabled && nextExecution >= 0;
     }
 
 
     public boolean addTask(ClockTask task){
         if(tasks.add(task)){
             ClockDebug.log(DebugFlags.TASK_ADDED, "Task Adicionada: " + task.toString());
-            if(task.getNextExecution() < getNextExecution())
+            if(enabled && (nextExecution < 0 || task.getNextExecution() < getNextExecution()))
                 setNextTask(task);
             return true;
         }
@@ -54,7 +55,7 @@ public class TaskManager{
     public boolean removeTask(ClockTask task){
         if(tasks.remove(task)){
             ClockDebug.log(DebugFlags.TASK_REMOVED, "Task removida: " + task.toString());
-            if(task == getNextTask())
+            if(running() && task == getNextTask())
                 start();
             return true;
         }
@@ -110,6 +111,7 @@ public class TaskManager{
         ClockDebug.log(DebugFlags.MANAGER_STOPPING, "Parando gerenciador de tasks: " + hashCode());
         executor.stop();
         nextExecution = -1;
+        enabled = false;
     }
 
     public synchronized void start(){
@@ -124,8 +126,8 @@ public class TaskManager{
             if(task.getNextExecution() < getNextExecution())
                 setNextTask(task);
         }else{
+            nextExecution = -1;
             ClockDebug.log(DebugFlags.MANAGER_NONE_TASK, "Nenhuma task a ser executada");
-            stop();
         }
     }
 
