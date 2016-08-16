@@ -106,15 +106,17 @@ public class TaskManager{
         }
     }
 
-    public void stop(){
+    public synchronized void stop(){
         ClockDebug.log(DebugFlags.MANAGER_STOPPING, "Parando gerenciador de tasks: " + hashCode());
-        nextExecution = -1;
         executor.stop();
+        nextExecution = -1;
     }
 
-    public void start(){
-        if(nextExecution < 1)
+    public synchronized void start(){
+        if(nextExecution < 1){
             ClockDebug.log(DebugFlags.MANAGER_STARTING, "Iniciando gerenciador de tasks");
+            tasks.forEach(ClockTask::reset);
+        }
 
         ClockTask task = findfirst();
 
