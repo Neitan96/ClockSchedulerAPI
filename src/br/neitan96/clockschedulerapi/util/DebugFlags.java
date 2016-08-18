@@ -10,6 +10,7 @@ public enum DebugFlags{
 
     TASK_ADDED("Task added"),
     TASK_REMOVED("Task removed"),
+    TASKS_REMOVED("Tasks removed"),
     TASK_ENABLED("Task enabled"),
     TASK_DISABLED("Task disabled"),
     TASK_RUNNING("Task running"),

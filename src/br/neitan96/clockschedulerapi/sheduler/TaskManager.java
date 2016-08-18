@@ -60,7 +60,7 @@ public class TaskManager{
     public synchronized void removeAll(){
         stop();
         tasks.clear();
-        ClockDebug.log(DebugFlags.TASK_REMOVED, "Todas tasks removidas");
+        ClockDebug.log(DebugFlags.TASKS_REMOVED, "Todas tasks removidas");
     }
 
     public synchronized void removeAll(JavaPlugin plugin){
