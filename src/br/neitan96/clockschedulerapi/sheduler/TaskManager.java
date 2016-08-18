@@ -110,7 +110,7 @@ public class TaskManager{
 
     public synchronized void start(){
         if(!enabled){
-            ClockDebug.log(DebugFlags.MANAGER_STARTING, "Iniciando gerenciador de tasks");
+            ClockDebug.log(DebugFlags.MANAGER_STARTING, "Iniciando gerenciador de tasks: " + hashCode());
             enabled = true;
             tasks.forEach(ClockTask::reset);
         }
