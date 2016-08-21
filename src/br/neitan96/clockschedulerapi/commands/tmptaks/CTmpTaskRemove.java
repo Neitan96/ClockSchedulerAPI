@@ -2,6 +2,7 @@ package br.neitan96.clockschedulerapi.commands.tmptaks;
 
 import br.neitan96.clockschedulerapi.ClockSchedulerAPI;
 import br.neitan96.clockschedulerapi.sheduler.ClockTask;
+import br.neitan96.clockschedulerapi.util.ClockLang;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -21,14 +22,14 @@ public class CTmpTaskRemove implements CommandExecutor{
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings){
 
         if(strings.length < 1 || strings[0].matches("[^0-9]")){
-            ClockSchedulerAPI.log(commandSender, "Invalid command.");
+            ClockLang.COMMANDS_INVALIDCOMMAND.sendTo(commandSender);
             return true;
         }
 
         int index = Integer.parseInt(strings[0]) - 1;
 
         if(index >= cTmpTasks.tasks.size() || index < 0){
-            ClockSchedulerAPI.log(commandSender, "Invalid command.");
+            ClockLang.COMMANDS_INVALIDCOMMAND.sendTo(commandSender);
             return true;
         }
 
@@ -36,8 +37,7 @@ public class CTmpTaskRemove implements CommandExecutor{
         ClockSchedulerAPI.getTaskManager().removeTask(task);
         task.disable();
 
-        ClockSchedulerAPI.log(commandSender, "Task removed.");
-
+        ClockLang.DEBUG_TASKREMOVED.sendTo(commandSender);
         return true;
     }
 }

@@ -2,6 +2,7 @@ package br.neitan96.clockschedulerapi.commands.debug;
 
 import br.neitan96.clockschedulerapi.ClockSchedulerAPI;
 import br.neitan96.clockschedulerapi.util.ClockDebug;
+import br.neitan96.clockschedulerapi.util.ClockLang;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -18,7 +19,7 @@ public class CDebug implements CommandExecutor{
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings){
 
         if(strings.length < 1){
-            ClockSchedulerAPI.log(commandSender, "Invalid command.");
+            ClockLang.COMMANDS_INVALIDCOMMAND.sendTo(commandSender);
             return true;
         }
 
@@ -39,8 +40,7 @@ public class CDebug implements CommandExecutor{
         ClockDebug.setTags(debugTags.toArray(new String[debugTags.size()]));
         ClockSchedulerAPI.getInstance().saveDebugFlagsToConfig();
 
-        ClockSchedulerAPI.log(commandSender, "Debug changed.");
-
+        ClockLang.COMMANDS_DEBUGCHANGED.sendTo(commandSender);
 
         return true;
     }

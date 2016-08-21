@@ -17,9 +17,8 @@ import br.neitan96.clockschedulerapi.sheduler.TaskCommand;
 import br.neitan96.clockschedulerapi.sheduler.TaskManager;
 import br.neitan96.clockschedulerapi.util.ClockCalendar;
 import br.neitan96.clockschedulerapi.util.ClockDebug;
-import org.bukkit.Bukkit;
+import br.neitan96.clockschedulerapi.util.ClockLang;
 import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -45,20 +44,22 @@ public class ClockSchedulerAPI extends JavaPlugin{
     @Override
     public void onEnable(){
 
-        TAG = getDescription().getName();
+        ClockLang.TAG = getDescription().getName();
 
         clockSchedulerAPI = this;
         taskManager = new TaskManager();
         taskManager.start();
-        AlarmTest.setFileTest(new File(getDataFolder(), "Tests.yml"));
 
         saveIfNotExists("comandos.yml");
         saveIfNotExists("exemplos.yml");
         saveIfNotExists("config.yml");
+        saveIfNotExists("lang/pt-br.yml");
+
+        AlarmTest.setFileTest(new File(getDataFolder(), "Tests.yml"));
 
         reloadConfig(true);
 
-        log("Registrando comandos...");
+        ClockLang.SYSTEM_REGISTERINGCOMMANDS.sendToConsole();
         getCommand("clockstatus").setExecutor(new CStatus());
         getCommand("clocktime").setExecutor(new CTime());
         getCommand("clocksettime").setExecutor(new CSetTime());
@@ -84,14 +85,14 @@ public class ClockSchedulerAPI extends JavaPlugin{
         getCommand("clocktasksenablell").setExecutor(new CTasksEnableAll(cTasksDisableAll));
         getCommand("clockreload").setExecutor(new CReload());
 
-        log("ClockSchedulerAPI iniciado!");
+        ClockLang.SYSTEM_PLUGINENABLED.sendToConsole();
     }
 
     @Override
     public void onDisable(){
         taskManager.removeAll();
         HandlerList.unregisterAll(this);
-        log("ClockSchedulerAPI terminado!");
+        ClockLang.SYSTEM_PLUGINDISABLED.sendToConsole();
     }
 
     @Override
@@ -110,14 +111,16 @@ public class ClockSchedulerAPI extends JavaPlugin{
     public synchronized void reloadConfig(boolean log){
         super.reloadConfig();
 
+        ClockLang.loadConfig(new File(getDataFolder(), "lang/pt-br.yml"));
+
         List<String> debugTagsList = getConfig().getStringList("Debug");
         if(debugTagsList != null){
-            if(log) log("Definindo o debug...");
+            if(log) ClockLang.SYSTEM_SETTINGDEBUG.sendToConsole();
             String[] debugTags = debugTagsList.toArray(new String[debugTagsList.size()]);
             ClockDebug.setTags(debugTags);
         }
 
-        if(log) log("Definindo fuso horário...");
+        if(log) ClockLang.SYSTEM_SETTINGTIMEZONE.sendToConsole();
         ClockCalendar.defaultTimeZone = TimeZone.getTimeZone(
                 getConfig().getString("FusoHorario.TimeZone", "America/Sao_Paulo")
         );
@@ -126,7 +129,7 @@ public class ClockSchedulerAPI extends JavaPlugin{
         ClockCalendar.ajusteMinutes = getConfig().getInt("FusoHorario.Ajuste.Minutos", 0);
         ClockCalendar.ajusteSeconds = getConfig().getInt("FusoHorario.Ajuste.Segundos", 0);
 
-        if(log) log("Registrando alarmes dos comandos...");
+        if(log) ClockLang.SYSTEM_REGISTERINGCOMMANDS.sendToConsole();
         if(tasksConfig != null && taskManager != null)
             tasksConfig.getTasks().forEach(ClockTask::disable);
         File configFile = new File(getDataFolder(), "comandos.yml");
@@ -162,7 +165,7 @@ public class ClockSchedulerAPI extends JavaPlugin{
                 tasksConfig.save();
             }catch(IOException e){
                 e.printStackTrace();
-                log("ERRO ao salvar as tasks na config!");
+                ClockLang.SYSTEM_ERRORSAVINGCONFIG.sendToConsole();
             }
         }
 
@@ -223,15 +226,6 @@ public class ClockSchedulerAPI extends JavaPlugin{
 
     public static void removeTasksPlugin(JavaPlugin plugin){
         getTaskManager().removeAll(plugin);
-    }
-
-
-    public static void log(String msg){
-        Bukkit.getConsoleSender().sendMessage(COLOR_TAG + "[" + TAG + "]" + COLOR_TEXT + msg);
-    }
-
-    public static void log(CommandSender sender, String msg){
-        sender.sendMessage(COLOR_TAG + "[" + TAG + "] " + COLOR_TEXT + msg);
     }
 
 }

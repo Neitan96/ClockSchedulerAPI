@@ -3,6 +3,7 @@ package br.neitan96.clockschedulerapi.commands.debug;
 import br.neitan96.clockschedulerapi.ClockSchedulerAPI;
 import br.neitan96.clockschedulerapi.sheduler.ClockTask;
 import br.neitan96.clockschedulerapi.util.ClockCalendar;
+import br.neitan96.clockschedulerapi.util.ClockLang;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -28,7 +29,7 @@ public class CTestStress implements CommandExecutor{
 
             tasks = null;
 
-            ClockSchedulerAPI.log(commandSender, "Off testing.");
+            ClockLang.COMMANDS_OFFTESTING.sendTo(commandSender);
 
         }else{
             int qntd = 100;
@@ -42,7 +43,7 @@ public class CTestStress implements CommandExecutor{
 
             if(strings.length > 0){
                 if(strings[0].matches("[^0-9]")){
-                    ClockSchedulerAPI.log(commandSender, "Command invalid.");
+                    ClockLang.COMMANDS_INVALIDCOMMAND.sendTo(commandSender);
                     return true;
                 }
                 qntd = Integer.parseInt(strings[0]);
@@ -50,7 +51,7 @@ public class CTestStress implements CommandExecutor{
 
             if(strings.length > 1){
                 if(strings[1].matches("[^0-9]")){
-                    ClockSchedulerAPI.log(commandSender, "Command invalid.");
+                    ClockLang.COMMANDS_INVALIDCOMMAND.sendTo(commandSender);
                     return true;
                 }
                 maxTime = Integer.parseInt(strings[1]);
@@ -67,7 +68,7 @@ public class CTestStress implements CommandExecutor{
                 );
             }
 
-            ClockSchedulerAPI.log(commandSender, "Added tests");
+            ClockLang.COMMANDS_ADDEDTESTS.sendTo(commandSender);
         }
 
         return true;

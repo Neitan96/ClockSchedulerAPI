@@ -1,7 +1,7 @@
 package br.neitan96.clockschedulerapi.commands.tasks;
 
-import br.neitan96.clockschedulerapi.ClockSchedulerAPI;
 import br.neitan96.clockschedulerapi.sheduler.ClockTask;
+import br.neitan96.clockschedulerapi.util.ClockLang;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -19,7 +19,7 @@ public class CTasksDisable extends CTaskSelector{
 
         if(task.enabled()) task.disable();
 
-        ClockSchedulerAPI.log(commandSender, "Disabled task.");
+        ClockLang.COMMANDS_DISABLEDTASK.sendTo(commandSender);
         return true;
     }
 

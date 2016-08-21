@@ -3,6 +3,7 @@ package br.neitan96.clockschedulerapi.commands.tasks;
 import br.neitan96.clockschedulerapi.ClockSchedulerAPI;
 import br.neitan96.clockschedulerapi.sheduler.ClockTask;
 import br.neitan96.clockschedulerapi.sheduler.TaskCommand;
+import br.neitan96.clockschedulerapi.util.ClockLang;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -25,7 +26,7 @@ public class CTasksRemove extends CTaskSelector{
             ClockSchedulerAPI.getInstance().saveTasksToConfig();
         }
 
-        ClockSchedulerAPI.log(commandSender, "Task removed.");
+        ClockLang.DEBUG_TASKREMOVED.sendTo(commandSender);
         return true;
     }
 

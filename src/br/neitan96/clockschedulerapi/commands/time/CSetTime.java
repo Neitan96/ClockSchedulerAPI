@@ -4,6 +4,7 @@ import br.neitan96.clockschedulerapi.ClockSchedulerAPI;
 import br.neitan96.clockschedulerapi.sheduler.ClockTask;
 import br.neitan96.clockschedulerapi.sheduler.TaskManager;
 import br.neitan96.clockschedulerapi.util.ClockCalendar;
+import br.neitan96.clockschedulerapi.util.ClockLang;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -30,9 +31,9 @@ public class CSetTime implements CommandExecutor{
         if(strings.length < 2){
             String settings = getSettings();
             if(settings.isEmpty())
-                ClockSchedulerAPI.log(commandSender, "So far you have not made any adjustment time.");
+                ClockLang.COMMANDS_TIMENOTCHANGED.sendTo(commandSender);
             else
-                ClockSchedulerAPI.log(commandSender, "Current setting: " + getSettings());
+                ClockLang.COMMANDS_CURRENTSETTING.sendTo(commandSender, "settings", getSettings());
             return true;
         }
 
@@ -69,7 +70,7 @@ public class CSetTime implements CommandExecutor{
         }
 
         if(days == 0 && hours == 0 && minutes == 0 && seconds == 0){
-            ClockSchedulerAPI.log(commandSender, "Sorry, time has not changed.");
+            ClockLang.COMMANDS_TIMENOTCHANGED.sendTo(commandSender);
             return true;
         }
 
@@ -100,17 +101,16 @@ public class CSetTime implements CommandExecutor{
         String time = getSettings();
 
         if(!time.isEmpty())
-            ClockSchedulerAPI.log(commandSender, "Now the clock is set to " + time);
+            ClockLang.COMMANDS_CURRENTSETTING.sendTo(commandSender, "settings", getSettings());
 
         if(strings[0].equalsIgnoreCase("true")){
             TaskManager manager = ClockSchedulerAPI.getTaskManager();
             manager.getTasks().forEach(ClockTask::reset);
             manager.start();
-            ClockSchedulerAPI.log(commandSender, "Restarted tasks");
+            ClockLang.DEBUG_TASKRESTARTED.sendTo(commandSender);
         }
 
-        ClockSchedulerAPI.log(commandSender, "Time: " + new ClockCalendar().toString(true));
-
+        ClockLang.COMMANDS_TIME.sendTo(commandSender, "time", new ClockCalendar().toString(true));
         return true;
     }
 }

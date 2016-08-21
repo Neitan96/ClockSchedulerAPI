@@ -2,6 +2,7 @@ package br.neitan96.clockschedulerapi.commands.tasks;
 
 import br.neitan96.clockschedulerapi.ClockSchedulerAPI;
 import br.neitan96.clockschedulerapi.sheduler.ClockTask;
+import br.neitan96.clockschedulerapi.util.ClockLang;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -22,7 +23,7 @@ public class CTasksEnable extends CTaskSelector{
             ClockSchedulerAPI.getTaskManager().start();
         }
 
-        ClockSchedulerAPI.log(commandSender, "Enabled task.");
+        ClockLang.COMMANDS_ENABLEDTASK.sendTo(commandSender);
         return true;
     }
 

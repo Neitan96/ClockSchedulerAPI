@@ -1,6 +1,7 @@
 package br.neitan96.clockschedulerapi.commands;
 
 import br.neitan96.clockschedulerapi.ClockSchedulerAPI;
+import br.neitan96.clockschedulerapi.util.ClockLang;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -12,10 +13,10 @@ public class CReload implements CommandExecutor{
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings){
-        ClockSchedulerAPI.log("Recarregando plugin...");
-        ClockSchedulerAPI.log("Desativando plugin...");
+        ClockLang.COMMANDS_PLUGINRELOAD.sendTo(commandSender);
+        ClockLang.COMMANDS_PLUGINDISABLING.sendTo(commandSender);
         ClockSchedulerAPI.getInstance().onDisable();
-        ClockSchedulerAPI.log("Ativando plugin...");
+        ClockLang.COMMANDS_PLUGINENABLING.sendTo(commandSender);
         ClockSchedulerAPI.getInstance().reloadConfig();
         ClockSchedulerAPI.getInstance().onEnable();
         return true;

@@ -2,6 +2,7 @@ package br.neitan96.clockschedulerapi.commands.time;
 
 import br.neitan96.clockschedulerapi.ClockSchedulerAPI;
 import br.neitan96.clockschedulerapi.util.ClockCalendar;
+import br.neitan96.clockschedulerapi.util.ClockLang;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -17,7 +18,7 @@ public class CSetTimezone implements CommandExecutor{
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings){
 
         if(strings.length < 1){
-            ClockSchedulerAPI.log(commandSender, "Current time zone: " + ClockCalendar.defaultTimeZone.getID());
+            ClockLang.COMMANDS_CURRENTTIMEZONE.sendTo(commandSender, "timezone", ClockCalendar.defaultTimeZone.getID());
             return true;
         }
 
@@ -27,7 +28,7 @@ public class CSetTimezone implements CommandExecutor{
                 .filter(tz -> tz.equalsIgnoreCase(timezoneArg)).findFirst().orElse(null);
 
         if(timezoneName == null){
-            ClockSchedulerAPI.log(commandSender, "Invalid time zone.");
+            ClockLang.COMMANDS_INVALIDTIMEZONE.sendTo(commandSender);
             return true;
         }
 
@@ -35,7 +36,7 @@ public class CSetTimezone implements CommandExecutor{
 
         ClockSchedulerAPI.getInstance().saveCalendarToConfig();
 
-        ClockSchedulerAPI.log(commandSender, "Timezone changed.");
+        ClockLang.COMMANDS_TIMENOTCHANGED.sendTo(commandSender);
         return true;
     }
 }

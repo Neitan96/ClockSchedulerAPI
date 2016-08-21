@@ -4,6 +4,7 @@ import br.neitan96.clockschedulerapi.ClockSchedulerAPI;
 import br.neitan96.clockschedulerapi.alarms.*;
 import br.neitan96.clockschedulerapi.sheduler.ClockTask;
 import br.neitan96.clockschedulerapi.util.ClockCalendar;
+import br.neitan96.clockschedulerapi.util.ClockLang;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -30,7 +31,7 @@ public class CTest implements CommandExecutor{
 
             tasks = null;
 
-            ClockSchedulerAPI.log(commandSender, "Off testing.");
+            ClockLang.COMMANDS_OFFTESTING.sendTo(commandSender);
             return true;
 
         }else{
@@ -39,7 +40,7 @@ public class CTest implements CommandExecutor{
 
             if(strings.length > 0){
                 if(strings[0].matches("[^0-9]")){
-                    ClockSchedulerAPI.log(commandSender, "Invalid seconds.");
+                    ClockLang.COMMANDS_INVALIDSECONDS.sendTo(commandSender);
                     return true;
                 }
                 secondToTask = Integer.parseInt(strings[0]);
@@ -106,7 +107,7 @@ public class CTest implements CommandExecutor{
                     tasks[i] = new AlarmTest(alarmInterval, pathToSave).getTask()
             );
 
-            ClockSchedulerAPI.log(commandSender, "Tasks will be performed at " + calendar.toShortString(true));
+            ClockLang.COMMANDS_PERFORMTASKS.sendTo(commandSender);
         }
         return true;
     }

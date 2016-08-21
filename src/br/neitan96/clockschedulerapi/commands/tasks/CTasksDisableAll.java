@@ -3,6 +3,7 @@ package br.neitan96.clockschedulerapi.commands.tasks;
 import br.neitan96.clockschedulerapi.ClockSchedulerAPI;
 import br.neitan96.clockschedulerapi.sheduler.ClockTask;
 import br.neitan96.clockschedulerapi.sheduler.TaskManager;
+import br.neitan96.clockschedulerapi.util.ClockLang;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -32,7 +33,7 @@ public class CTasksDisableAll implements CommandExecutor{
             String pluginName = strings[0];
             Plugin plugin = Bukkit.getPluginManager().getPlugin(pluginName);
             if(plugin == null){
-                ClockSchedulerAPI.log(commandSender, "Invalid plugin.");
+                ClockLang.COMMANDS_INVALIDPLUGIN.sendTo(commandSender);
                 return true;
             }
 
@@ -53,7 +54,7 @@ public class CTasksDisableAll implements CommandExecutor{
         tasks.forEach(this.tasks::add);
         taskManager.start();
 
-        ClockSchedulerAPI.log(commandSender, "Disabled tasks.");
+        ClockLang.COMMANDS_DISABLEDTASK.sendTo(commandSender);
         return true;
     }
 }

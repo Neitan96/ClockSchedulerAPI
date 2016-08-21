@@ -1,7 +1,7 @@
 package br.neitan96.clockschedulerapi.commands.tasks;
 
-import br.neitan96.clockschedulerapi.ClockSchedulerAPI;
 import br.neitan96.clockschedulerapi.sheduler.ClockTask;
+import br.neitan96.clockschedulerapi.util.ClockLang;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -23,7 +23,7 @@ public abstract class CTaskSelector implements CommandExecutor{
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings){
 
         if(strings.length < 1 || strings[0].matches("[^0-9]")){
-            ClockSchedulerAPI.log(commandSender, "Invalid command.");
+            ClockLang.COMMANDS_INVALIDCOMMAND.sendTo(commandSender);
             return true;
         }
 
@@ -33,7 +33,7 @@ public abstract class CTaskSelector implements CommandExecutor{
 
         ClockTask clockTask;
         if(index >= tasks.size() || index < 0 || ((clockTask = tasks.get(index)) == null)){
-            ClockSchedulerAPI.log(commandSender, "Invalid command, try using /clocktasks.");
+            ClockLang.COMMANDS_INVALIDCOMMANDUSECLOCKTASKS.sendTo(commandSender);
             return true;
         }
 

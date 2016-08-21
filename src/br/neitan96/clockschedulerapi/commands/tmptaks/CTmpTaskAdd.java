@@ -2,6 +2,7 @@ package br.neitan96.clockschedulerapi.commands.tmptaks;
 
 import br.neitan96.clockschedulerapi.ClockSchedulerAPI;
 import br.neitan96.clockschedulerapi.sheduler.TaskCommand;
+import br.neitan96.clockschedulerapi.util.ClockLang;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -21,7 +22,7 @@ public class CTmpTaskAdd implements CommandExecutor{
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings){
 
         if(strings.length < 1){
-            ClockSchedulerAPI.log(commandSender, "Invalid command.");
+            ClockLang.COMMANDS_INVALIDCOMMAND.sendTo(commandSender);
             return true;
         }
 
@@ -30,14 +31,14 @@ public class CTmpTaskAdd implements CommandExecutor{
         TaskCommand taskCommand = TaskCommand.fromString(ClockSchedulerAPI.getInstance(), args);
 
         if(taskCommand == null){
-            ClockSchedulerAPI.log(commandSender, "Invalid command.");
+            ClockLang.COMMANDS_INVALIDCOMMAND.sendTo(commandSender);
             return true;
         }
 
         commandTmpTasks.tasks.add(taskCommand);
         ClockSchedulerAPI.addTask(taskCommand);
 
-        ClockSchedulerAPI.log(commandSender, "Temporary task added.");
+        ClockLang.COMMANDS_TASKADDED.sendTo(commandSender);
 
         return true;
     }

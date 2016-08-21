@@ -2,6 +2,7 @@ package br.neitan96.clockschedulerapi.commands.tasks;
 
 import br.neitan96.clockschedulerapi.ClockSchedulerAPI;
 import br.neitan96.clockschedulerapi.sheduler.ClockTask;
+import br.neitan96.clockschedulerapi.util.ClockLang;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -31,10 +32,10 @@ public class CTasks implements CommandExecutor{
             for(int i = 0; iterator.hasNext(); i++){
                 ClockTask next = iterator.next();
                 this.tasks.add(next);
-                ClockSchedulerAPI.log(commandSender, (i + 1) + " - " + next.toString());
+                ClockLang.COMMANDS_TASKLINE.sendTo(commandSender, "index", i + 1, "task", next);
             }
         }else{
-            ClockSchedulerAPI.log(commandSender, "No task.");
+            ClockLang.COMMANDS_NOTASK.sendTo(commandSender);
         }
 
         return true;

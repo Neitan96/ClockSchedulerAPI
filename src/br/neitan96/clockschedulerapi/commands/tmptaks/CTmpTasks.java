@@ -1,7 +1,7 @@
 package br.neitan96.clockschedulerapi.commands.tmptaks;
 
-import br.neitan96.clockschedulerapi.ClockSchedulerAPI;
 import br.neitan96.clockschedulerapi.sheduler.ClockTask;
+import br.neitan96.clockschedulerapi.util.ClockLang;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -28,10 +28,10 @@ public class CTmpTasks implements CommandExecutor{
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings){
         if(tasks.size() > 0)
             for(int i = 0; i < tasks.size(); i++){
-                ClockSchedulerAPI.log(commandSender, (i + 1) + " - " + tasks.get(i));
+                ClockLang.COMMANDS_TASKLINE.sendTo(commandSender, "index", i + 1, tasks.get(i));
             }
         else
-            ClockSchedulerAPI.log(commandSender, "No task.");
+            ClockLang.COMMANDS_NOTASK.sendTo(commandSender);
         return true;
     }
 }
