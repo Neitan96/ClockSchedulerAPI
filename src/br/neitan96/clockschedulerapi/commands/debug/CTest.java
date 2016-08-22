@@ -2,6 +2,7 @@ package br.neitan96.clockschedulerapi.commands.debug;
 
 import br.neitan96.clockschedulerapi.ClockSchedulerAPI;
 import br.neitan96.clockschedulerapi.alarms.*;
+import br.neitan96.clockschedulerapi.alarms.converters.AlarmConvetors;
 import br.neitan96.clockschedulerapi.sheduler.ClockTask;
 import br.neitan96.clockschedulerapi.util.ClockCalendar;
 import br.neitan96.clockschedulerapi.util.ClockLang;
@@ -67,48 +68,66 @@ public class CTest implements CommandExecutor{
             tasks = new ClockTask[9];
             int i = 0;
 
-            AlarmHour alarmHour = new AlarmHour(minute, second);
+            ClockAlarm alarmHour = AlarmConvetors.convert(
+                    new AlarmHour(minute, second).toString()
+            );
             ClockSchedulerAPI.addTask(
                     tasks[i++] = new AlarmTest(alarmHour, pathToSave).getTask()
             );
 
-            AlarmDaily alarmDaily = new AlarmDaily(hour, minute, second);
+            ClockAlarm alarmDaily = AlarmConvetors.convert(
+                    new AlarmDaily(hour, minute, second).toString()
+            );
             ClockSchedulerAPI.addTask(
                     tasks[i++] = new AlarmTest(alarmDaily, pathToSave).getTask()
             );
 
-            AlarmWeekly alarmWeekly = new AlarmWeekly(week, hour, minute, second);
+            ClockAlarm alarmWeekly = AlarmConvetors.convert(
+                    new AlarmWeekly(week, hour, minute, second).toString()
+            );
             ClockSchedulerAPI.addTask(
                     tasks[i++] = new AlarmTest(alarmWeekly, pathToSave).getTask()
             );
 
-            AlarmMonthly alarmMonthly = new AlarmMonthly(day, hour, minute, second);
+            ClockAlarm alarmMonthly = AlarmConvetors.convert(
+                    new AlarmMonthly(day, hour, minute, second).toString()
+            );
             ClockSchedulerAPI.addTask(
                     tasks[i++] = new AlarmTest(alarmMonthly, pathToSave).getTask()
             );
 
-            AlarmMonthlyWeek alarmMonthly1 = new AlarmMonthlyWeek(weekCount, week, hour, minute, second);
+            ClockAlarm alarmMonthly1 = AlarmConvetors.convert(
+                    new AlarmMonthlyWeek(weekCount, week, hour, minute, second).toString()
+            );
             ClockSchedulerAPI.addTask(
                     tasks[i++] = new AlarmTest(alarmMonthly1, pathToSave).getTask()
             );
 
-            AlarmYearly alarmYearly = new AlarmYearly(day, month, hour, minute, second);
+            ClockAlarm alarmYearly = AlarmConvetors.convert(
+                    new AlarmYearly(day, month, hour, minute, second).toString()
+            );
             ClockSchedulerAPI.addTask(
                     tasks[i++] = new AlarmTest(alarmYearly, pathToSave).getTask()
             );
 
-            AlarmDate alarmDate = new AlarmDate(year, month, day, hour, minute, second);
+            ClockAlarm alarmDate = AlarmConvetors.convert(
+                    new AlarmDate(year, month, day, hour, minute, second).toString()
+            );
             ClockSchedulerAPI.addTask(
                     tasks[i++] = new AlarmTest(alarmDate, pathToSave).getTask()
             );
 
-            AlarmInterval alarmInterval = new AlarmInterval(10);
+            ClockAlarm alarmInterval = AlarmConvetors.convert(
+                    new AlarmInterval(10).toString()
+            );
             ClockSchedulerAPI.addTask(
                     tasks[i++] = new AlarmTest(alarmInterval, pathToSave).getTask()
             );
 
-            AlarmMulti alarmMulti = new AlarmMulti(
-                    alarmInterval, alarmDate, alarmYearly
+            ClockAlarm alarmMulti = AlarmConvetors.convert(
+                    new AlarmMulti(
+                            alarmInterval, alarmDate, alarmYearly
+                    ).toString()
             );
             ClockSchedulerAPI.addTask(
                     tasks[i] = new AlarmTest(alarmMulti, pathToSave).getTask()
