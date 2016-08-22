@@ -29,8 +29,8 @@ public class AlarmYearlyConverter implements ClockAlarmConverter{
         Matcher matcher = format.matcher(alarm);
         if(!matcher.matches()) return null;
 
-        int day = Integer.parseInt(matcher.group(2));
-        int month = Util.getMonth(matcher.group(1));
+        int day = Integer.parseInt(matcher.group(1));
+        int month = Util.getMonth(matcher.group(2));
         int hour = Integer.parseInt(matcher.group(3));
         int minute = Integer.parseInt(matcher.group(4));
 
@@ -38,9 +38,9 @@ public class AlarmYearlyConverter implements ClockAlarmConverter{
 
         if(matcher.group(6) != null){
             int seconds = Integer.parseInt(matcher.group(6));
-            return new AlarmYearly(month, day, hour, minute, seconds);
+            return new AlarmYearly(day, month, hour, minute, seconds);
         }else{
-            return new AlarmYearly(month, day, hour, minute);
+            return new AlarmYearly(day, month, hour, minute);
         }
     }
 
