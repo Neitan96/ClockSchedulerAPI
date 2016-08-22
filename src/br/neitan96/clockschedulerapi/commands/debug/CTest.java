@@ -64,7 +64,7 @@ public class CTest implements CommandExecutor{
                     year, month, day, hour, minute, second);
 
             ClockSchedulerAPI plugin = ClockSchedulerAPI.getInstance();
-            tasks = new ClockTask[8];
+            tasks = new ClockTask[9];
             int i = 0;
 
             AlarmHour alarmHour = new AlarmHour(minute, second);
@@ -104,10 +104,17 @@ public class CTest implements CommandExecutor{
 
             AlarmInterval alarmInterval = new AlarmInterval(10);
             ClockSchedulerAPI.addTask(
-                    tasks[i] = new AlarmTest(alarmInterval, pathToSave).getTask()
+                    tasks[i++] = new AlarmTest(alarmInterval, pathToSave).getTask()
             );
 
-            ClockLang.COMMANDS_PERFORMTASKS.sendTo(commandSender);
+            AlarmMulti alarmMulti = new AlarmMulti(
+                    alarmInterval, alarmDate, alarmYearly
+            );
+            ClockSchedulerAPI.addTask(
+                    tasks[i] = new AlarmTest(alarmMulti, pathToSave).getTask()
+            );
+
+            ClockLang.COMMANDS_PERFORMTASKS.sendTo(commandSender, "date", calendar.toString(true));
         }
         return true;
     }
