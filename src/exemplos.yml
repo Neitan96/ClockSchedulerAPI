@@ -27,6 +27,7 @@
 #    Dezembro
 exemplos:
   - 'Multi|Horario|45, Diario|13:20' # Toda hora no minuto 45 e todo dia as 13 horas e 20 minutos, Suporta alarms ilimitados
+  - 'Entre|Horario|30, Horario|59, Intervalo|5' # Toda hora entre o minuto 30 e o minuto 59 de 5 em 5 segundos
   - 'Horario|30' # Toda hora no minuto 30
   - 'Diario|12:00' # Todo dia as 12 horas e 0 minutos
   - 'Semanal|Domingo 13:05' # Todo domingo as 13 horas e 5 minutos

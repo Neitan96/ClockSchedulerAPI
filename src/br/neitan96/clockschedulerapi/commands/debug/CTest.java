@@ -65,7 +65,7 @@ public class CTest implements CommandExecutor{
                     year, month, day, hour, minute, second);
 
             ClockSchedulerAPI plugin = ClockSchedulerAPI.getInstance();
-            tasks = new ClockTask[9];
+            tasks = new ClockTask[10];
             int i = 0;
 
             ClockAlarm alarmHour = AlarmConvetors.convert(
@@ -130,7 +130,16 @@ public class CTest implements CommandExecutor{
                     ).toString()
             );
             ClockSchedulerAPI.addTask(
-                    tasks[i] = new AlarmTest(alarmMulti, pathToSave).getTask()
+                    tasks[i++] = new AlarmTest(alarmMulti, pathToSave).getTask()
+            );
+
+            ClockAlarm alarmBetween = AlarmConvetors.convert(
+                    new AlarmBetween(
+                            alarmDate, new AlarmInterval(15), new AlarmInterval(0)
+                    ).toString()
+            );
+            ClockSchedulerAPI.addTask(
+                    tasks[i] = new AlarmTest(alarmBetween, pathToSave).getTask()
             );
 
             ClockLang.COMMANDS_PERFORMTASKS.sendTo(commandSender, "date", calendar.toString(true));

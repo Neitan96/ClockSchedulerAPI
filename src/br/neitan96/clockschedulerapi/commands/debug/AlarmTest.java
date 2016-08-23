@@ -41,7 +41,7 @@ public class AlarmTest{
         int week = calendar.getWeek(), weekCount = calendar.get(Calendar.DAY_OF_WEEK_IN_MONTH);
 
         ClockAlarm clockAlarm;
-        switch(new Random().nextInt(8)){
+        switch(new Random().nextInt(10)){
             case 0:
                 clockAlarm = new AlarmDaily(hour, minute, second);
                 break;
@@ -65,6 +65,25 @@ public class AlarmTest{
                 break;
             case 7:
                 clockAlarm = new AlarmYearly(day, month, hour, minute, second);
+                break;
+            case 8:
+                clockAlarm = new AlarmMulti(
+                        new AlarmDaily(hour, minute, second),
+                        new AlarmDate(year, month, day, hour, minute, second),
+                        new AlarmHour(minute, second),
+                        new AlarmInterval(interval),
+                        new AlarmMonthly(day, hour, minute, second),
+                        new AlarmMonthlyWeek(weekCount, week, hour, minute, second),
+                        new AlarmWeekly(week, hour, minute, second),
+                        new AlarmYearly(day, month, hour, minute, second)
+                );
+                break;
+            case 9:
+                clockAlarm = new AlarmBetween(
+                        new AlarmDaily(hour, minute, second),
+                        new AlarmHour(minute, second),
+                        new AlarmMonthly(day, hour, minute, second)
+                );
                 break;
             default:
                 return null;
@@ -110,7 +129,7 @@ public class AlarmTest{
         long diff = now.getTimeInMillis() - expected.getTimeInMillis();
         String approved = expectedStr.equals(nowStr) ? ".Sucess" : ".Fail";
 
-        String pathBase = pathToSave + "." + approved;
+        String pathBase = pathToSave + approved;
 
         int count = 1;
         if(configTest.contains(pathBase))

@@ -23,6 +23,7 @@ public class AlarmConvetors{
         add(AlarmWeeklyConverter.getInstance());
         add(AlarmYearlyConverter.getInstance());
         add(AlarmMultiConverter.getInstance());
+        add(AlarmBetweenConverter.getInstance());
     }
 
     public static ClockAlarm convert(String alarm){
