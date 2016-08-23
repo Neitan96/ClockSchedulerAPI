@@ -12,7 +12,7 @@ public class AlarmInterval implements ClockAlarm{
     protected final int intervalSecond;
 
     /**
-     * @param intervalSecond Segundos entre 0 e 59
+     * @param intervalSecond Intervalo em segundos
      */
     public AlarmInterval(int intervalSecond){
         this.intervalSecond = intervalSecond;
