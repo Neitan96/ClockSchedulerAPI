@@ -4,6 +4,7 @@ import br.neitan96.clockschedulerapi.ClockSchedulerAPI;
 import br.neitan96.clockschedulerapi.alarms.*;
 import br.neitan96.clockschedulerapi.config.YamlConfigurationUTF8;
 import br.neitan96.clockschedulerapi.sheduler.ClockTask;
+import br.neitan96.clockschedulerapi.sheduler.TaskPriority;
 import br.neitan96.clockschedulerapi.util.ClockCalendar;
 import org.bukkit.configuration.InvalidConfigurationException;
 
@@ -117,7 +118,8 @@ public class AlarmTest{
                         task.get().disable();
                     }
                 },
-                alarm
+                alarm,
+                TaskPriority.values()[new Random().nextInt(TaskPriority.HIGHEST.getOrder() + 1)]
         ));
     }
 

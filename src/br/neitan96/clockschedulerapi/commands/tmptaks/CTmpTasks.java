@@ -28,7 +28,10 @@ public class CTmpTasks implements CommandExecutor{
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings){
         if(tasks.size() > 0)
             for(int i = 0; i < tasks.size(); i++){
-                ClockLang.COMMANDS_TASKLINE.sendTo(commandSender, "index", i + 1, tasks.get(i));
+                ClockLang.COMMANDS_TASKLINE.sendTo(commandSender,
+                        "index", i + 1,
+                        "task", tasks.get(i),
+                        "priority", tasks.get(i).priority);
             }
         else
             ClockLang.COMMANDS_NOTASK.sendTo(commandSender);

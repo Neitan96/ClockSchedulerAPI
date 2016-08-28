@@ -16,9 +16,13 @@ public class ClockTask extends ClockScheduler implements Runnable{
     protected long lastExecution = -1;
     protected long nextExecution = -1;
 
-    public ClockTask(JavaPlugin plugin, Runnable runnable, ClockAlarm alarm){
-        super(plugin, runnable, alarm);
+    public ClockTask(JavaPlugin plugin, Runnable runnable, ClockAlarm alarm, TaskPriority priority){
+        super(plugin, runnable, alarm, priority);
         enable();
+    }
+
+    public ClockTask(JavaPlugin plugin, Runnable runnable, ClockAlarm alarm){
+        this(plugin, runnable, alarm, TaskPriority.NORMAL);
     }
 
     protected void calculateNextExecution(){

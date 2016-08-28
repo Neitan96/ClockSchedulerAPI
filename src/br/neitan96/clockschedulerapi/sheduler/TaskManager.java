@@ -84,8 +84,11 @@ public class TaskManager{
     private synchronized ClockTask findfirst(){
         ClockTask task = null;
         for(ClockTask clockTask : tasks){
-            if(clockTask.enabled() &&
-                    (task == null || clockTask.getNextExecution() < task.getNextExecution()))
+            if(clockTask.enabled() && (
+                    task == null || clockTask.getNextExecution() < task.getNextExecution()
+                            || (clockTask.getNextExecution() == task.getNextExecution()
+                            && clockTask.priority.getOrder() > task.priority.getOrder())
+            ))
                 task = clockTask;
         }
         return task;

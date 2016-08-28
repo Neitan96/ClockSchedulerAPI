@@ -9,6 +9,8 @@ Messages:
     AlarmMonthlyWeek: 'MensalSemana'
     AlarmWeekly: 'Semanal'
     AlarmYearly: 'Anual'
+    AlarmMulti: 'Multi'
+    AlarmBetween: 'Entre'
   System:
     RegisteringCommands: 'Registrando comandos...'
     PluginEnabled: 'ClockSchedulerAPI iniciado!'
@@ -24,7 +26,7 @@ Messages:
     InvalidSeconds: 'Segundos inválido.'
     PerformTasks: 'As tarefas serão executadas em {date}.'
     AddedTests: 'Testes adicionados.'
-    TaskLine: '{index} - {task}'
+    TaskLine: '{index} - @{priority} {task}'
     NoTask: 'Nenhuma tarefa.'
     TaskAdded: 'Tarefa adicionada.'
     DisabledTask: 'Tarefa desativada.'

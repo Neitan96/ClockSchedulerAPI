@@ -32,7 +32,10 @@ public class CTasks implements CommandExecutor{
             for(int i = 0; iterator.hasNext(); i++){
                 ClockTask next = iterator.next();
                 this.tasks.add(next);
-                ClockLang.COMMANDS_TASKLINE.sendTo(commandSender, "index", i + 1, "task", next);
+                ClockLang.COMMANDS_TASKLINE.sendTo(commandSender,
+                        "index", i + 1,
+                        "task", next,
+                        "priority", next.priority.toString());
             }
         }else{
             ClockLang.COMMANDS_NOTASK.sendTo(commandSender);
