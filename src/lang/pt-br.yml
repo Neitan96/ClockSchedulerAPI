@@ -1,16 +1,16 @@
 Messages:
   Custom: '{message}'
   Alarms:
-    AlarmDaily: 'Diario'
-    AlarmDate: 'Data'
-    AlarmHour: 'Horario'
-    AlarmInterval: 'Intervalo'
-    AlarmMonthly: 'Mensal'
-    AlarmMonthlyWeek: 'MensalSemana'
-    AlarmWeekly: 'Semanal'
-    AlarmYearly: 'Anual'
-    AlarmMulti: 'Multi'
-    AlarmBetween: 'Entre'
+    AlarmDaily: ['Diario', 'Daily']
+    AlarmDate: ['Data', 'Date']
+    AlarmHour: ['Horario', 'Hourly']
+    AlarmInterval: ['Intervalo', 'Interval']
+    AlarmMonthly: ['Mensal', 'Monthly']
+    AlarmMonthlyWeek: ['MensalSemana', 'MonthlyWeekly']
+    AlarmWeekly: ['Semanal', 'Weekly']
+    AlarmYearly: ['Anual', 'Yearly']
+    AlarmMulti: ['Multi']
+    AlarmBetween: ['Entre', 'Between']
   System:
     RegisteringCommands: 'Registrando comandos...'
     PluginEnabled: 'ClockSchedulerAPI iniciado!'

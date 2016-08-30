@@ -27,9 +27,14 @@ public class AlarmConvetors{
     }
 
     public static ClockAlarm convert(String alarm){
+        String labelAlarm = alarm.substring(0, alarm.indexOf('|'));
         for(ClockAlarmConverter alarmConverter : alarmConverters){
-            ClockAlarm clockAlarm = alarmConverter.getAlarm(alarm);
-            if(clockAlarm != null) return clockAlarm;
+            for(String iLAbel : alarmConverter.getLabels()){
+                if(iLAbel.equalsIgnoreCase(labelAlarm)){
+                    ClockAlarm clockAlarm = alarmConverter.getAlarm(alarm);
+                    if(clockAlarm != null) return clockAlarm;
+                }
+            }
         }
         return null;
     }
@@ -39,6 +44,14 @@ public class AlarmConvetors{
     }
 
     public static void add(ClockAlarmConverter clockAlarmConverter){
+        for(ClockAlarmConverter alarmConverter : alarmConverters){
+            for(String nowLabel : alarmConverter.getLabels()){
+                for(String newLabel : clockAlarmConverter.getLabels()){
+                    if(nowLabel.equalsIgnoreCase(newLabel))
+                        throw new IllegalArgumentException("Label already exists");
+                }
+            }
+        }
         alarmConverters.add(clockAlarmConverter);
     }
 

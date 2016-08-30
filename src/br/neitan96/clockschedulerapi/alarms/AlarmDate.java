@@ -1,13 +1,12 @@
 package br.neitan96.clockschedulerapi.alarms;
 
 import br.neitan96.clockschedulerapi.util.ClockCalendar;
+import br.neitan96.clockschedulerapi.util.ClockLang;
 
 /**
  * Created by Neitan96 on 08/09/15.
  */
 public class AlarmDate implements ClockAlarm{
-
-    public final static String LABEL = "Data";
 
     protected final int year, month, day, hour, minute, second;
 
@@ -58,7 +57,8 @@ public class AlarmDate implements ClockAlarm{
     @Override
     public String toString(){
         return String.format("%s|%02d/%02d/%d %02d:%02d:%02d",
-                LABEL, day, month + 1, year, hour, minute, second);
+                ClockLang.ALARM_DATE.getMessage()[0],
+                day, month + 1, year, hour, minute, second);
     }
 
 }

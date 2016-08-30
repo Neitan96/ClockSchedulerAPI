@@ -2,6 +2,7 @@ package br.neitan96.clockschedulerapi.alarms.converters;
 
 import br.neitan96.clockschedulerapi.alarms.AlarmMulti;
 import br.neitan96.clockschedulerapi.alarms.ClockAlarm;
+import br.neitan96.clockschedulerapi.util.ClockLang;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.stream.Collectors;
  */
 public class AlarmMultiConverter implements ClockAlarmConverter{
 
-    private static final Pattern format = Pattern.compile(AlarmMulti.LABEL + "\\|(.+)");
+    private static final Pattern format = Pattern.compile("[^|]+\\|(.+)");
 
     private static final AlarmMultiConverter ourInstance = new AlarmMultiConverter();
 
@@ -39,4 +40,10 @@ public class AlarmMultiConverter implements ClockAlarmConverter{
 
         return new AlarmMulti(alarms.toArray(new ClockAlarm[alarms.size()]));
     }
+
+    @Override
+    public String[] getLabels(){
+        return ClockLang.ALARM_MULTI.getMessage();
+    }
+
 }

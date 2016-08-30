@@ -2,6 +2,7 @@ package br.neitan96.clockschedulerapi.alarms.converters;
 
 import br.neitan96.clockschedulerapi.alarms.AlarmBetween;
 import br.neitan96.clockschedulerapi.alarms.ClockAlarm;
+import br.neitan96.clockschedulerapi.util.ClockLang;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,8 +12,7 @@ import java.util.regex.Pattern;
  */
 public class AlarmBetweenConverter implements ClockAlarmConverter{
 
-    private static final Pattern format = Pattern.compile(AlarmBetween.LABEL +
-            "\\|(.+)[ ]*,[ ]*(.+)[ ]*,[ ]*(.+)");
+    private static final Pattern format = Pattern.compile("[^|]+\\|(.+)[ ]*,[ ]*(.+)[ ]*,[ ]*(.+)");
 
     private static final AlarmBetweenConverter ourInstance = new AlarmBetweenConverter();
 
@@ -36,6 +36,11 @@ public class AlarmBetweenConverter implements ClockAlarmConverter{
             return null;
 
         return new AlarmBetween(start, end, clockAlarm);
+    }
+
+    @Override
+    public String[] getLabels(){
+        return ClockLang.ALARM_BETWEEN.getMessage();
     }
 
 }

@@ -1,13 +1,12 @@
 package br.neitan96.clockschedulerapi.alarms;
 
 import br.neitan96.clockschedulerapi.util.ClockCalendar;
+import br.neitan96.clockschedulerapi.util.ClockLang;
 
 /**
  * Created by Neitan96 on 02/10/15.
  */
 public class AlarmInterval implements ClockAlarm{
-
-    public final static String LABEL = "Intervalo";
 
     protected final int intervalSecond;
 
@@ -29,7 +28,9 @@ public class AlarmInterval implements ClockAlarm{
 
     @Override
     public String toString(){
-        return String.format("%s|%d", LABEL, intervalSecond);
+        return String.format("%s|%d",
+                ClockLang.ALARM_INTERVAL.getMessage()[0],
+                intervalSecond);
     }
 
 }

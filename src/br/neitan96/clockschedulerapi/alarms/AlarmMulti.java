@@ -1,5 +1,7 @@
 package br.neitan96.clockschedulerapi.alarms;
 
+import br.neitan96.clockschedulerapi.util.ClockLang;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,8 +10,6 @@ import java.util.stream.Collectors;
  * Created by Neitan96 on 21/08/2016.
  */
 public class AlarmMulti implements ClockAlarm{
-
-    public final static String LABEL = "Multi";
 
     protected final ClockAlarm[] alarms;
 
@@ -33,6 +33,8 @@ public class AlarmMulti implements ClockAlarm{
     public String toString(){
         List<String> alarms = Arrays.stream(this.alarms)
                 .map(ClockAlarm::toString).collect(Collectors.toList());
-        return String.format("%s|%s", LABEL, String.join(", ", alarms));
+        return String.format("%s|%s",
+                ClockLang.ALARM_MULTI.getMessage()[0],
+                String.join(", ", alarms));
     }
 }

@@ -1,11 +1,11 @@
 package br.neitan96.clockschedulerapi.alarms;
 
+import br.neitan96.clockschedulerapi.util.ClockLang;
+
 /**
  * Created by Neitan96 on 22/08/2016.
  */
 public class AlarmBetween implements ClockAlarm{
-
-    public final static String LABEL = "Entre";
 
     protected final ClockAlarm start, end, alarm;
 
@@ -49,7 +49,9 @@ public class AlarmBetween implements ClockAlarm{
 
     @Override
     public String toString(){
-        return String.format("%s|%s, %s, %s", LABEL, start.toString(), end.toString(), alarm.toString());
+        return String.format("%s|%s, %s, %s",
+                ClockLang.ALARM_BETWEEN.getMessage()[0],
+                start.toString(), end.toString(), alarm.toString());
     }
 
 }

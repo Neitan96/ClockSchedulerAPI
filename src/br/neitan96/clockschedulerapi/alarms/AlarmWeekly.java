@@ -1,14 +1,13 @@
 package br.neitan96.clockschedulerapi.alarms;
 
 import br.neitan96.clockschedulerapi.util.ClockCalendar;
+import br.neitan96.clockschedulerapi.util.ClockLang;
 import br.neitan96.clockschedulerapi.util.Util;
 
 /**
  * Created by Neitan96 on 08/09/15.
  */
 public class AlarmWeekly implements ClockAlarm{
-
-    public final static String LABEL = "Semanal";
 
     protected final int weekDay, hour, minute, second;
 
@@ -54,6 +53,8 @@ public class AlarmWeekly implements ClockAlarm{
 
     @Override
     public String toString(){
-        return String.format("%s|%s %02d:%02d:%02d", LABEL, Util.getWeek(weekDay), hour, minute, second);
+        return String.format("%s|%s %02d:%02d:%02d",
+                ClockLang.ALARM_WEEKLY.getMessage()[0],
+                Util.getWeek(weekDay), hour, minute, second);
     }
 }

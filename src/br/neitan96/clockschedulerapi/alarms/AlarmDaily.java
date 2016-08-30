@@ -1,13 +1,12 @@
 package br.neitan96.clockschedulerapi.alarms;
 
 import br.neitan96.clockschedulerapi.util.ClockCalendar;
+import br.neitan96.clockschedulerapi.util.ClockLang;
 
 /**
  * Created by Neitan96 on 11/06/2016.
  */
 public class AlarmDaily implements ClockAlarm{
-
-    public final static String LABEL = "Diario";
 
     protected final int hour, minute, second;
 
@@ -47,7 +46,9 @@ public class AlarmDaily implements ClockAlarm{
 
     @Override
     public String toString(){
-        return String.format("%s|%02d:%02d:%02d", LABEL, hour, minute, second);
+        return String.format("%s|%02d:%02d:%02d",
+                ClockLang.ALARM_DAILY.getMessage()[0],
+                hour, minute, second);
     }
 
 }

@@ -1,13 +1,12 @@
 package br.neitan96.clockschedulerapi.alarms;
 
 import br.neitan96.clockschedulerapi.util.ClockCalendar;
+import br.neitan96.clockschedulerapi.util.ClockLang;
 
 /**
  * Created by Neitan96 on 10/09/15.
  */
 public class AlarmHour implements ClockAlarm{
-
-    public final static String LABEL = "Horario";
 
     protected final int minute, second;
 
@@ -43,6 +42,8 @@ public class AlarmHour implements ClockAlarm{
 
     @Override
     public String toString(){
-        return String.format("%s|%02d:%02d", LABEL, minute, second);
+        return String.format("%s|%02d:%02d",
+                ClockLang.ALARM_HOUR.getMessage()[0],
+                minute, second);
     }
 }

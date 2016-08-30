@@ -111,7 +111,7 @@ public class ClockSchedulerAPI extends JavaPlugin{
     public synchronized void reloadConfig(boolean log){
         super.reloadConfig();
 
-        ClockLang.loadConfig(new File(getDataFolder(), "lang/pt-br.yml"));
+        ClockLang.loadConfig(new File(getDataFolder(), "lang/" + getConfig().getString("Language", "pt-br") + ".yml"));
 
         List<String> debugTagsList = getConfig().getStringList("Debug");
         if(debugTagsList != null){

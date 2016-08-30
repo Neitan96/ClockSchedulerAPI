@@ -1,6 +1,7 @@
 package br.neitan96.clockschedulerapi.alarms;
 
 import br.neitan96.clockschedulerapi.util.ClockCalendar;
+import br.neitan96.clockschedulerapi.util.ClockLang;
 import br.neitan96.clockschedulerapi.util.Util;
 
 import java.util.Calendar;
@@ -9,8 +10,6 @@ import java.util.Calendar;
  * Created by Neitan96 on 07/09/15.
  */
 public class AlarmMonthlyWeek implements ClockAlarm{
-
-    public final static String LABEL = "MensalSemana";
 
     protected final int weekCount, week, hour, minute, second;
 
@@ -78,7 +77,8 @@ public class AlarmMonthlyWeek implements ClockAlarm{
     @Override
     public String toString(){
         return String.format("%s|%02d %s %02d:%02d:%02d",
-                LABEL, weekCount, Util.getWeek(week), hour, minute, second);
+                ClockLang.ALARM_MONTHLYWEEK.getMessage()[0],
+                weekCount, Util.getWeek(week), hour, minute, second);
     }
 
 }

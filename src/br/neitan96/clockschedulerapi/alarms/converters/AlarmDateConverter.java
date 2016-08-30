@@ -2,6 +2,7 @@ package br.neitan96.clockschedulerapi.alarms.converters;
 
 import br.neitan96.clockschedulerapi.alarms.AlarmDate;
 import br.neitan96.clockschedulerapi.alarms.ClockAlarm;
+import br.neitan96.clockschedulerapi.util.ClockLang;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,8 +12,7 @@ import java.util.regex.Pattern;
  */
 public class AlarmDateConverter implements ClockAlarmConverter{
 
-    private static final Pattern format = Pattern.compile(AlarmDate.LABEL +
-            "\\|([0-9]{1,2})/([0-9]{1,2})/([0-9]{4}) ([0-9]{1,2}):([0-9]{1,2})(:([0-9]{1,2}))?");
+    private static final Pattern format = Pattern.compile("[^|]+\\|([0-9]{1,2})/([0-9]{1,2})/([0-9]{4}) ([0-9]{1,2}):([0-9]{1,2})(:([0-9]{1,2}))?");
 
     private static final AlarmDateConverter ourInstance = new AlarmDateConverter();
 
@@ -40,6 +40,11 @@ public class AlarmDateConverter implements ClockAlarmConverter{
         }else{
             return new AlarmDate(year, month, day, hour, minute);
         }
+    }
+
+    @Override
+    public String[] getLabels(){
+        return ClockLang.ALARM_DATE.getMessage();
     }
 
 }

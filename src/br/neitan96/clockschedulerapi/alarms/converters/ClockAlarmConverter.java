@@ -15,4 +15,9 @@ public interface ClockAlarmConverter{
      */
     ClockAlarm getAlarm(String alarm);
 
+    /**
+     * @return Retorna os apelidos do alarm.
+     */
+    String[] getLabels();
+
 }

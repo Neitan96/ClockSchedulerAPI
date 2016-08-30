@@ -28,6 +28,8 @@ public enum ClockLang{
     ALARM_MONTHLYWEEK("Messages.Alarms.AlarmMonthlyWeek"),
     ALARM_WEEKLY("Messages.Alarms.AlarmWeekly"),
     ALARM_YEARLY("Messages.Alarms.AlarmYearly"),
+    ALARM_MULTI("Messages.Alarms.AlarmMulti"),
+    ALARM_BETWEEN("Messages.Alarms.AlarmBetween"),
 
     SYSTEM_REGISTERINGCOMMANDS("Messages.System.RegisteringCommands"),
     SYSTEM_PLUGINENABLED("Messages.System.PluginEnabled"),

@@ -2,6 +2,7 @@ package br.neitan96.clockschedulerapi.alarms.converters;
 
 import br.neitan96.clockschedulerapi.alarms.AlarmYearly;
 import br.neitan96.clockschedulerapi.alarms.ClockAlarm;
+import br.neitan96.clockschedulerapi.util.ClockLang;
 import br.neitan96.clockschedulerapi.util.Util;
 
 import java.util.regex.Matcher;
@@ -12,8 +13,7 @@ import java.util.regex.Pattern;
  */
 public class AlarmYearlyConverter implements ClockAlarmConverter{
 
-    private static final Pattern format = Pattern.compile(AlarmYearly.LABEL +
-            "\\|([0-9]{1,2}) ([a-zA-Z]+) ([0-9]{1,2}):([0-9]{1,2})(:([0-9]{1,2}))?");
+    private static final Pattern format = Pattern.compile("[^|]+\\|([0-9]{1,2}) ([a-zA-Z]+) ([0-9]{1,2}):([0-9]{1,2})(:([0-9]{1,2}))?");
 
     private static final AlarmYearlyConverter ourInstance = new AlarmYearlyConverter();
 
@@ -42,6 +42,11 @@ public class AlarmYearlyConverter implements ClockAlarmConverter{
         }else{
             return new AlarmYearly(day, month, hour, minute);
         }
+    }
+
+    @Override
+    public String[] getLabels(){
+        return ClockLang.ALARM_YEARLY.getMessage();
     }
 
 }
