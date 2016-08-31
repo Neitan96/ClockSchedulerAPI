@@ -22,27 +22,21 @@ public class ClockCalendar extends GregorianCalendar{
     }
 
     public static TimeZone defaultTimeZone = null;
-    public static int ajusteDays = 0;
-    public static int ajusteHours = 0;
-    public static int ajusteMinutes = 0;
-    public static int ajusteSeconds = 0;
+    public static long adjustmentMiliseconds = 0;
 
     public ClockCalendar(){
         super();
         if(defaultTimeZone != null)
             setTimeZone(defaultTimeZone);
 
-        if(ajusteDays != 0)
-            addDay(ajusteDays);
-
-        if(ajusteHours != 0)
-            addHour(ajusteHours);
-
-        if(ajusteMinutes != 0)
-            addMinute(ajusteMinutes);
-
-        if(ajusteSeconds != 0)
-            addSecond(ajusteSeconds);
+        if(adjustmentMiliseconds != 0){
+            long adjustmentMiliseconds = ClockCalendar.adjustmentMiliseconds;
+            while(ClockCalendar.adjustmentMiliseconds > Integer.MAX_VALUE){
+                addMilisecond(Integer.MAX_VALUE);
+                adjustmentMiliseconds -= Integer.MAX_VALUE;
+            }
+            addMilisecond((int) adjustmentMiliseconds);
+        }
     }
 
     public ClockCalendar(long miliseconds){

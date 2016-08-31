@@ -124,10 +124,8 @@ public class ClockSchedulerAPI extends JavaPlugin{
         ClockCalendar.defaultTimeZone = TimeZone.getTimeZone(
                 getConfig().getString("FusoHorario.TimeZone", "America/Sao_Paulo")
         );
-        ClockCalendar.ajusteDays = getConfig().getInt("FusoHorario.Ajuste.Dias", 0);
-        ClockCalendar.ajusteHours = getConfig().getInt("FusoHorario.Ajuste.Horas", 0);
-        ClockCalendar.ajusteMinutes = getConfig().getInt("FusoHorario.Ajuste.Minutos", 0);
-        ClockCalendar.ajusteSeconds = getConfig().getInt("FusoHorario.Ajuste.Segundos", 0);
+        ClockCalendar.adjustmentMiliseconds = 0;
+        ClockCalendar.adjustmentMiliseconds += getConfig().getLong("FusoHorario.Ajuste", 0);
 
         if(log) ClockLang.SYSTEM_REGISTERINGCOMMANDS.sendToConsole();
         if(tasksConfig != null && taskManager != null)
@@ -150,10 +148,7 @@ public class ClockSchedulerAPI extends JavaPlugin{
         else
             getConfig().set("FusoHorario.TimeZone", null);
 
-        getConfig().set("FusoHorario.Ajuste.Dias", ClockCalendar.ajusteDays);
-        getConfig().set("FusoHorario.Ajuste.Horas", ClockCalendar.ajusteHours);
-        getConfig().set("FusoHorario.Ajuste.Minutos", ClockCalendar.ajusteMinutes);
-        getConfig().set("FusoHorario.Ajuste.Segundos", ClockCalendar.ajusteSeconds);
+        getConfig().set("FusoHorario.Ajuste", ClockCalendar.adjustmentMiliseconds);
 
         super.saveConfig();
     }

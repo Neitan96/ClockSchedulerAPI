@@ -18,10 +18,36 @@ import java.util.regex.Pattern;
 public class CSetTime implements CommandExecutor{
 
     public static String getSettings(){
-        return (ClockCalendar.ajusteDays != 0 ? ClockCalendar.ajusteDays + "d " : "") +
-                (ClockCalendar.ajusteHours != 0 ? ClockCalendar.ajusteHours + "h " : "") +
-                (ClockCalendar.ajusteMinutes != 0 ? ClockCalendar.ajusteMinutes + "m " : "") +
-                (ClockCalendar.ajusteSeconds != 0 ? ClockCalendar.ajusteSeconds + "s" : "").trim();
+        long adjustmentMiliseconds = ClockCalendar.adjustmentMiliseconds;
+        int adjustmentSeconds = 0;
+        int adjustmentMinutes = 0;
+        int adjustmentHours = 0;
+        int adjustmentDays = 0;
+
+        while(adjustmentMiliseconds >= 86400000){
+            adjustmentMiliseconds -= 86400000;
+            adjustmentDays++;
+        }
+
+        while(adjustmentMiliseconds >= 3600000){
+            adjustmentMiliseconds -= 3600000;
+            adjustmentHours++;
+        }
+
+        while(adjustmentMiliseconds >= 60000){
+            adjustmentMiliseconds -= 60000;
+            adjustmentMinutes++;
+        }
+
+        while(adjustmentMiliseconds >= 1000){
+            adjustmentMiliseconds -= 1000;
+            adjustmentSeconds++;
+        }
+
+        return (adjustmentDays != 0 ? adjustmentDays + "d " : "") +
+                (adjustmentHours != 0 ? adjustmentHours + "h " : "") +
+                (adjustmentMinutes != 0 ? adjustmentMinutes + "m " : "") +
+                (adjustmentSeconds != 0 ? adjustmentSeconds + "s" : "").trim();
 
     }
 
@@ -39,10 +65,7 @@ public class CSetTime implements CommandExecutor{
 
         Pattern pattern = Pattern.compile("[ ]*(-)?([0-9]+)([dhms])[ ]*");
 
-        int days = 0;
-        int hours = 0;
-        int minutes = 0;
-        int seconds = 0;
+        int milisecond = 0;
 
         for(int i = 1; i < strings.length; i++){
             Matcher matcher = pattern.matcher(strings[i]);
@@ -54,47 +77,29 @@ public class CSetTime implements CommandExecutor{
 
             switch(matcher.group(3)){
                 case "d":
-                    days += number;
+                    milisecond += 86400000;
                     break;
                 case "h":
-                    hours += number;
+                    milisecond += 3600000;
                     break;
                 case "m":
-                    minutes += number;
+                    milisecond += 60000;
                     break;
                 case "s":
-                    seconds += number;
+                    milisecond += 1000;
                     break;
             }
 
         }
 
-        if(days == 0 && hours == 0 && minutes == 0 && seconds == 0){
+        if(milisecond == 0){
             ClockLang.COMMANDS_TIMENOTCHANGED.sendTo(commandSender);
             return true;
         }
 
         ClockSchedulerAPI instance = ClockSchedulerAPI.getInstance();
 
-        ClockCalendar.ajusteDays += days;
-        ClockCalendar.ajusteHours += hours;
-        ClockCalendar.ajusteMinutes += minutes;
-        ClockCalendar.ajusteSeconds += seconds;
-
-        while(ClockCalendar.ajusteSeconds > 59){
-            ClockCalendar.ajusteSeconds -= 60;
-            ClockCalendar.ajusteMinutes++;
-        }
-
-        while(ClockCalendar.ajusteMinutes > 59){
-            ClockCalendar.ajusteMinutes -= 60;
-            ClockCalendar.ajusteHours++;
-        }
-
-        while(ClockCalendar.ajusteHours > 23){
-            ClockCalendar.ajusteHours -= 24;
-            ClockCalendar.ajusteDays++;
-        }
+        ClockCalendar.adjustmentMiliseconds += milisecond;
 
         instance.saveCalendarToConfig();
 
