@@ -1,8 +1,12 @@
 Language: 'pt-br'
 FusoHorario:
   TimeZone: 'America/Sao_Paulo'
-  # Ajuste em milisegundos
-  Ajuste: 0
+  # Ajuste:
+  #  D = Dias
+  #  H = Horas
+  #  M = Minutos
+  #  S = Segundos
+  Ajuste: '+5d -5d +4h -4h +3m -3m +2s -2s'
 
 Debug:
  - 'All'

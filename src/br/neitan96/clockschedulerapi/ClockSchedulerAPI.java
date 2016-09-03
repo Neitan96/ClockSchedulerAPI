@@ -15,6 +15,7 @@ import br.neitan96.clockschedulerapi.config.TasksConfig;
 import br.neitan96.clockschedulerapi.sheduler.ClockTask;
 import br.neitan96.clockschedulerapi.sheduler.TaskCommand;
 import br.neitan96.clockschedulerapi.sheduler.TaskManager;
+import br.neitan96.clockschedulerapi.util.AdjustmentTime;
 import br.neitan96.clockschedulerapi.util.ClockCalendar;
 import br.neitan96.clockschedulerapi.util.ClockDebug;
 import br.neitan96.clockschedulerapi.util.ClockLang;
@@ -124,8 +125,9 @@ public class ClockSchedulerAPI extends JavaPlugin{
         ClockCalendar.defaultTimeZone = TimeZone.getTimeZone(
                 getConfig().getString("FusoHorario.TimeZone", "America/Sao_Paulo")
         );
-        ClockCalendar.adjustmentMiliseconds = 0;
-        ClockCalendar.adjustmentMiliseconds += getConfig().getLong("FusoHorario.Ajuste", 0);
+        ClockCalendar.adjustment.addMiliseconds(
+                AdjustmentTime.getMilliseconds(getConfig().getString("FusoHorario.Ajuste", ""))
+        );
 
         if(log) ClockLang.SYSTEM_REGISTERINGCOMMANDS.sendToConsole();
         if(tasksConfig != null && taskManager != null)
@@ -148,7 +150,7 @@ public class ClockSchedulerAPI extends JavaPlugin{
         else
             getConfig().set("FusoHorario.TimeZone", null);
 
-        getConfig().set("FusoHorario.Ajuste", ClockCalendar.adjustmentMiliseconds);
+        getConfig().set("FusoHorario.Ajuste", ClockCalendar.adjustment.toString());
 
         super.saveConfig();
     }

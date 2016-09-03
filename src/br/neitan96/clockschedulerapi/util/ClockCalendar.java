@@ -22,21 +22,13 @@ public class ClockCalendar extends GregorianCalendar{
     }
 
     public static TimeZone defaultTimeZone = null;
-    public static long adjustmentMiliseconds = 0;
+    public static final AdjustmentTime adjustment = new AdjustmentTime(0);
 
     public ClockCalendar(){
         super();
         if(defaultTimeZone != null)
             setTimeZone(defaultTimeZone);
-
-        if(adjustmentMiliseconds != 0){
-            long adjustmentMiliseconds = ClockCalendar.adjustmentMiliseconds;
-            while(ClockCalendar.adjustmentMiliseconds > Integer.MAX_VALUE){
-                addMilisecond(Integer.MAX_VALUE);
-                adjustmentMiliseconds -= Integer.MAX_VALUE;
-            }
-            addMilisecond((int) adjustmentMiliseconds);
-        }
+        adjustment.adjust(this);
     }
 
     public ClockCalendar(long miliseconds){
