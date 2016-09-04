@@ -16,7 +16,7 @@ import java.util.Set;
 public class TaskManager{
 
     protected final Set<ClockTask> tasks = new HashSet<>();
-    protected final TaskExecutorDefault executor = new TaskExecutorDefault(this::start);
+    protected final TaskExecutor executor = new TaskExecutorDefault(this);
 
     protected boolean enabled = false;
 
@@ -40,7 +40,8 @@ public class TaskManager{
     public boolean addTask(ClockTask task){
         if(tasks.add(task)){
             ClockDebug.log(DebugFlags.TASK_ADDED, "Task Adicionada: " + task.toString());
-            if(enabled && (getNextTask() == null || task.getNextExecution() < getNextExecution()))
+            if(enabled && task.enabled() &&
+                    (getNextTask() == null || task.getNextExecution() < getNextExecution()))
                 setNextTask(task);
             return true;
         }
@@ -95,7 +96,7 @@ public class TaskManager{
     }
 
     private void setNextTask(ClockTask task){
-        if(task != executor.getCurrentTask()){
+        if(task != getNextTask()){
             executor.executeNext(task);
             if(ClockCalendar.getClockMilisecond() - task.getNextExecution() > 60 * 1000)
                 ClockDebug.log(DebugFlags.MANAGER_NEXT_EXECUTION,
@@ -120,8 +121,8 @@ public class TaskManager{
 
         ClockTask task = findfirst();
 
-        if(task != null){
-            if(getNextTask() == null || task.getNextExecution() < getNextExecution())
+        if(task != null && task.enabled()){
+            if(getNextTask() == null || !getNextTask().enabled() || task.getNextExecution() < getNextExecution())
                 setNextTask(task);
         }else{
             ClockDebug.log(DebugFlags.MANAGER_NONE_TASK, "Nenhuma task a ser executada");

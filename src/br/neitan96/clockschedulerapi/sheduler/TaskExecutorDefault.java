@@ -12,13 +12,13 @@ import org.bukkit.scheduler.BukkitTask;
  */
 public class TaskExecutorDefault implements TaskExecutor, Runnable{
 
-    public final Runnable onExecuted;
+    public final TaskManager manager;
 
     protected BukkitTask bukkitTask = null;
     protected ClockTask clockTask = null;
 
-    public TaskExecutorDefault(Runnable onExecuted){
-        this.onExecuted = onExecuted;
+    public TaskExecutorDefault(TaskManager manager){
+        this.manager = manager;
     }
 
     @Override
@@ -36,20 +36,15 @@ public class TaskExecutorDefault implements TaskExecutor, Runnable{
     @Override
     public synchronized void executeNext(ClockTask task){
         stop();
-        if(task.enabled()){
-            clockTask = task;
-            ClockCalendar clockCalendar = new ClockCalendar();
-            clockCalendar.setMilisecond(0);
-            long interval = (task.getNextExecution() - clockCalendar.getTimeInMillis() + 1) / 1000 * 20;
-            this.bukkitTask = Bukkit.getScheduler().runTaskLater(
-                    ClockSchedulerAPI.getInstance(), this, interval
-            );
-        }else{
-            onExecuted.run();
-        }
+        clockTask = task;
+        ClockCalendar clockCalendar = new ClockCalendar();
+        clockCalendar.setMilisecond(0);
+        long interval = (task.getNextExecution() - clockCalendar.getTimeInMillis() + 1) / 1000 * 20;
+        this.bukkitTask = Bukkit.getScheduler().runTaskLater(
+                ClockSchedulerAPI.getInstance(), this, interval
+        );
     }
 
-    @Override
     public boolean running(){
         return bukkitTask != null && clockTask != null;
     }
@@ -63,13 +58,7 @@ public class TaskExecutorDefault implements TaskExecutor, Runnable{
             ClockDebug.log(DebugFlags.TASK_ERROR_EXECUTE, "Erro ao executar a task: " + clockTask);
         }
         stop();
-        onExecuted.run();
-    }
-
-    @Override
-    protected void finalize() throws Throwable{
-        super.finalize();
-        stop();
+        manager.start();
     }
 
 }
