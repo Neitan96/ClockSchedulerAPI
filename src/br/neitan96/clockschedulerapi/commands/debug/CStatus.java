@@ -9,6 +9,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -18,7 +19,7 @@ public class CStatus implements CommandExecutor{
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings){
         TaskManager taskManager = ClockSchedulerAPI.getTaskManager();
-        Set<ClockTask> tasks = taskManager.getTasks();
+        List<ClockTask> tasks = taskManager.getTasks();
 
         ClockLang.COMMANDS_STATUS_MANAGER.sendTo(commandSender, "status", taskManager.running());
 

@@ -50,7 +50,7 @@ public class CTasksEnableAll implements CommandExecutor{
 
         tasks.forEach((t) -> {
             t.enable();
-            ClockSchedulerAPI.addTask(t);
+            ClockSchedulerAPI.getTaskManager().updateItem(t);
             cTasksDisableAll.tasks.remove(t);
         });
 

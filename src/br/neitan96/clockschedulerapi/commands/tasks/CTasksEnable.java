@@ -20,7 +20,7 @@ public class CTasksEnable extends CTaskSelector{
 
         if(!task.enabled()){
             task.enable();
-            ClockSchedulerAPI.getTaskManager().start();
+            ClockSchedulerAPI.getTaskManager().updateItem(task);
         }
 
         ClockLang.COMMANDS_ENABLEDTASK.sendTo(commandSender);

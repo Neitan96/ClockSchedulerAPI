@@ -7,7 +7,10 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by Neitan96 on 07/08/2016.
@@ -23,7 +26,7 @@ public class CTasks implements CommandExecutor{
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings){
 
-        Set<ClockTask> tasks = ClockSchedulerAPI.getTaskManager().getTasks();
+        List<ClockTask> tasks = ClockSchedulerAPI.getTaskManager().getTasks();
 
         this.tasks.clear();
 

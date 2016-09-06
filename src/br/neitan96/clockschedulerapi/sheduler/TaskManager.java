@@ -1,13 +1,11 @@
 package br.neitan96.clockschedulerapi.sheduler;
 
-import br.neitan96.clockschedulerapi.util.ClockCalendar;
-import br.neitan96.clockschedulerapi.util.ClockDebug;
-import br.neitan96.clockschedulerapi.util.DebugFlags;
-import br.neitan96.clockschedulerapi.util.Util;
+import br.neitan96.clockschedulerapi.util.*;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -15,13 +13,13 @@ import java.util.Set;
  */
 public class TaskManager{
 
-    protected final Set<ClockTask> tasks = new HashSet<>();
+    protected final OptimizedList<ClockTask> tasks = new OptimizedList<>(new ClockTaskComparator());
     protected final TaskExecutor executor = new TaskExecutorDefault(this);
 
     protected boolean enabled = false;
 
-    public Set<ClockTask> getTasks(){
-        return Collections.unmodifiableSet(tasks);
+    public List<ClockTask> getTasks(){
+        return Collections.unmodifiableList(tasks);
     }
 
     public ClockTask getNextTask(){
@@ -37,12 +35,15 @@ public class TaskManager{
     }
 
 
+    public void updateItem(ClockTask task){
+        tasks.updateItem(task);
+        start();
+    }
+
     public boolean addTask(ClockTask task){
         if(tasks.add(task)){
             ClockDebug.log(DebugFlags.TASK_ADDED, "Task Adicionada: " + task.toString());
-            if(enabled && task.enabled() &&
-                    (getNextTask() == null || task.getNextExecution() < getNextExecution()))
-                setNextTask(task);
+            start();
             return true;
         }
         return false;
@@ -82,19 +83,6 @@ public class TaskManager{
     }
 
 
-    private synchronized ClockTask findfirst(){
-        ClockTask task = null;
-        for(ClockTask clockTask : tasks){
-            if(clockTask.enabled() && (
-                    task == null || clockTask.getNextExecution() < task.getNextExecution()
-                            || (clockTask.getNextExecution() == task.getNextExecution()
-                            && clockTask.priority.getOrder() > task.priority.getOrder())
-            ))
-                task = clockTask;
-        }
-        return task;
-    }
-
     private void setNextTask(ClockTask task){
         if(task != getNextTask()){
             executor.executeNext(task);
@@ -119,7 +107,7 @@ public class TaskManager{
             tasks.forEach(ClockTask::reset);
         }
 
-        ClockTask task = findfirst();
+        ClockTask task = tasks.size() > 0 ? tasks.get(0) : null;
 
         if(task != null && task.enabled()){
             if(getNextTask() == null || !getNextTask().enabled() || task.getNextExecution() < getNextExecution())

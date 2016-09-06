@@ -57,6 +57,7 @@ public class TaskExecutorDefault implements TaskExecutor, Runnable{
             e.printStackTrace();
             ClockDebug.log(DebugFlags.TASK_ERROR_EXECUTE, "Erro ao executar a task: " + clockTask);
         }
+        manager.updateItem(clockTask);
         stop();
         manager.start();
     }

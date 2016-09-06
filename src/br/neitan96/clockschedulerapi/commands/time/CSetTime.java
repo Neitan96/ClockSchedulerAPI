@@ -1,7 +1,6 @@
 package br.neitan96.clockschedulerapi.commands.time;
 
 import br.neitan96.clockschedulerapi.ClockSchedulerAPI;
-import br.neitan96.clockschedulerapi.sheduler.ClockTask;
 import br.neitan96.clockschedulerapi.sheduler.TaskManager;
 import br.neitan96.clockschedulerapi.util.AdjustmentTime;
 import br.neitan96.clockschedulerapi.util.ClockCalendar;
@@ -49,8 +48,10 @@ public class CSetTime implements CommandExecutor{
 
         if(strings[0].equalsIgnoreCase("true")){
             TaskManager manager = ClockSchedulerAPI.getTaskManager();
-            manager.getTasks().forEach(ClockTask::reset);
-            manager.start();
+            manager.getTasks().forEach(task -> {
+                task.reset();
+                ClockSchedulerAPI.getTaskManager().updateItem(task);
+            });
             ClockLang.DEBUG_TASKRESTARTED.sendTo(commandSender);
         }
 
