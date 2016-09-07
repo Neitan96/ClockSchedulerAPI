@@ -23,4 +23,4 @@ Debug:
  - 'Manager stopping'
  - 'Manager next execution'
  - 'Manager none task'
- - 'Manager removing disabled commandTmpTasks'
+ - 'Manager removing disabled tasks'
