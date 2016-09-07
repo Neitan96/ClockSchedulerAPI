@@ -29,6 +29,7 @@ public class CTestStress implements CommandExecutor{
 
             tasks = null;
 
+            ClockSchedulerAPI.getInstance().saveTests();
             ClockLang.COMMANDS_OFFTESTING.sendTo(commandSender);
 
         }else{
@@ -36,10 +37,7 @@ public class CTestStress implements CommandExecutor{
             int minTime = 15;
             int maxTime = 360;
 
-            ClockCalendar calendar = new ClockCalendar();
-            String pathToSave = String.format("%d-%02d-%02d-%02d:%02d:%02d",
-                    calendar.getYear(), calendar.getMonth(), calendar.getDay(),
-                    calendar.getHour(), calendar.getMinute(), calendar.getSecond());
+            long initialized = ClockCalendar.getClockMilisecond();
 
             if(strings.length > 0){
                 if(strings[0].matches("[^0-9]")){
@@ -63,7 +61,7 @@ public class CTestStress implements CommandExecutor{
             for(int i = 0; i < qntd; i++){
                 ClockSchedulerAPI.addTask(
                         tasks[i] = new AlarmTest(
-                                AlarmTest.getRandomAlarm(minTime, maxTime), pathToSave
+                                AlarmTest.getRandomAlarm(minTime, maxTime), initialized
                         ).getTask()
                 );
             }

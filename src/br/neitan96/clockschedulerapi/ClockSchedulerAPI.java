@@ -56,7 +56,7 @@ public class ClockSchedulerAPI extends JavaPlugin{
         saveIfNotExists("config.yml");
         saveIfNotExists("lang/pt-br.yml");
 
-        AlarmTest.setFileTest(new File(getDataFolder(), "Tests.yml"));
+        saveTests();
 
         reloadConfig(true);
 
@@ -91,6 +91,7 @@ public class ClockSchedulerAPI extends JavaPlugin{
 
     @Override
     public void onDisable(){
+        saveTests();
         taskManager.removeAll();
         HandlerList.unregisterAll(this);
         ClockLang.SYSTEM_PLUGINDISABLED.sendToConsole();
@@ -167,6 +168,10 @@ public class ClockSchedulerAPI extends JavaPlugin{
         }
 
         super.saveConfig();
+    }
+
+    public void saveTests(){
+        AlarmTest.saveTests(new File(getDataFolder(), "Tests.yml"));
     }
 
 

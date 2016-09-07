@@ -10,7 +10,9 @@ import org.bukkit.configuration.InvalidConfigurationException;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -19,15 +21,21 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 public class AlarmTest{
 
-    private static File fileTest = null;
-    private static final YamlConfigurationUTF8 configTest = new YamlConfigurationUTF8();
+    private static final List<TestResult> results = new ArrayList<>();
 
-    public static void setFileTest(File fileTest){
-        AlarmTest.fileTest = fileTest;
-        try{
-            configTest.load(fileTest);
-        }catch(IOException | InvalidConfigurationException e){
-            e.printStackTrace();
+    public static void saveTests(File fileTest){
+        if(results.size() > 0){
+            try{
+
+                YamlConfigurationUTF8 config = new YamlConfigurationUTF8();
+                config.load(fileTest);
+                results.forEach(r -> r.saveIn(config));
+                config.save(fileTest);
+                results.clear();
+
+            }catch(IOException | InvalidConfigurationException e){
+                e.printStackTrace();
+            }
         }
     }
 
@@ -95,26 +103,23 @@ public class AlarmTest{
 
     protected final AtomicReference<ClockTask> task = new AtomicReference<>();
     protected final ClockAlarm alarm;
-    protected final String pathToSave;
+    public final long initialized;
 
-    public AlarmTest(String pathToSave){
-        this(getRandomAlarm(15, 360), pathToSave);
+    public AlarmTest(long initialized){
+        this(getRandomAlarm(15, 360), initialized);
     }
 
-    public ClockTask getTask(){
-        return task.get();
-    }
-
-    public AlarmTest(ClockAlarm alarm, String pathToSave){
+    public AlarmTest(ClockAlarm alarm, long initialized){
         this.alarm = alarm;
-        this.pathToSave = pathToSave;
+        this.initialized = initialized;
 
         task.set(new ClockTask(
                 ClockSchedulerAPI.getInstance(),
                 () -> {
                     if(task.get() != null){
-                        ClockCalendar expected = new ClockCalendar(task.get().getLastExecution());
-                        saveResult(pathToSave, task.get().alarm, expected);
+                        TestResult result = new TestResult(alarm, initialized,
+                                ClockCalendar.getClockMilisecond(), task.get().getLastExecution());
+                        results.add(result);
                         task.get().disable();
                     }
                 },
@@ -123,35 +128,8 @@ public class AlarmTest{
         ));
     }
 
-    private void saveResult(String pathToSave, ClockAlarm alarm, ClockCalendar expected){
-        ClockCalendar now = new ClockCalendar();
-
-        String nowStr = now.toString(true);
-        String expectedStr = expected.toString(true);
-        long diff = now.getTimeInMillis() - expected.getTimeInMillis();
-        String approved = expectedStr.equals(nowStr) ? ".Sucess" : ".Fail";
-
-        String pathBase = pathToSave + approved;
-
-        int count = 1;
-        if(configTest.contains(pathBase))
-            count = configTest.getConfigurationSection(pathBase).getKeys(false).size() + 1;
-
-        String path = pathBase + ".Num-" + count;
-
-        configTest.set(path + ".Alarm", alarm.toString());
-        configTest.set(path + ".Now", nowStr);
-        configTest.set(path + ".Expected", expectedStr);
-        configTest.set(path + ".Diff", diff);
-
-        if(fileTest != null)
-            try{
-                configTest.save(fileTest);
-            }catch(IOException e){
-                e.printStackTrace();
-            }
-
+    public ClockTask getTask(){
+        return task.get();
     }
-
 
 }
