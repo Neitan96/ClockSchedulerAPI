@@ -51,8 +51,8 @@ public class ClockSchedulerAPI extends JavaPlugin{
         taskManager = new TaskManager();
         taskManager.start();
 
-        saveIfNotExists("comandos.yml");
-        saveIfNotExists("exemplos.yml");
+        saveIfNotExists("commands.yml");
+        saveIfNotExists("examples.yml");
         saveIfNotExists("config.yml");
         saveIfNotExists("lang/pt-br.yml");
 
@@ -133,7 +133,7 @@ public class ClockSchedulerAPI extends JavaPlugin{
         if(log) ClockLang.SYSTEM_REGISTERINGCOMMANDS.sendToConsole();
         if(tasksConfig != null && taskManager != null)
             tasksConfig.getTasks().forEach(ClockTask::disable);
-        File configFile = new File(getDataFolder(), "comandos.yml");
+        File configFile = new File(getDataFolder(), "commands.yml");
         tasksConfig = new TasksConfig(configFile);
         tasksConfig.getTasks().forEach(ClockSchedulerAPI::addTask);
 
