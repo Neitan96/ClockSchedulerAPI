@@ -2,9 +2,9 @@ name: 'ClockSchedulerAPI'
 version: 4.0
 # Plugin para agendar ações pela data e hora.
 description: 'Plugin to schedule actions by date and time.'
-author: 'Neitan96'
+author: 'Nathan Almeida'
 
-main: 'br.neitan96.clockschedulerapi.ClockSchedulerAPI'
+main: 'br.com.nathanalmeida.clockschedulerapi.ClockSchedulerAPI'
 
 commands:
 
