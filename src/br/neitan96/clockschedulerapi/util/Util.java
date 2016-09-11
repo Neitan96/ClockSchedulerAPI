@@ -109,7 +109,7 @@ public class Util{
         switch(month.toLowerCase()){
             case "janeiro":
                 return 0;
-            case "fervereiro":
+            case "fevereiro":
                 return 1;
             case "marco":
                 return 2;
@@ -141,7 +141,7 @@ public class Util{
             case 0:
                 return "Janeiro";
             case 1:
-                return "Fervereiro";
+                return "Fevereiro";
             case 2:
                 return "Marco";
             case 3:
