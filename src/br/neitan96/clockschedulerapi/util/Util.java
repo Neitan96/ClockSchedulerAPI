@@ -6,76 +6,35 @@ package br.neitan96.clockschedulerapi.util;
 public class Util{
 
     public static int getWeek(String week){
-        switch(week.toLowerCase()){
-
-            case "domingo":
-                return 1;
-
-            case "segunda":
-                return 2;
-
-            case "segunda-feira":
-                return 2;
-
-            case "terca":
-                return 3;
-
-            case "terca-feira":
-                return 3;
-
-            case "quarta":
-                return 4;
-
-            case "quarta-feira":
-                return 4;
-
-            case "quinta":
-                return 5;
-
-            case "quinta-feira":
-                return 5;
-
-            case "sexta":
-                return 6;
-
-            case "sexta-feira":
-                return 6;
-
-            case "sabado":
-                return 7;
-
-            default:
-                return -1;
-
-        }
+        week = week.toLowerCase();
+        if(ClockLang.DAYSOFTHEWEEK_SUNDAY.contains(week)) return 1;
+        if(ClockLang.DAYSOFTHEWEEK_MONDAY.contains(week)) return 2;
+        if(ClockLang.DAYSOFTHEWEEK_TUESDAY.contains(week)) return 3;
+        if(ClockLang.DAYSOFTHEWEEK_WEDNESDAY.contains(week)) return 4;
+        if(ClockLang.DAYSOFTHEWEEK_THURSDAY.contains(week)) return 5;
+        if(ClockLang.DAYSOFTHEWEEK_FRIDAY.contains(week)) return 6;
+        if(ClockLang.DAYSOFTHEWEEK_SATURDAY.contains(week)) return 7;
+        return -1;
     }
 
     public static String getWeek(int week){
         switch(week){
-
             case 1:
-                return "Domingo";
-
+                return ClockLang.DAYSOFTHEWEEK_SUNDAY.getMessage()[0];
             case 2:
-                return "Segunda-feira";
-
+                return ClockLang.DAYSOFTHEWEEK_MONDAY.getMessage()[0];
             case 3:
-                return "Terca-feira";
-
+                return ClockLang.DAYSOFTHEWEEK_TUESDAY.getMessage()[0];
             case 4:
-                return "Quarta-Feira";
-
+                return ClockLang.DAYSOFTHEWEEK_WEDNESDAY.getMessage()[0];
             case 5:
-                return "Quinta-feira";
-
+                return ClockLang.DAYSOFTHEWEEK_THURSDAY.getMessage()[0];
             case 6:
-                return "Sexta-feira";
-
+                return ClockLang.DAYSOFTHEWEEK_FRIDAY.getMessage()[0];
             case 7:
-                return "Sabado";
-
+                return ClockLang.DAYSOFTHEWEEK_SATURDAY.getMessage()[0];
             default:
-                return "Domingo";
+                return null;
         }
     }
 
@@ -106,62 +65,47 @@ public class Util{
 
 
     public static int getMonth(String month){
-        switch(month.toLowerCase()){
-            case "janeiro":
-                return 0;
-            case "fevereiro":
-                return 1;
-            case "marco":
-                return 2;
-            case "abril":
-                return 3;
-            case "maio":
-                return 4;
-            case "junho":
-                return 5;
-            case "julho":
-                return 6;
-            case "agosto":
-                return 7;
-            case "setembro":
-                return 8;
-            case "outubro":
-                return 9;
-            case "novembro":
-                return 10;
-            case "dezembro":
-                return 11;
-            default:
-                return -1;
-        }
+        if(ClockLang.MONTHS_JANUARY.contains(month)) return 0;
+        if(ClockLang.MONTHS_FEBRUARY.contains(month)) return 1;
+        if(ClockLang.MONTHS_MARCH.contains(month)) return 2;
+        if(ClockLang.MONTHS_APRIL.contains(month)) return 3;
+        if(ClockLang.MONTHS_MAY.contains(month)) return 4;
+        if(ClockLang.MONTHS_JUNE.contains(month)) return 5;
+        if(ClockLang.MONTHS_JULY.contains(month)) return 6;
+        if(ClockLang.MONTHS_AUGUST.contains(month)) return 7;
+        if(ClockLang.MONTHS_SEPTEMBER.contains(month)) return 8;
+        if(ClockLang.MONTHS_OCTOBER.contains(month)) return 9;
+        if(ClockLang.MONTHS_NOVEMBER.contains(month)) return 10;
+        if(ClockLang.MONTHS_DECEMBER.contains(month)) return 11;
+        return -1;
     }
 
     public static String getMonth(int month){
         switch(month){
             case 0:
-                return "Janeiro";
+                return ClockLang.MONTHS_JANUARY.getMessage()[0];
             case 1:
-                return "Fevereiro";
+                return ClockLang.MONTHS_FEBRUARY.getMessage()[0];
             case 2:
-                return "Marco";
+                return ClockLang.MONTHS_MARCH.getMessage()[0];
             case 3:
-                return "Abril";
+                return ClockLang.MONTHS_APRIL.getMessage()[0];
             case 4:
-                return "Maio";
+                return ClockLang.MONTHS_MAY.getMessage()[0];
             case 5:
-                return "Junho";
+                return ClockLang.MONTHS_JUNE.getMessage()[0];
             case 6:
-                return "Julho";
+                return ClockLang.MONTHS_JULY.getMessage()[0];
             case 7:
-                return "Agosto";
+                return ClockLang.MONTHS_AUGUST.getMessage()[0];
             case 8:
-                return "Setembro";
+                return ClockLang.MONTHS_SEPTEMBER.getMessage()[0];
             case 9:
-                return "Outubro";
+                return ClockLang.MONTHS_OCTOBER.getMessage()[0];
             case 10:
-                return "Novembro";
+                return ClockLang.MONTHS_NOVEMBER.getMessage()[0];
             case 11:
-                return "Dezembro";
+                return ClockLang.MONTHS_DECEMBER.getMessage()[0];
             default:
                 return null;
         }

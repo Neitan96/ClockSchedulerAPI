@@ -11,6 +11,27 @@ Messages:
     AlarmYearly: ['Anual', 'Yearly']
     AlarmMulti: ['Multi']
     AlarmBetween: ['Entre', 'Between']
+  DaysOfTheWeek:
+    Sunday: ['Domingo', 'Sunday']
+    Monday: ['Segunda-feira', 'Segunda', 'Monday']
+    Tuesday: ['Terça-feira', 'Terca-feira', 'Terça', 'Terca', 'Tuesday']
+    Wednesday: ['Quarta-feira', 'Quarta', 'Wednesday']
+    Thursday: ['Quinta-feira', 'Quinta', 'Thursday']
+    Friday: ['Sexta-feira', 'Sexta', 'Friday']
+    Saturday: ['Sabado', 'Sábado', 'Saturday']
+  Months:
+    January: ['Janeiro', 'January']
+    February: ['Fevereiro', 'February']
+    March: ['Março', 'March']
+    April: ['Abril', 'April']
+    May: ['Maio', 'May']
+    June: ['Junho', 'June']
+    July: ['Julho', 'July']
+    August: ['Agosto', 'August']
+    September: ['Setembro', 'September']
+    October: ['Outubro', 'October']
+    November: ['Novembro', 'November']
+    December: ['Dezembro', 'December']
   System:
     RegisteringCommands: 'Registrando comandos...'
     PluginEnabled: 'ClockSchedulerAPI iniciado!'

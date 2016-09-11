@@ -31,6 +31,27 @@ public enum ClockLang{
     ALARM_MULTI("Messages.Alarms.AlarmMulti"),
     ALARM_BETWEEN("Messages.Alarms.AlarmBetween"),
 
+    DAYSOFTHEWEEK_MONDAY("Messages.DaysOfTheWeek.Monday"),
+    DAYSOFTHEWEEK_TUESDAY("Messages.DaysOfTheWeek.Tuesday"),
+    DAYSOFTHEWEEK_WEDNESDAY("Messages.DaysOfTheWeek.Wednesday"),
+    DAYSOFTHEWEEK_THURSDAY("Messages.DaysOfTheWeek.Thursday"),
+    DAYSOFTHEWEEK_FRIDAY("Messages.DaysOfTheWeek.Friday"),
+    DAYSOFTHEWEEK_SATURDAY("Messages.DaysOfTheWeek.Saturday"),
+    DAYSOFTHEWEEK_SUNDAY("Messages.DaysOfTheWeek.Sunday"),
+
+    MONTHS_JANUARY("Messages.Months.January"),
+    MONTHS_FEBRUARY("Messages.Months.February"),
+    MONTHS_MARCH("Messages.Months.March"),
+    MONTHS_APRIL("Messages.Months.April"),
+    MONTHS_MAY("Messages.Months.May"),
+    MONTHS_JUNE("Messages.Months.June"),
+    MONTHS_JULY("Messages.Months.July"),
+    MONTHS_AUGUST("Messages.Months.August"),
+    MONTHS_SEPTEMBER("Messages.Months.September"),
+    MONTHS_OCTOBER("Messages.Months.October"),
+    MONTHS_NOVEMBER("Messages.Months.November"),
+    MONTHS_DECEMBER("Messages.Months.December"),
+
     SYSTEM_REGISTERINGCOMMANDS("Messages.System.RegisteringCommands"),
     SYSTEM_PLUGINENABLED("Messages.System.PluginEnabled"),
     SYSTEM_PLUGINDISABLED("Messages.System.PluginDisabled"),
@@ -130,6 +151,14 @@ public enum ClockLang{
             return messages.get(path);
         else
             return new String[0];
+    }
+
+    public boolean contains(String message){
+        for(String line : getMessage()){
+            if(message.equalsIgnoreCase(line))
+                return true;
+        }
+        return false;
     }
 
     public void sendTo(CommandSender sender, Object... binds){
